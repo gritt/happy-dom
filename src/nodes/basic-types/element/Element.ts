@@ -9,7 +9,7 @@ import HTMLParser from '../../../html-parser/HTMLParser';
 import { decode, encode } from 'he';
 import ClassList from './ClassList';
 import QuerySelector from '../../../query-selector/QuerySelector';
-import HTMLElementRenderer from '../../../html-renderer/HTMLElementRenderer';
+import ElementRenderer from '../../../html-renderer/ElementRenderer';
 import MutationRecord from '../../../mutation-observer/MutationRecord';
 import MutationTypeConstant from '../../../mutation-observer/MutationType';
 
@@ -116,7 +116,7 @@ export default class Element extends Node {
 	 * @return {string} HTML.
 	 */
 	public get innerHTML(): string {
-		return HTMLElementRenderer.renderInnerHTML(this);
+		return ElementRenderer.renderInnerHTML(this).html;
 	}
 
 	/**
@@ -140,7 +140,7 @@ export default class Element extends Node {
 	 * @return {string} HTML.
 	 */
 	public get outerHTML(): string {
-		return HTMLElementRenderer.renderOuterHTML(this);
+		return ElementRenderer.renderOuterHTML(this).html;
 	}
 
 	/**
@@ -293,7 +293,9 @@ export default class Element extends Node {
 			// Attributes with value
 			while ((match = regExp.exec(rawAttributes))) {
 				const name = match[1].toLowerCase();
-				this._attributesMap[name] = decode(match[2] || match[3] || match[4] || '');
+				if(name) {
+					this._attributesMap[name] = decode(match[2] || match[3] || match[4] || '');
+				}
 			}
 
 			// Attributes with no value
@@ -301,7 +303,10 @@ export default class Element extends Node {
 				.replace(ATTRIBUTE_REGEXP, '')
 				.trim()
 				.split(' ')) {
-				this._attributesMap[name.trim().toLowerCase()] = '';
+				const trimmedName = name.trim().toLowerCase();
+				if(trimmedName) {
+					this._attributesMap[trimmedName] = '';
+				}
 			}
 		}
 	}
@@ -314,6 +319,8 @@ export default class Element extends Node {
 		for (const name of Object.keys(this._attributesMap)) {
 			if (this._attributesMap[name]) {
 				attributes.push(name + '="' + encode(this._attributesMap[name]) + '"');
+			} else if(this._attributesMap[name] !== undefined) {
+				attributes.push(name);
 			}
 		}
 		return attributes.join(' ');
@@ -322,9 +329,10 @@ export default class Element extends Node {
 	/**
 	 * Attaches a shadow root.
 	 *
+	 * @param {{ mode: string }} _shadowRootInit Shadow root init.
 	 * @return {ShadowRoot} Shadow root.
 	 */
-	public attachShadow(): ShadowRoot {
+	public attachShadow(_shadowRootInit: { mode: string }): ShadowRoot {
 		if (this.shadowRoot) {
 			throw new Error('Shadow root has already been attached.');
 		}

@@ -54,4 +54,13 @@ export default class HTMLFormElement extends HTMLElement {
 	 * Reports validity.
 	 */
 	public reportValidity(): void {}
+
+	/**
+	 * Checks validity.
+	 *
+	 * @return {boolean} "true" if validation does'nt fail.
+	 */
+	public checkValidity(): boolean {
+		return true;
+	}
 }

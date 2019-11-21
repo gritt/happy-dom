@@ -15,7 +15,8 @@ import TextNode from './nodes/basic-types/text-node/TextNode';
 import CommentNode from './nodes/basic-types/comment-node/CommentNode';
 import TreeWalker from './tree-walker/TreeWalker';
 import CustomElementRegistry from './custom-element/CustomElementRegistry';
-import VMContext from './VMContext';
+import VMContext from './vm-context/VMContext';
+import ElementRenderer from './html-renderer/ElementRenderer';
 
 export {
 	AsyncWindow,
@@ -35,5 +36,6 @@ export {
 	CommentNode,
 	TreeWalker,
 	CustomElementRegistry,
-	VMContext
+	VMContext,
+	ElementRenderer
 };

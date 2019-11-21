@@ -153,4 +153,13 @@ export default class HTMLInputElement extends HTMLElement {
 	public get valueAsNumber(): number {
 		return this.value ? parseFloat(this.value) : NaN;
 	}
+
+	/**
+	 * Checks validity.
+	 *
+	 * @return {boolean} "true" if validation does'nt fail.
+	 */
+	public checkValidity(): boolean {
+		return true;
+	}
 }

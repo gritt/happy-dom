@@ -96,4 +96,13 @@ export default class HTMLTextAreaElement extends HTMLElement {
 		this.value = this.textContent;
 		return newNode;
 	}
+
+	/**
+	 * Checks validity.
+	 *
+	 * @return {boolean} "true" if validation does'nt fail.
+	 */
+	public checkValidity(): boolean {
+		return true;
+	}
 }
