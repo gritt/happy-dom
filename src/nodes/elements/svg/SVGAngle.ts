@@ -10,10 +10,10 @@ export default class SVGAngle {
 	public static SVG_ANGLETYPE_RAD = '0rad';
 	public static SVG_ANGLETYPE_GRAD = '0grad';
 
-	public unitType: string = '';
-	public value: number = 0;
-	public valueInSpecifiedUnits: number = 0;
-	public valueAsString: string = '';
+	public unitType = '';
+	public value = 0;
+	public valueInSpecifiedUnits = 0;
+	public valueAsString = '';
 
 	/**
 	 * New value specific units.

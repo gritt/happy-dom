@@ -6,12 +6,12 @@ import HTMLInputElement from './HTMLInputElement';
  * @see https://developer.mozilla.org/en-US/docs/Web/API/ValidityState
  */
 export default class ValidityState {
-	public badInput: boolean = false;
-	public customError: boolean = false;
-	public patternMismatch: boolean = false;
-	public rangeOverflow: boolean = false;
-	public rangeUnderflow: boolean = false;
-	public stepMismatch: boolean = false;
+	public badInput = false;
+	public customError = false;
+	public patternMismatch = false;
+	public rangeOverflow = false;
+	public rangeUnderflow = false;
+	public stepMismatch = false;
 	private element: HTMLInputElement = null;
 
 	/**

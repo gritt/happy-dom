@@ -14,22 +14,22 @@ export default class HTMLTextAreaElement extends HTMLElement {
 	);
 
 	public form: HTMLFormElement = null;
-	public name: string = '';
-	public readonly type: string = 'textarea';
-	public disabled: boolean = false;
-	public autofocus: boolean = false;
-	public required: boolean = false;
-	public _value: string = '';
-	public autocomplete: string = '';
-	public minLength: number = -1;
-	public maxLength: number = -1;
-	public placeholder: string = '';
-	public readOnly: boolean = false;
-	public selectionStart: number = 0;
-	public selectionEnd: number = 0;
-	public selectionDirection: string = 'forward';
-	public defaultValue: string = '';
-	public inputmode: string = '';
+	public name = '';
+	public readonly type = 'textarea';
+	public disabled = false;
+	public autofocus = false;
+	public required = false;
+	public _value = '';
+	public autocomplete = '';
+	public minLength = -1;
+	public maxLength = -1;
+	public placeholder = '';
+	public readOnly = false;
+	public selectionStart = 0;
+	public selectionEnd = 0;
+	public selectionDirection = 'forward';
+	public defaultValue = '';
+	public inputmode = '';
 
 	/**
 	 * Returns value.

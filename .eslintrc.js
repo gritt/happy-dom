@@ -35,6 +35,9 @@ module.exports = {
         '@typescript-eslint/ban-types': ERROR,
         '@typescript-eslint/camelcase': ERROR,
         '@typescript-eslint/class-name-casing': ERROR,
+        '@typescript-eslint/consistent-type-assertions': [WARN, {
+            assertionStyle: 'angle-bracket'
+        }],
         '@typescript-eslint/explicit-member-accessibility': [ERROR, 
             {
                 overrides: {
@@ -53,13 +56,11 @@ module.exports = {
         '@typescript-eslint/no-misused-new': ERROR,
         '@typescript-eslint/no-namespace': ERROR,
         '@typescript-eslint/no-non-null-assertion': ERROR,
-        '@typescript-eslint/no-object-literal-type-assertion': ERROR,
         '@typescript-eslint/no-parameter-properties': ERROR,
-        '@typescript-eslint/no-triple-slash-reference': ERROR,
-        '@typescript-eslint/no-unused-vars': WARN,
+        '@typescript-eslint/no-unused-vars': ['warn', { 'argsIgnorePattern': '^_' }],
         '@typescript-eslint/no-use-before-define': ERROR,
         '@typescript-eslint/no-var-requires': ERROR,
-        '@typescript-eslint/prefer-interface': ERROR,
+        '@typescript-eslint/no-empty-function': OFF,
         '@typescript-eslint/prefer-namespace-keyword': ERROR,
         '@typescript-eslint/type-annotation-spacing': ERROR,
         '@typescript-eslint/no-angle-bracket-type-assertion': OFF,

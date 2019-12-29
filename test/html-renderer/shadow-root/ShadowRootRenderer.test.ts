@@ -1,14 +1,15 @@
-import ElementRenderer from '../../lib/html-renderer/ElementRenderer';
+import ShadowRootRenderer from '../../../lib/html-renderer/shadow-root/ShadowRootRenderer';
 import CustomElement from './CustomElement';
-import Window from '../../lib/Window';
+import Window from '../../../lib/Window';
 
-describe('ElementRenderer', () => {
-	let window, document;
+describe('ShadowRootRenderer', () => {
+	let window, document, renderer;
 
 	beforeEach(() => {
 		window = new Window();
 		window.customElements.define('custom-element', CustomElement);
 		document = window.document;
+		renderer = new ShadowRootRenderer();
 	});
 
 	describe('renderOuterHTML()', () => {
@@ -25,20 +26,22 @@ describe('ElementRenderer', () => {
 			div.setAttribute('attr3', '');
 			div.appendChild(span);
 
-			expect(ElementRenderer.renderOuterHTML(div).html).toBe('<div attr1=\"value1\" attr2=\"value2\" attr3><span attr1=\"value1\" attr2=\"value2\" attr3></span></div>');
+			expect(renderer.getOuterHTML(div).html).toBe(
+				'<div attr1="value1" attr2="value2" attr3><span attr1="value1" attr2="value2" attr3></span></div>'
+			);
 		});
 
 		test('Renders a comment node.', () => {
 			const div = document.createElement('div');
 			const comment = document.createComment();
 
-			comment.textContent = 'Some comment.'
+			comment.textContent = 'Some comment.';
 
 			div.appendChild(comment);
 
-			expect(ElementRenderer.renderOuterHTML(div).html).toBe('<div><!--Some comment.--></div>');
+			expect(renderer.getOuterHTML(div).html).toBe('<div><!--Some comment.--></div>');
 		});
-		
+
 		test('Renders a text nodes.', () => {
 			const div = document.createElement('div');
 			const text1 = document.createTextNode('Text 1.');
@@ -47,9 +50,9 @@ describe('ElementRenderer', () => {
 			div.appendChild(text1);
 			div.appendChild(text2);
 
-			expect(ElementRenderer.renderOuterHTML(div).html).toBe('<div>Text 1.Text 2.</div>');
+			expect(renderer.getOuterHTML(div).html).toBe('<div>Text 1.Text 2.</div>');
 		});
-		
+
 		test('Renders a mix of nodes.', () => {
 			const div = document.createElement('div');
 			const comment1 = document.createComment('Comment 1.');
@@ -74,9 +77,11 @@ describe('ElementRenderer', () => {
 			div.appendChild(text2);
 			div.appendChild(span1);
 
-			expect(ElementRenderer.renderOuterHTML(div).html).toBe('<div><!--Comment 1.-->Text 1.<!--Comment 2.-->Text 2.<span attr1=\"value1\" attr2=\"value2\" attr3><span attr1=\"value1\">Text 3.</span></span></div>');
+			expect(renderer.getOuterHTML(div).html).toBe(
+				'<div><!--Comment 1.-->Text 1.<!--Comment 2.-->Text 2.<span attr1="value1" attr2="value2" attr3><span attr1="value1">Text 3.</span></span></div>'
+			);
 		});
-		
+
 		test('Renders a custom element closed.', () => {
 			const div = document.createElement('div');
 			const customElement = document.createElement('custom-element');
@@ -90,9 +95,11 @@ describe('ElementRenderer', () => {
 			// Connects the custom element to DOM which will trigger connectedCallback() on it
 			document.body.appendChild(div);
 
-			expect(ElementRenderer.renderOuterHTML(div).html).toBe('<div><custom-element attr1=\"value1\" attr2=\"value2\" attr3></custom-element></div>');
+			expect(renderer.getOuterHTML(div).html).toBe(
+				'<div><custom-element attr1="value1" attr2="value2" attr3></custom-element></div>'
+			);
 		});
-		
+
 		test('Renders a custom element opened.', () => {
 			const div = document.createElement('div');
 			const customElement = document.createElement('custom-element');
@@ -106,13 +113,14 @@ describe('ElementRenderer', () => {
 			// Connects the custom element to DOM which will trigger connectedCallback() on it
 			document.body.appendChild(div);
 
-			const result = ElementRenderer.renderOuterHTML(div, {
+			const result = new ShadowRootRenderer({
 				openShadowRoots: true,
 				extractCSS: false,
 				scopeCSS: false
-			});
+			}).getOuterHTML(div);
 
-			expect(result.html.replace(/\s/gm, '')).toBe(`
+			expect(result.html.replace(/\s/gm, '')).toBe(
+				`
 				<div>
 					<custom-element attr1=\"value1\" attr2=\"value2\" attr3>
 						<style>
@@ -147,11 +155,11 @@ describe('ElementRenderer', () => {
 						</div>
 					</custom-element>
 				</div>
-			`.replace(/\s/gm, ''));
-			expect(result.extractedCSS).toEqual([]);
-			expect(result.scopedCSS).toEqual([]);
+			`.replace(/\s/gm, '')
+			);
+			expect(result.css).toEqual([]);
 		});
-		
+
 		test('Renders a custom element opened with scoped CSS.', () => {
 			const div = document.createElement('div');
 			const customElement = document.createElement('custom-element');
@@ -165,13 +173,14 @@ describe('ElementRenderer', () => {
 			// Connects the custom element to DOM which will trigger connectedCallback() on it
 			document.body.appendChild(div);
 
-			const result = ElementRenderer.renderOuterHTML(div, {
+			const result = new ShadowRootRenderer({
 				openShadowRoots: true,
 				extractCSS: false,
 				scopeCSS: true
-			});
+			}).getOuterHTML(div);
 
-			expect(result.html.replace(/\s/gm, '')).toBe(`
+			expect(result.html.replace(/\s/gm, '')).toBe(
+				`
 				<div>
 					<custom-element attr1=\"value1\" attr2=\"value2\" attr3 class="a">
 						<style class="a">
@@ -206,11 +215,13 @@ describe('ElementRenderer', () => {
 						</div>
 					</custom-element>
 				</div>
-			`.replace(/\s/gm, ''));
-			expect(result.extractedCSS).toEqual([]);
-			expect(result.scopedCSS).toEqual([]);
+			`.replace(/\s/gm, '')
+			);
+			expect(result.css).toEqual([
+				'custom-element.a{display:block}div.a{color:red}.class1.a{color:blue}.class1.a.class2.a span.a{color:green}.class1.a.a[attr1="value1"]{color:yellow}.a[attr1="value1"]{color:yellow}'
+			]);
 		});
-		
+
 		test('Renders a custom element opened with scoped & extracted CSS.', () => {
 			const div = document.createElement('div');
 			const customElement = document.createElement('custom-element');
@@ -224,13 +235,14 @@ describe('ElementRenderer', () => {
 			// Connects the custom element to DOM which will trigger connectedCallback() on it
 			document.body.appendChild(div);
 
-			const result = ElementRenderer.renderOuterHTML(div, {
+			const result = new ShadowRootRenderer({
 				openShadowRoots: true,
 				extractCSS: true,
 				scopeCSS: true
-			});
+			}).getOuterHTML(div);
 
-			expect(result.html.replace(/\s/gm, '')).toBe(`
+			expect(result.html.replace(/\s/gm, '')).toBe(
+				`
 				<div>
 					<custom-element attr1=\"value1\" attr2=\"value2\" attr3 class="a">
 						<div class="a">
@@ -240,9 +252,11 @@ describe('ElementRenderer', () => {
 						</div>
 					</custom-element>
 				</div>
-			`.replace(/\s/gm, ''));
-			expect(result.extractedCSS).toEqual([]);
-			expect(result.scopedCSS).toEqual([]);
+			`.replace(/\s/gm, '')
+			);
+			expect(result.css).toEqual([
+				'custom-element.a{display:block}div.a{color:red}.class1.a{color:blue}.class1.a.class2.a span.a{color:green}.class1.a.a[attr1="value1"]{color:yellow}.a[attr1="value1"]{color:yellow}'
+			]);
 		});
 	});
 });

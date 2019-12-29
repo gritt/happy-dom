@@ -242,14 +242,11 @@ If you have a need for a missing feature or if you have found a bug, please let 
 # How to Develop
 
 
-
 ## Installation
 
 ```bash
 npm install
 ```
-
-
 
 ## Compilation
 
@@ -257,11 +254,29 @@ npm install
 npm run compile
 ```
 
-
-
 ## Run Watcher
 
 ```bash
 npm run watch
 ```
 
+## Test
+
+### Run all
+
+```bash
+npm run compile && npm test
+```
+
+### Debug
+
+1. Write "debugger;" at the place you want to place a breakpoint in the code.
+2. Run the following command in the terminal:
+```bash
+npm run compile && npm run test:debug
+```
+3. Open Chrome.
+4. Open developer tools.
+5. A green ball should appear to the left of the menu bar in developer tools.
+6. Click on the green ball.
+7. Click continue to jump to your breakpoint.

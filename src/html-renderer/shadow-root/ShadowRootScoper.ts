@@ -1,26 +1,47 @@
-import ScopedCSSCache from './ScopedCSSCache';
-import Element from '../nodes/basic-types/element/Element';
-import ShadowRoot from '../nodes/basic-types/shadow-root/ShadowRoot';
-import StyleScoper from './StyleScoper';
-import IElementRenderOptions from './IElementRenderOptions';
+import ScopedCSSCache from './css/ScopedCSSCache';
+import Element from '../../nodes/basic-types/element/Element';
+import ShadowRoot from '../../nodes/basic-types/shadow-root/ShadowRoot';
+import StyleScoper from './css/StyleScoper';
+import IShadowRootRenderOptions from './IShadowRootRenderOptions';
 
 /**
  * Scopes elements and CSS inside shadow roots.
  */
 export default class ShadowRootScoper {
+	private renderOptions: IShadowRootRenderOptions;
+	private scopedCSSCache: ScopedCSSCache = new ScopedCSSCache();
+
 	/**
-	 * Scopes an element.
+	 * Renders an element as HTML.
+	 *
+	 * @param {IShadowRootRenderOptions} renderOptions Render this.renderOptions.
+	 */
+	constructor(renderOptions: IShadowRootRenderOptions) {
+		this.renderOptions = renderOptions;
+	}
+
+	/**
+	 * Clones an element and scopes it.
 	 *
 	 * @param {Element} element Element to render.
 	 * @param {ScopedCSSCache} cssCache Options object.
-	 * @param {IElementRenderOptions} options Render options.
+	 * @param {IShadowRootRenderOptions} options Render options.
 	 * @returns {Element} Element clone.
 	 */
-	public static scopeElement(element: Element, cssCache: ScopedCSSCache, options: IElementRenderOptions): Element {
+	public getScopedClone(element: Element): Element {
 		const clone = <Element>element.cloneNode(true);
-		this.extractAndScopeCSS(clone, cssCache, options);
+		this.extractAndScopeCSS(clone);
 		this.moveChildNodesIntoSlots(clone);
 		return clone;
+	}
+
+	/**
+	 * Returns scoped CSS.
+	 *
+	 * @returns {string[]} CSS strings.
+	 */
+	public getScopedCSS(): string[] {
+		return this.scopedCSSCache.getAllScoped();
 	}
 
 	/**
@@ -28,7 +49,7 @@ export default class ShadowRootScoper {
 	 *
 	 * @param {Element} element Element.
 	 */
-	private static moveChildNodesIntoSlots(element: Element): void {
+	private moveChildNodesIntoSlots(element: Element): void {
 		const slotChildren = {};
 		const slots = Array.from(element.shadowRoot.querySelectorAll('slot'));
 
@@ -62,19 +83,20 @@ export default class ShadowRootScoper {
 	 * Extracts CSS.
 	 *
 	 * @param {Element} element Element.
-	 * @param {ScopedCSSCache} cssCache Options object.
-	 * @param {IElementRenderOptions} options Render options.
 	 */
-	private static extractAndScopeCSS(element: Element, cssCache: ScopedCSSCache, options: IElementRenderOptions): void {
+	private extractAndScopeCSS(element: Element): void {
+		const options = this.renderOptions;
+		const cache = this.scopedCSSCache;
+
 		if (options.extractCSS && options.scopeCSS) {
 			const css = this.extractCSS(element.shadowRoot);
 
-			const scopeID = cssCache.getScopeID(css);
-			let scopedCSS = cssCache.getScopedCSS(css);
+			const scopeID = cache.getScopeID(css);
+			let scopedCSS = cache.getScoped(css);
 
 			if (!scopedCSS) {
 				scopedCSS = StyleScoper.scope(css, scopeID, element.tagName);
-				cssCache.setScopedCSS(css, scopedCSS);
+				cache.setScoped(css, scopedCSS);
 			}
 
 			element.classList.add(scopeID);
@@ -82,17 +104,17 @@ export default class ShadowRootScoper {
 			this.scopeChildElements(element.shadowRoot, scopeID);
 		} else if (options.extractCSS) {
 			const css = this.extractCSS(element.shadowRoot);
-			cssCache.setScopedCSS(css, css);
+			cache.setScoped(css, css);
 		} else if (options.scopeCSS) {
 			const styles = Array.from(element.shadowRoot.querySelectorAll('style'));
 
 			for (const style of styles) {
 				const css = style.textContent;
-				const scopeID = cssCache.getScopeID(css);
-				
+				const scopeID = cache.getScopeID(css);
+
 				element.classList.add(scopeID);
 				style.textContent = StyleScoper.scope(css, scopeID, element.tagName);
-				cssCache.setScopedCSS(css, style.textContent);
+				cache.setScoped(css, style.textContent);
 
 				this.scopeChildElements(element.shadowRoot, scopeID);
 			}
@@ -105,7 +127,7 @@ export default class ShadowRootScoper {
 	 * @param {ShadowRoot} shadowRoot Shadow root.
 	 * @return {string} CSS.
 	 */
-	private static extractCSS(shadowRoot: ShadowRoot): string {
+	private extractCSS(shadowRoot: ShadowRoot): string {
 		const styles = Array.from(shadowRoot.querySelectorAll('style'));
 		let css = '';
 
@@ -123,7 +145,7 @@ export default class ShadowRootScoper {
 	 * @param {Element|ShadowRoot} element Element to scope.
 	 * @param {string} id Unique ID.
 	 */
-	private static scopeChildElements(element: Element | ShadowRoot, id: string): void {
+	private scopeChildElements(element: Element | ShadowRoot, id: string): void {
 		if (element instanceof Element) {
 			element.classList.add(id);
 		}

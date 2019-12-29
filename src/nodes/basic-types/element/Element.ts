@@ -9,7 +9,7 @@ import HTMLParser from '../../../html-parser/HTMLParser';
 import { decode, encode } from 'he';
 import ClassList from './ClassList';
 import QuerySelector from '../../../query-selector/QuerySelector';
-import ElementRenderer from '../../../html-renderer/ElementRenderer';
+import ElementRenderer from '../../../html-renderer/element/ElementRenderer';
 import MutationRecord from '../../../mutation-observer/MutationRecord';
 import MutationTypeConstant from '../../../mutation-observer/MutationType';
 
@@ -26,6 +26,7 @@ export default class Element extends Node {
 	public scrollTop = 0;
 	public scrollLeft = 0;
 	public _attributesMap: { [k: string]: string } = {};
+	public _renderer: ElementRenderer = null;
 
 	/**
 	 * Returns ID.
@@ -116,7 +117,10 @@ export default class Element extends Node {
 	 * @return {string} HTML.
 	 */
 	public get innerHTML(): string {
-		return ElementRenderer.renderInnerHTML(this).html;
+		if (!this._renderer) {
+			this._renderer = new ElementRenderer();
+		}
+		return this._renderer.getInnerHTML(this).html;
 	}
 
 	/**
@@ -140,7 +144,10 @@ export default class Element extends Node {
 	 * @return {string} HTML.
 	 */
 	public get outerHTML(): string {
-		return ElementRenderer.renderOuterHTML(this).html;
+		if (!this._renderer) {
+			this._renderer = new ElementRenderer();
+		}
+		return this._renderer.getOuterHTML(this).html;
 	}
 
 	/**
@@ -293,7 +300,7 @@ export default class Element extends Node {
 			// Attributes with value
 			while ((match = regExp.exec(rawAttributes))) {
 				const name = match[1].toLowerCase();
-				if(name) {
+				if (name) {
 					this._attributesMap[name] = decode(match[2] || match[3] || match[4] || '');
 				}
 			}
@@ -304,7 +311,7 @@ export default class Element extends Node {
 				.trim()
 				.split(' ')) {
 				const trimmedName = name.trim().toLowerCase();
-				if(trimmedName) {
+				if (trimmedName) {
 					this._attributesMap[trimmedName] = '';
 				}
 			}
@@ -319,7 +326,7 @@ export default class Element extends Node {
 		for (const name of Object.keys(this._attributesMap)) {
 			if (this._attributesMap[name]) {
 				attributes.push(name + '="' + encode(this._attributesMap[name]) + '"');
-			} else if(this._attributesMap[name] !== undefined) {
+			} else if (this._attributesMap[name] !== undefined) {
 				attributes.push(name);
 			}
 		}

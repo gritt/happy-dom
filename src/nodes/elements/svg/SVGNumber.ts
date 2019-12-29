@@ -4,5 +4,5 @@
  * @see https://developer.mozilla.org/en-US/docs/Web/API/SVGNumber
  */
 export default class SVGNumber {
-	public value: number = 0;
+	public value = 0;
 }

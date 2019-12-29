@@ -7,7 +7,7 @@ import Event from '../../../event/Event';
 export default class HTMLElement extends Element {
 	protected static _observedPropertyAttributes: { [k: string]: string } = { tabindex: 'tabIndex' };
 	public style: object = {};
-	public tabIndex: number = 0;
+	public tabIndex = 0;
 	public offsetHeight = 0;
 	public offsetWidth = 0;
 	public offsetLeft = 0;

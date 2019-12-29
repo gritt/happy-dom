@@ -6,7 +6,7 @@ import NodeFilter from './NodeFilter';
  */
 export default class TreeWalker {
 	public root: Node = null;
-	public whatToShow: number = -1;
+	public whatToShow = -1;
 	public filter: (node: Node) => number = null;
 	public currentNode: Node = null;
 
@@ -17,7 +17,7 @@ export default class TreeWalker {
 	 * @param {number} [whatToShow] What to show.
 	 * @param {function} [filter] Filter.
 	 */
-	constructor(root: Node, whatToShow: number = -1, filter: (node: Node) => number = null) {
+	constructor(root: Node, whatToShow = -1, filter: (node: Node) => number = null) {
 		if (!(root instanceof Node)) {
 			throw new Error('Parameter 1 was not of type Node.');
 		}

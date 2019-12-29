@@ -19,7 +19,7 @@ export default class HTMLFormElement extends HTMLElement {
 	public encoding: string = null;
 	public enctype: string = null;
 	public acceptCharset: string = null;
-	public autocomplete: string = 'off';
+	public autocomplete = 'off';
 	public noValidate: string = null;
 
 	/**

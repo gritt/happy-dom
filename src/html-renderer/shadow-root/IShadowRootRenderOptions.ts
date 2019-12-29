@@ -1,7 +1,7 @@
 /**
  * Element render options.
  */
-export default interface IElementRenderOptions {
+export default interface IShadowRootRenderOptions {
 	openShadowRoots?: boolean;
 	extractCSS?: boolean;
 	scopeCSS?: boolean;

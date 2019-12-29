@@ -12,8 +12,8 @@ export default class SVGTransform {
 	public static SVG_TRANSFORM_SKEWX = 5;
 	public static SVG_TRANSFORM_SKEWY = 6;
 
-	public type: number = 0;
-	public angle: number = 0;
+	public type = 0;
+	public angle = 0;
 
 	/**
 	 * Set matrix.

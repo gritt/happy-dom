@@ -12,27 +12,18 @@ export default class ScopedCSSCache {
 	 *
 	 * @return {string[]} Scoped style.
 	 */
-	public getAllScopedCSS(): string[] {
+	public getAllScoped(): string[] {
 		return this.scoped.concat();
-	}
-
-	/**
-	 * Returns the original extracted CSS.
-	 *
-	 * @return {string[]} Scoped style.
-	 */
-	public getAllExtractedCSS(): string[] {
-		return this.original.concat();
 	}
 
 	/**
 	 * Returns scoped CSS.
 	 *
-	 * @param {string} css CSS.
+	 * @param {string} original Original CSS.
 	 * @return {string} Cached scoped CSS.
 	 */
-	public getScopedCSS(css: string): string {
-		const index = this.original.indexOf(css);
+	public getScoped(original: string): string {
+		const index = this.original.indexOf(original);
 		if (index !== -1) {
 			return this.scoped[index];
 		}
@@ -40,32 +31,18 @@ export default class ScopedCSSCache {
 	}
 
 	/**
-	 * Returns scope ID.
-	 *
-	 * @param {string} css CSS.
-	 * @return string Scope ID.
-	 */
-	public getScopeID(css: string): string {
-		const index = this.original.indexOf(css);
-		if (index !== -1) {
-			return this.getIdByIndex(index);
-		}
-		return this.getIdByIndex(this.original.length);
-	}
-
-	/**
 	 * Returns scoped CSS.
 	 *
-	 * @param {string} css CSS.
+	 * @param {string} original Original CSS.
 	 * @param {string} scopedCSS Scoped CSS.
 	 */
-	public setScopedCSS(css: string, scopedCSS): void {
-		const index = this.original.indexOf(css);
+	public setScoped(original: string, scopedCSS: string): void {
+		const index = this.original.indexOf(original);
 		if (index !== -1) {
-			this.original[index] = css;
+			this.original[index] = original;
 			this.scoped[index] = scopedCSS;
 		} else {
-			this.original.push(css);
+			this.original.push(original);
 			this.scoped.push(scopedCSS);
 		}
 	}
@@ -73,14 +50,28 @@ export default class ScopedCSSCache {
 	/**
 	 * Removes a cache entry.
 	 *
-	 * @param {string} css CSS.
+	 * @param {string} original Original CSS.
 	 */
-	public removeScopedCSS(css: string): void {
-		const index = this.original.indexOf(css);
+	public removeScoped(original: string): void {
+		const index = this.original.indexOf(original);
 		if (index !== -1) {
 			this.original.splice(index, 1);
 			this.scoped.splice(index, 1);
 		}
+	}
+
+	/**
+	 * Returns scope ID.
+	 *
+	 * @param {string} original Original CSS.
+	 * @return string Scope ID.
+	 */
+	public getScopeID(original: string): string {
+		const index = this.original.indexOf(original);
+		if (index !== -1) {
+			return this.getIdByIndex(index);
+		}
+		return this.getIdByIndex(this.original.length);
 	}
 
 	/**

@@ -10,8 +10,8 @@ import DOMRect from './DOMRect';
 export default class Range {
 	private _startContainer: Node = null;
 	private _endContainer: Node = null;
-	private _startOffset: number = -1;
-	private _endOffset: number = -1;
+	private _startOffset = -1;
+	private _endOffset = -1;
 	private _collapsed = false;
 
 	/**

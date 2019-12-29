@@ -8,7 +8,7 @@ import NodeType from '../node/NodeType';
  */
 export default class DocumentFragment extends Node {
 	public nodeType = NodeType.DOCUMENT_FRAGMENT_NODE;
-	public mode: string = 'open';
+	public mode = 'open';
 
 	/**
 	 * Returns children.

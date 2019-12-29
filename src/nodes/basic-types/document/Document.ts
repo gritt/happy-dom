@@ -148,7 +148,7 @@ export default class Document extends DocumentFragment {
 	 * @param {number} [whatToShow] What to show.
 	 * @param {(node: Node) => number} [filter] Filter.
 	 */
-	public createTreeWalker(root: Node, whatToShow: number = -1, filter: (node: Node) => number = null): TreeWalker {
+	public createTreeWalker(root: Node, whatToShow = -1, filter: (node: Node) => number = null): TreeWalker {
 		return new TreeWalker(root, whatToShow, filter);
 	}
 

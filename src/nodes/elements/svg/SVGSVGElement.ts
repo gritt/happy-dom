@@ -19,12 +19,12 @@ export default class SVGSVGElement extends SVGGraphicsElement {
 		SVGSVGElementPropertyAttributes
 	);
 
-	public preserveAspectRatio: string = 'xMidYMid meet';
-	public width: string = '';
-	public height: string = '';
-	public x: string = '';
-	public y: string = '';
-	public contentScriptType: string = '';
+	public preserveAspectRatio = 'xMidYMid meet';
+	public width = '';
+	public height = '';
+	public x = '';
+	public y = '';
+	public contentScriptType = '';
 
 	public currentScale = 1;
 

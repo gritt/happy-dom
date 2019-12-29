@@ -5,7 +5,7 @@ export default class AsyncTaskManager {
 	// Private Properties
 	private isDisposed = false;
 	private tasks: { [k: string]: number } = {};
-	private hasError: boolean = false;
+	private hasError = false;
 	private timeout: NodeJS.Timeout = null;
 	private queue: { resolve: () => void; reject: (error: Error) => void }[] = [];
 

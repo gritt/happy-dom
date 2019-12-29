@@ -15,55 +15,55 @@ export default class HTMLInputElement extends HTMLElement {
 
 	// Related to parent form.
 	public form: HTMLFormElement = null;
-	public formAction: string = '';
-	public formMethod: string = '';
-	public formNoValidate: boolean = false;
+	public formAction = '';
+	public formMethod = '';
+	public formNoValidate = false;
 
 	// Any type of input
-	public name: string = '';
-	public type: string = 'text';
-	public disabled: boolean = false;
-	public autofocus: boolean = false;
-	public required: boolean = false;
-	public _value: string = '';
+	public name = '';
+	public type = 'text';
+	public disabled = false;
+	public autofocus = false;
+	public required = false;
+	public _value = '';
 
 	// Type specific: checkbox/radio
-	public _checked: boolean = false;
-	public defaultChecked: boolean = null;
-	public indeterminate: boolean = false;
+	public _checked = false;
+	public defaultChecked = null;
+	public indeterminate = false;
 
 	// Type specific: image
-	public alt: string = '';
-	public height: number = 0;
+	public alt = '';
+	public height = 0;
 	public src: string = null;
-	public width: number = 0;
+	public width = 0;
 
 	// Type specific: file
 	public accept: string = null;
 	public allowdirs: string = null;
 
 	// Type specific: text/number
-	public autocomplete: string = '';
-	public min: string = '';
-	public max: string = '';
-	public minLength: number = -1;
-	public maxLength: number = -1;
-	public pattern: string = '';
-	public placeholder: string = '';
-	public readOnly: boolean = false;
-	public size: number = 0;
+	public autocomplete = '';
+	public min = '';
+	public max = '';
+	public minLength = -1;
+	public maxLength = -1;
+	public pattern = '';
+	public placeholder = '';
+	public readOnly = false;
+	public size = 0;
 
 	// Type specific: text/password/search/tel/url/week/month
-	public selectionStart: number = 0;
-	public selectionEnd: number = 0;
-	public selectionDirection: string = 'forward';
+	public selectionStart = 0;
+	public selectionEnd = 0;
+	public selectionDirection = 'forward';
 
 	// Not categorized
-	public defaultValue: string = '';
-	public multiple: boolean = false;
-	public files: [] = [];
-	public step: string = '';
-	public inputmode: string = '';
+	public defaultValue = '';
+	public multiple = false;
+	public files: object[] = [];
+	public step = '';
+	public inputmode = '';
 
 	/**
 	 * Returns value.

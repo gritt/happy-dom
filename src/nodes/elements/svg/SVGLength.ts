@@ -15,10 +15,10 @@ export default class SVGLength {
 	public static SVG_LENGTHTYPE_IN = 8;
 	public static SVG_LENGTHTYPE_PT = 9;
 	public static SVG_LENGTHTYPE_PC = 10;
-	public unitType: string = '';
-	public value: number = 0;
-	public valueInSpecifiedUnits: number = 0;
-	public valueAsString: string = '';
+	public unitType = '';
+	public value = 0;
+	public valueInSpecifiedUnits = 0;
+	public valueAsString = '';
 
 	/**
 	 * New value specific units.

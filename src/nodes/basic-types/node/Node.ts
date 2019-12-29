@@ -19,7 +19,7 @@ export default class Node extends EventTarget {
 	public readonly childNodes: Node[] = [];
 
 	// Protected properties
-	protected _isConnected: boolean = false;
+	protected _isConnected = false;
 
 	// Custom Properties (not part of HTML standard)
 	protected _observers: MutationObserverListener[] = [];
@@ -359,7 +359,12 @@ export default class Node extends EventTarget {
 
 		let returnValue = super.dispatchEvent(event);
 
-		if (event.bubbles && this.parentNode !== null && !event._propagationStopped && !this.parentNode.dispatchEvent(event)) {
+		if (
+			event.bubbles &&
+			this.parentNode !== null &&
+			!event._propagationStopped &&
+			!this.parentNode.dispatchEvent(event)
+		) {
 			returnValue = false;
 		}
 

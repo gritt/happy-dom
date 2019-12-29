@@ -1,22 +1,22 @@
-import HTMLElement from '../../lib/nodes/basic-types/html-element/HTMLElement';
+import HTMLElement from '../../../lib/nodes/basic-types/html-element/HTMLElement';
 
 /**
  * CustomElement test class.
  */
 export default class CustomElement extends HTMLElement {
-    /**
-     * Constructor.
-     */
-    constructor() {
-        super();
-        this.attachShadow({ mode: 'open' });
-    }
+	/**
+	 * Constructor.
+	 */
+	constructor() {
+		super();
+		this.attachShadow({ mode: 'open' });
+	}
 
-    /**
-     * Executed the component is attached to the DOM.
-     */
-    connectedCallback() {
-        this.shadowRoot.innerHTML = `
+	/**
+	 * Executed the component is attached to the DOM.
+	 */
+	public connectedCallback(): void {
+		this.shadowRoot.innerHTML = `
             <style>
                 :host {
                     display: block;
@@ -43,5 +43,5 @@ export default class CustomElement extends HTMLElement {
                 </span>
             </div>
         `;
-    }
+	}
 }
