@@ -1,14 +1,14 @@
 const URL_REGEXP = /(https?:)\/\/([-a-zA-Z0-9@:%._\+~#=]{2,256}[a-z]{2,6})(:[0-9]*)?([-a-zA-Z0-9@:%_\+.~c&//=]*)(\?[^#]*)?(#.*)?/;
 
 export default class URL {
-	public protocol: string = '';
-	public hostname: string = '';
-	public port: string = '';
-	public pathname: string = '';
-	public search: string = '';
-	public hash: string = '';
-	public username: string = '';
-	public password: string = '';
+	public protocol = '';
+	public hostname = '';
+	public port = '';
+	public pathname = '';
+	public search = '';
+	public hash = '';
+	public username = '';
+	public password = '';
 
 	/**
 	 * Constructor.
