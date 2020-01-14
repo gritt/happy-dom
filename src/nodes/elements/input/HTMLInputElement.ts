@@ -1,4 +1,4 @@
-import HTMLElement from '../../basic-types/html-element/HTMLElement';
+import HTMLElement from '../../basic/html-element/HTMLElement';
 import HTMLFormElement from '../form/HTMLFormElement';
 import ValidityState from './ValidityState';
 import * as HTMLInputPropertyAttributes from './HTMLInputPropertyAttributes.json';

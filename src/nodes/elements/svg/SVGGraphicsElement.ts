@@ -1,5 +1,5 @@
 import SVGElement from './SVGElement';
-import DOMRect from '../../basic-types/element/DOMRect';
+import DOMRect from '../../basic/element/DOMRect';
 
 /**
  * SVGGraphicsElement.

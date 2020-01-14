@@ -1,6 +1,6 @@
-import ShadowRootRenderer from '../../../lib/html-renderer/shadow-root/ShadowRootRenderer';
-import CustomElement from './CustomElement';
-import Window from '../../../lib/Window';
+import ShadowRootRenderer from '../../../src/html-renderer/shadow-root/ShadowRootRenderer';
+import CustomElement from '../../CustomElement';
+import Window from '../../../src/Window';
 
 describe('ShadowRootRenderer', () => {
 	let window, document, renderer;

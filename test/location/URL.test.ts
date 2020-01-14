@@ -1,4 +1,4 @@
-import URL from '../../lib/location/URL';
+import URL from '../../src/location/URL';
 
 describe('URL', () => {
 	describe('constructor()', () => {

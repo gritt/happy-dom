@@ -1,6 +1,6 @@
-import HTMLParser from '../../lib/html-parser/HTMLParser';
-import Window from '../../lib/Window';
-import HTMLElement from '../../lib/nodes/basic-types/html-element/HTMLElement';
+import HTMLParser from '../../src/html-parser/HTMLParser';
+import Window from '../../src/Window';
+import HTMLElement from '../../src/nodes/basic/html-element/HTMLElement';
 import HTMLPage from './data/HTMLPage';
 
 describe('HTMLParser', () => {

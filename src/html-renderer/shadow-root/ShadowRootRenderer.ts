@@ -1,10 +1,10 @@
-import Element from '../../nodes/basic-types/element/Element';
+import Element from '../../nodes/basic/element/Element';
 import HTMLTemplateElement from '../../nodes/elements/template/HTMLTemplateElement';
-import DocumentFragment from '../../nodes/basic-types/document-fragment/DocumentFragment';
+import DocumentFragment from '../../nodes/basic/document-fragment/DocumentFragment';
 import ShadowRootScoper from './ShadowRootScoper';
 import IShadowRootRenderOptions from './IShadowRootRenderOptions';
 import HTMLRenderResult from '../HTMLRenderResult';
-import ShadowRoot from '../../nodes/basic-types/shadow-root/ShadowRoot';
+import ShadowRoot from '../../nodes/basic/shadow-root/ShadowRoot';
 import IHTMLRenderer from '../IHTMLRenderer';
 
 const SELF_CLOSED_REGEXP = /^(img|br|hr|area|base|input|doctype|link)$/i;

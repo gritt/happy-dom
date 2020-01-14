@@ -1,5 +1,5 @@
-import Window from '../../lib/Window';
-import MutationObserver from '../../lib/mutation-observer/MutationObserver';
+import Window from '../../src/Window';
+import MutationObserver from '../../src/mutation-observer/MutationObserver';
 
 describe('MutationObserver', () => {
 	let window, document;

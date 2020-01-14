@@ -1,5 +1,5 @@
-import HTMLElement from '../../basic-types/html-element/HTMLElement';
-import Node from '../../basic-types/node/Node';
+import HTMLElement from '../../basic/html-element/HTMLElement';
+import Node from '../../basic/node/Node';
 import * as HTMLTextAreaPropertyAttributes from './HTMLTextAreaPropertyAttributes.json';
 import HTMLFormElement from '../form/HTMLFormElement';
 

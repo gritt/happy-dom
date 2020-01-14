@@ -1,4 +1,4 @@
-import Element from '../nodes/basic-types/element/Element';
+import Element from '../nodes/basic/element/Element';
 
 const ATTRIBUTE_REGEXP = /\[([a-zA-Z_$\-]*)=([^\]]*)\]/g;
 const CLASS_REGEXP = /\.([^\[(.]*)/g;
@@ -18,7 +18,7 @@ export default class SelectorItem {
 	 */
 	constructor(part: string) {
 		this.isID = part.startsWith('#');
-		this.isAttribute = !this.isID && ATTRIBUTE_REGEXP.test(part);
+		this.isAttribute = !this.isID && new RegExp(ATTRIBUTE_REGEXP, 'g').test(part);
 		this.isClass = !this.isID && new RegExp(CLASS_REGEXP, 'g').test(part);
 		this.isTagName = !this.isID && !this.isAttribute && !this.isClass;
 		this.part = part;
@@ -32,7 +32,7 @@ export default class SelectorItem {
 	 * @return TRUE if matching.
 	 */
 	public match(element: Element): boolean {
-		let part = this.part;
+		const part = this.part;
 		let match;
 
 		// ID Match

@@ -1,5 +1,5 @@
-import CustomElementRegistry from '../../lib/custom-element/CustomElementRegistry';
-import HTMLElement from '../../lib/nodes/basic-types/html-element/HTMLElement';
+import CustomElementRegistry from '../../src/custom-element/CustomElementRegistry';
+import HTMLElement from '../../src/nodes/basic/html-element/HTMLElement';
 
 class CustomElement extends HTMLElement {}
 

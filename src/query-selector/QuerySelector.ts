@@ -1,5 +1,5 @@
-import Element from '../nodes/basic-types/element/Element';
-import Node from '../nodes/basic-types/node/Node';
+import Element from '../nodes/basic/element/Element';
+import Node from '../nodes/basic/node/Node';
 import SelectorItem from './SelectorItem';
 
 /**
@@ -54,20 +54,20 @@ export default class QuerySelector {
 	 */
 	private static querySelectorAllForPart(node: Node, selector: string): Element[] {
 		const parts = selector.split(' ');
-		const current = new SelectorItem(parts[0]);
+		const selectorItem = new SelectorItem(parts[0]);
 		let matched = [];
 
 		for (const child of node.childNodes) {
 			if (child instanceof Element) {
-				if (current.match(child)) {
+				if (selectorItem.match(child)) {
 					if (parts.length === 1) {
 						matched.push(child);
 					} else {
-						matched = matched.concat(this.querySelectorAll(child, parts.slice(1).join(' ')));
+						matched = matched.concat(this.querySelectorAllForPart(child, parts.slice(1).join(' ')));
 					}
-				} else {
-					matched = matched.concat(this.querySelectorAll(child, selector));
 				}
+
+				matched = matched.concat(this.querySelectorAllForPart(child, selector));
 			}
 		}
 
@@ -83,19 +83,19 @@ export default class QuerySelector {
 	 */
 	private static querySelectorForPart(node: Node, selector: string): Element {
 		const parts = selector.split(' ');
-		const current = new SelectorItem(parts.shift());
+		const selectorItem = new SelectorItem(parts.shift());
 
 		for (const child of node.childNodes) {
 			if (child instanceof Element) {
-				if (current.match(child)) {
+				if (selectorItem.match(child)) {
 					if (parts.length === 0) {
 						return child;
 					} else {
-						return this.querySelector(child, parts.join(' '));
+						return this.querySelectorForPart(child, parts.join(' '));
 					}
 				}
 
-				const childSelector = this.querySelector(child, selector);
+				const childSelector = this.querySelectorForPart(child, selector);
 				if (childSelector) {
 					return childSelector;
 				}

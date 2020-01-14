@@ -1,4 +1,4 @@
-import Node from '../nodes/basic-types/node/Node';
+import Node from '../nodes/basic/node/Node';
 import IMutationObserverInit from './IMutationObserverInit';
 import MutationObserverListener from './MutationListener';
 import MutationRecord from './MutationRecord';

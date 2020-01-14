@@ -1,4 +1,4 @@
-import Element from '../../nodes/basic-types/element/Element';
+import Element from '../../nodes/basic/element/Element';
 import HTMLTemplateElement from '../../nodes/elements/template/HTMLTemplateElement';
 import HTMLRenderResult from '../HTMLRenderResult';
 import IHTMLRenderer from '../IHTMLRenderer';

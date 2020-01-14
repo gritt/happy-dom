@@ -1,4 +1,4 @@
-import Element from '../nodes/basic-types/element/Element';
+import Element from '../nodes/basic/element/Element';
 import HTMLRenderResult from './HTMLRenderResult';
 /**
  * Utility for converting an element to string.
@@ -6,7 +6,6 @@ import HTMLRenderResult from './HTMLRenderResult';
  * @class QuerySelector
  */
 export default interface IHTMLRenderer {
-
 	/**
 	 * Renders an element as HTML.
 	 *
@@ -17,7 +16,7 @@ export default interface IHTMLRenderer {
 
 	/**
 	 * Renders an element as HTML.
-	 * 
+	 *
 	 * @param {Element} element Element to render.
 	 * @return {HTMLRenderResult} Result.
 	 */

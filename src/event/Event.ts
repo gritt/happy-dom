@@ -1,15 +1,15 @@
-import Node from '../nodes/basic-types/node/Node';
+import Node from '../nodes/basic/node/Node';
 import IEventInit from './IEventInit';
 
 export default class Event {
-	public readonly bubbles: boolean = false;
-	public readonly cancelable: boolean = false;
 	public readonly composed: boolean = false;
 	public readonly currentTarget: Node = null;
 	public readonly target: Node = null;
-	public defaultPrevented: boolean = false;
-	public _immediatePropagationStopped: boolean = false;
-	public _propagationStopped: boolean = false;
+	public bubbles = false;
+	public cancelable = false;
+	public defaultPrevented = false;
+	public _immediatePropagationStopped = false;
+	public _propagationStopped = false;
 	public type: string = null;
 
 	/**
@@ -29,9 +29,14 @@ export default class Event {
 	 * Init event.
 	 *
 	 * @legacy
+	 * @param {string} type Type.
+	 * @param {boolean} [bubbles=false] "true" if it bubbles.
+	 * @param {boolean} [cancelable=false] "true" if it cancelable.
 	 */
-	public initEvent(): void {
-		this.defaultPrevented = true;
+	public initEvent(type: string, bubbles = false, cancelable = false): void {
+		this.type = type;
+		this.bubbles = bubbles;
+		this.cancelable = cancelable;
 	}
 
 	/**

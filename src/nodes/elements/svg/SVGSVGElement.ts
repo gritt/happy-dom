@@ -1,5 +1,5 @@
 import SVGGraphicsElement from './SVGGraphicsElement';
-import Node from '../../basic-types/node/Node';
+import Node from '../../basic/node/Node';
 import SVGRect from './SVGRect';
 import SVGPoint from './SVGPoint';
 import SVGLength from './SVGLength';

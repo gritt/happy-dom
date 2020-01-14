@@ -1,4 +1,4 @@
-import Location from '../../lib/location/Location';
+import Location from '../../src/location/Location';
 
 const HREF = 'https://google.com/some-path/?key=value&key2=value2#hash';
 

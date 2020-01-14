@@ -1,13 +1,11 @@
-import ElementRenderer from '../../../lib/html-renderer/element/ElementRenderer';
-import CustomElement from '../shadow-root/CustomElement';
-import Window from '../../../lib/Window';
+import ElementRenderer from '../../../src/html-renderer/element/ElementRenderer';
+import Window from '../../../src/Window';
 
 describe('ElementRenderer', () => {
 	let window, document, renderer;
 
 	beforeEach(() => {
 		window = new Window();
-		window.customElements.define('custom-element', CustomElement);
 		document = window.document;
 		renderer = new ElementRenderer();
 	});

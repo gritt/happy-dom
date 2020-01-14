@@ -1,5 +1,5 @@
-import HTMLElement from '../../basic-types/html-element/HTMLElement';
-import Element from '../../basic-types/element/Element';
+import HTMLElement from '../../basic/html-element/HTMLElement';
+import Element from '../../basic/element/Element';
 import * as HTMLFormPropertyAttributes from './HTMLFormPropertyAttributes.json';
 
 /**

@@ -1,6 +1,6 @@
 import ScopedCSSCache from './css/ScopedCSSCache';
-import Element from '../../nodes/basic-types/element/Element';
-import ShadowRoot from '../../nodes/basic-types/shadow-root/ShadowRoot';
+import Element from '../../nodes/basic/element/Element';
+import ShadowRoot from '../../nodes/basic/shadow-root/ShadowRoot';
 import StyleScoper from './css/StyleScoper';
 import IShadowRootRenderOptions from './IShadowRootRenderOptions';
 
