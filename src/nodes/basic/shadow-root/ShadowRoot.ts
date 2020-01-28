@@ -1,13 +1,13 @@
 import DocumentFragment from '../document-fragment/DocumentFragment';
 import HTMLParser from '../../../html-parser/HTMLParser';
-import ElementRenderer from '../../../html-renderer/element/ElementRenderer';
+import HTMLRenderer from '../../../html-renderer/HTMLRenderer';
 
 /**
  * ShadowRoot.
  */
 export default class ShadowRoot extends DocumentFragment {
 	public mode = 'open';
-	public _renderer: ElementRenderer = null;
+	public _renderer: HTMLRenderer = null;
 
 	/**
 	 * Returns inner HTML.
@@ -15,10 +15,7 @@ export default class ShadowRoot extends DocumentFragment {
 	 * @return {string} HTML.
 	 */
 	public get innerHTML(): string {
-		if (!this._renderer) {
-			this._renderer = new ElementRenderer();
-		}
-		return this._renderer.getInnerHTML(this).html;
+		return HTMLRenderer.getInnerHTML(this);
 	}
 
 	/**

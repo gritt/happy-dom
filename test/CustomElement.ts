@@ -4,6 +4,8 @@ import HTMLElement from '../src/nodes/basic/html-element/HTMLElement';
  * CustomElement test class.
  */
 export default class CustomElement extends HTMLElement {
+	public changedAttributes = [];
+
 	/**
 	 * Constructor.
 	 */
@@ -13,7 +15,14 @@ export default class CustomElement extends HTMLElement {
 	}
 
 	/**
-	 * Executed the component is attached to the DOM.
+	 * @override
+	 */
+	public attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
+		this.changedAttributes.push({ name, oldValue, newValue });
+	}
+
+	/**
+	 * @override
 	 */
 	public connectedCallback(): void {
 		this.shadowRoot.innerHTML = `

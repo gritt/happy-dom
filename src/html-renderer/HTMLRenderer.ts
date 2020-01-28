@@ -1,7 +1,5 @@
-import Element from '../../nodes/basic/element/Element';
-import HTMLTemplateElement from '../../nodes/elements/template/HTMLTemplateElement';
-import HTMLRenderResult from '../HTMLRenderResult';
-import IHTMLRenderer from '../IHTMLRenderer';
+import Element from '../nodes/basic/element/Element';
+import HTMLTemplateElement from '../nodes/elements/template/HTMLTemplateElement';
 const SELF_CLOSED_REGEXP = /^(img|br|hr|area|base|input|doctype|link)$/i;
 const META_REGEXP = /^meta$/i;
 
@@ -10,28 +8,25 @@ const META_REGEXP = /^meta$/i;
  *
  * @class QuerySelector
  */
-export default class ElementRenderer implements IHTMLRenderer {
+export default class HTMLRenderer {
 	/**
 	 * Renders an element as HTML.
 	 *
 	 * @param {Element} element Element to render.
-	 * @return {HTMLRenderResult} Result.
+	 * @return {string} Result.
 	 */
-	public getOuterHTML(element: Element): HTMLRenderResult {
+	public static getOuterHTML(element: Element): string {
 		const tagName = element.tagName.toLowerCase();
 		const isUnClosed = META_REGEXP.test(tagName);
 		const isSelfClosed = SELF_CLOSED_REGEXP.test(tagName);
-		const result = new HTMLRenderResult();
 
 		if (isUnClosed) {
-			result.html = `<${tagName}${this.getAttributes(element)}>`;
+			return `<${tagName}${this.getAttributes(element)}>`;
 		} else if (isSelfClosed) {
-			result.html = `<${tagName}${this.getAttributes(element)}/>`;
-		} else {
-			result.html = `<${tagName}${this.getAttributes(element)}>${element.innerHTML}</${tagName}>`;
+			return `<${tagName}${this.getAttributes(element)}/>`;
 		}
 
-		return result;
+		return `<${tagName}${this.getAttributes(element)}>${element.innerHTML}</${tagName}>`;
 	}
 
 	/**
@@ -40,19 +35,19 @@ export default class ElementRenderer implements IHTMLRenderer {
 	 * @param {Element} element Element to render.
 	 * @return {HTMLRenderResult} Result.
 	 */
-	public getInnerHTML(element): HTMLRenderResult {
-		const result = new HTMLRenderResult();
+	public static getInnerHTML(element): string {
 		const renderElement = (<HTMLTemplateElement>element).content || element;
+		let html = '';
 
 		for (const child of renderElement.childNodes.slice()) {
 			if (child instanceof Element) {
-				result.html += child.outerHTML;
+				html += child.outerHTML;
 			} else {
-				result.html += child.toString();
+				html += child.toString();
 			}
 		}
 
-		return result;
+		return html;
 	}
 
 	/**
@@ -61,7 +56,7 @@ export default class ElementRenderer implements IHTMLRenderer {
 	 * @param {Element} element Element.
 	 * @return {string} Attributes.
 	 */
-	private getAttributes(element: Element): string {
+	private static getAttributes(element: Element): string {
 		const rawAttributes = element._getRawAttributes();
 		return rawAttributes ? ' ' + rawAttributes : '';
 	}

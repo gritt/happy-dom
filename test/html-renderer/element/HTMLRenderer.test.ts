@@ -1,16 +1,15 @@
-import ElementRenderer from '../../../src/html-renderer/element/ElementRenderer';
-import Window from '../../../src/Window';
+import HTMLRenderer from '../../../src/html-renderer/HTMLRenderer';
+import Window from '../../../src/window/Window';
 
-describe('ElementRenderer', () => {
-	let window, document, renderer;
+describe('HTMLRenderer', () => {
+	let window, document;
 
 	beforeEach(() => {
 		window = new Window();
 		document = window.document;
-		renderer = new ElementRenderer();
 	});
 
-	describe('renderOuterHTML()', () => {
+	describe('getOuterHTML()', () => {
 		test('Renders a <div> element.', () => {
 			const div = document.createElement('div');
 			const span = document.createElement('span');
@@ -24,7 +23,7 @@ describe('ElementRenderer', () => {
 			div.setAttribute('attr3', '');
 			div.appendChild(span);
 
-			expect(renderer.getOuterHTML(div).html).toBe(
+			expect(HTMLRenderer.getOuterHTML(div)).toBe(
 				'<div attr1="value1" attr2="value2" attr3><span attr1="value1" attr2="value2" attr3></span></div>'
 			);
 		});
@@ -37,7 +36,7 @@ describe('ElementRenderer', () => {
 
 			div.appendChild(comment);
 
-			expect(renderer.getOuterHTML(div).html).toBe('<div><!--Some comment.--></div>');
+			expect(HTMLRenderer.getOuterHTML(div)).toBe('<div><!--Some comment.--></div>');
 		});
 
 		test('Renders a text nodes.', () => {
@@ -48,7 +47,7 @@ describe('ElementRenderer', () => {
 			div.appendChild(text1);
 			div.appendChild(text2);
 
-			expect(renderer.getOuterHTML(div).html).toBe('<div>Text 1.Text 2.</div>');
+			expect(HTMLRenderer.getOuterHTML(div)).toBe('<div>Text 1.Text 2.</div>');
 		});
 
 		test('Renders a mix of nodes.', () => {
@@ -75,7 +74,7 @@ describe('ElementRenderer', () => {
 			div.appendChild(text2);
 			div.appendChild(span1);
 
-			expect(renderer.getOuterHTML(div).html).toBe(
+			expect(HTMLRenderer.getOuterHTML(div)).toBe(
 				'<div><!--Comment 1.-->Text 1.<!--Comment 2.-->Text 2.<span attr1="value1" attr2="value2" attr3><span attr1="value1">Text 3.</span></span></div>'
 			);
 		});
@@ -93,7 +92,7 @@ describe('ElementRenderer', () => {
 			// Connects the custom element to DOM which will trigger connectedCallback() on it
 			document.body.appendChild(div);
 
-			expect(renderer.getOuterHTML(div).html).toBe(
+			expect(HTMLRenderer.getOuterHTML(div)).toBe(
 				'<div><custom-element attr1="value1" attr2="value2" attr3></custom-element></div>'
 			);
 		});

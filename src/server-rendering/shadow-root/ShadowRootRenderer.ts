@@ -3,9 +3,8 @@ import HTMLTemplateElement from '../../nodes/elements/template/HTMLTemplateEleme
 import DocumentFragment from '../../nodes/basic/document-fragment/DocumentFragment';
 import ShadowRootScoper from './ShadowRootScoper';
 import IShadowRootRenderOptions from './IShadowRootRenderOptions';
-import HTMLRenderResult from '../HTMLRenderResult';
+import ShadowrootRenderResult from './ShadowRootRenderResult';
 import ShadowRoot from '../../nodes/basic/shadow-root/ShadowRoot';
-import IHTMLRenderer from '../IHTMLRenderer';
 
 const SELF_CLOSED_REGEXP = /^(img|br|hr|area|base|input|doctype|link)$/i;
 const META_REGEXP = /^meta$/i;
@@ -15,7 +14,7 @@ const META_REGEXP = /^meta$/i;
  *
  * @class QuerySelector
  */
-export default class ShadowRootRenderer implements IHTMLRenderer {
+export default class ShadowRootRenderer {
 	private renderOptions: IShadowRootRenderOptions;
 	private shadowRootScoper: ShadowRootScoper;
 
@@ -33,13 +32,13 @@ export default class ShadowRootRenderer implements IHTMLRenderer {
 	 * Renders an element as HTML.
 	 *
 	 * @param {Element} element Element to render.
-	 * @return {HTMLRenderResult} Result.
+	 * @return {ShadowrootRenderResult} Result.
 	 */
-	public getOuterHTML(element: Element): HTMLRenderResult {
+	public getOuterHTML(element: Element): ShadowrootRenderResult {
 		const tagName = element.tagName.toLowerCase();
 		const isUnClosed = META_REGEXP.test(tagName);
 		const isSelfClosed = SELF_CLOSED_REGEXP.test(tagName);
-		const result = new HTMLRenderResult();
+		const result = new ShadowrootRenderResult();
 
 		if (isUnClosed) {
 			result.html = `<${tagName}${this.getAttributes(element)}>`;
@@ -69,10 +68,10 @@ export default class ShadowRootRenderer implements IHTMLRenderer {
 	 * Renders an element as HTML.
 	 *
 	 * @param {Element|DocumentFragment|ShadowRoot} element Element to render.
-	 * @return {HTMLRenderResult} Result.
+	 * @return {ShadowrootRenderResult} Result.
 	 */
-	public getInnerHTML(element: Element | DocumentFragment | ShadowRoot): HTMLRenderResult {
-		const result = new HTMLRenderResult();
+	public getInnerHTML(element: Element | DocumentFragment | ShadowRoot): ShadowrootRenderResult {
+		const result = new ShadowrootRenderResult();
 		const renderElement = (<HTMLTemplateElement>element).content || element;
 
 		for (const child of renderElement.childNodes.slice()) {

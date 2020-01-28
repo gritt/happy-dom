@@ -9,7 +9,7 @@ import HTMLParser from '../../../html-parser/HTMLParser';
 import { decode, encode } from 'he';
 import ClassList from './ClassList';
 import QuerySelector from '../../../query-selector/QuerySelector';
-import ElementRenderer from '../../../html-renderer/element/ElementRenderer';
+import HTMLRenderer from '../../../html-renderer/HTMLRenderer';
 import MutationRecord from '../../../mutation-observer/MutationRecord';
 import MutationTypeConstant from '../../../mutation-observer/MutationType';
 
@@ -26,7 +26,6 @@ export default class Element extends Node {
 	public scrollTop = 0;
 	public scrollLeft = 0;
 	public _attributesMap: { [k: string]: string } = {};
-	public _renderer: ElementRenderer = null;
 
 	/**
 	 * Returns ID.
@@ -105,7 +104,7 @@ export default class Element extends Node {
 	 * @param {string} textContent Text content.
 	 */
 	public set textContent(textContent: string) {
-		for (const child of this.childNodes) {
+		for (const child of this.childNodes.slice()) {
 			this.removeChild(child);
 		}
 		this.appendChild(this.ownerDocument.createTextNode(textContent));
@@ -117,10 +116,7 @@ export default class Element extends Node {
 	 * @return {string} HTML.
 	 */
 	public get innerHTML(): string {
-		if (!this._renderer) {
-			this._renderer = new ElementRenderer();
-		}
-		return this._renderer.getInnerHTML(this).html;
+		return HTMLRenderer.getInnerHTML(this);
 	}
 
 	/**
@@ -144,10 +140,7 @@ export default class Element extends Node {
 	 * @return {string} HTML.
 	 */
 	public get outerHTML(): string {
-		if (!this._renderer) {
-			this._renderer = new ElementRenderer();
-		}
-		return this._renderer.getOuterHTML(this).html;
+		return HTMLRenderer.getOuterHTML(this);
 	}
 
 	/**
@@ -195,16 +188,6 @@ export default class Element extends Node {
 	 * @param {string} newValue New value.
 	 */
 	public attributeChangedCallback?(name: string, oldValue: string, newValue: string): void;
-
-	/**
-	 * Returns "true" if the node has attributes.
-	 *
-	 * @override
-	 * @return {boolean} "true" if the node has attributes.
-	 */
-	public hasAttributes(): boolean {
-		return Object.keys(this._attributesMap).length > 0;
-	}
 
 	/**
 	 * Sets an attribute.
@@ -257,6 +240,16 @@ export default class Element extends Node {
 	public hasAttribute(name: string): boolean {
 		const lowerName = name.toLowerCase();
 		return this._attributesMap[lowerName] !== undefined;
+	}
+
+	/**
+	 * Returns "true" if the node has attributes.
+	 *
+	 * @override
+	 * @return {boolean} "true" if the node has attributes.
+	 */
+	public hasAttributes(): boolean {
+		return Object.keys(this._attributesMap).length > 0;
 	}
 
 	/**

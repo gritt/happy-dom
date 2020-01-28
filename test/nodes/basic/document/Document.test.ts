@@ -1,4 +1,4 @@
-import Window from '../../../../src/Window';
+import Window from '../../../../src/window/Window';
 import CustomElement from '../../../CustomElement';
 import HTMLElement from '../../../../src/nodes/basic/html-element/HTMLElement';
 import TextNode from '../../../../src/nodes/basic/text-node/TextNode';

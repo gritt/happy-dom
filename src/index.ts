@@ -1,5 +1,5 @@
-import Window from './Window';
-import AsyncWindow from './AsyncWindow';
+import Window from './window/Window';
+import AsyncWindow from './window/AsyncWindow';
 import Document from './nodes/basic/document/Document';
 import Element from './nodes/basic/element/Element';
 import HTMLElement from './nodes/basic/html-element/HTMLElement';
@@ -15,8 +15,8 @@ import TextNode from './nodes/basic/text-node/TextNode';
 import CommentNode from './nodes/basic/comment-node/CommentNode';
 import TreeWalker from './tree-walker/TreeWalker';
 import CustomElementRegistry from './custom-element/CustomElementRegistry';
-import VMContext from './vm-context/VMContext';
-import ElementRenderer from './html-renderer/element/ElementRenderer';
+import VMContext from './server-rendering/vm-context/VMContext';
+import HTMLRenderer from './html-renderer/HTMLRenderer';
 
 export {
 	AsyncWindow,
@@ -37,5 +37,5 @@ export {
 	TreeWalker,
 	CustomElementRegistry,
 	VMContext,
-	ElementRenderer
+	HTMLRenderer
 };

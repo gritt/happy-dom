@@ -1,4 +1,4 @@
-import Window from '../../src/Window';
+import Window from '../../src/window/Window';
 import MutationObserver from '../../src/mutation-observer/MutationObserver';
 
 describe('MutationObserver', () => {

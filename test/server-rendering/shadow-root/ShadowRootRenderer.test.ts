@@ -1,18 +1,17 @@
-import ShadowRootRenderer from '../../../src/html-renderer/shadow-root/ShadowRootRenderer';
+import ShadowRootRenderer from '../../../src/server-rendering/shadow-root/ShadowRootRenderer';
 import CustomElement from '../../CustomElement';
-import Window from '../../../src/Window';
+import Window from '../../../src/window/Window';
 
 describe('ShadowRootRenderer', () => {
-	let window, document, renderer;
+	let window, document;
 
 	beforeEach(() => {
 		window = new Window();
 		window.customElements.define('custom-element', CustomElement);
 		document = window.document;
-		renderer = new ShadowRootRenderer();
 	});
 
-	describe('renderOuterHTML()', () => {
+	describe('getOuterHTML()', () => {
 		test('Renders a <div> element.', () => {
 			const div = document.createElement('div');
 			const span = document.createElement('span');
@@ -26,7 +25,7 @@ describe('ShadowRootRenderer', () => {
 			div.setAttribute('attr3', '');
 			div.appendChild(span);
 
-			expect(renderer.getOuterHTML(div).html).toBe(
+			expect(new ShadowRootRenderer().getOuterHTML(div).html).toBe(
 				'<div attr1="value1" attr2="value2" attr3><span attr1="value1" attr2="value2" attr3></span></div>'
 			);
 		});
@@ -39,7 +38,7 @@ describe('ShadowRootRenderer', () => {
 
 			div.appendChild(comment);
 
-			expect(renderer.getOuterHTML(div).html).toBe('<div><!--Some comment.--></div>');
+			expect(new ShadowRootRenderer().getOuterHTML(div).html).toBe('<div><!--Some comment.--></div>');
 		});
 
 		test('Renders a text nodes.', () => {
@@ -50,7 +49,7 @@ describe('ShadowRootRenderer', () => {
 			div.appendChild(text1);
 			div.appendChild(text2);
 
-			expect(renderer.getOuterHTML(div).html).toBe('<div>Text 1.Text 2.</div>');
+			expect(new ShadowRootRenderer().getOuterHTML(div).html).toBe('<div>Text 1.Text 2.</div>');
 		});
 
 		test('Renders a mix of nodes.', () => {
@@ -77,7 +76,7 @@ describe('ShadowRootRenderer', () => {
 			div.appendChild(text2);
 			div.appendChild(span1);
 
-			expect(renderer.getOuterHTML(div).html).toBe(
+			expect(new ShadowRootRenderer().getOuterHTML(div).html).toBe(
 				'<div><!--Comment 1.-->Text 1.<!--Comment 2.-->Text 2.<span attr1="value1" attr2="value2" attr3><span attr1="value1">Text 3.</span></span></div>'
 			);
 		});
@@ -95,7 +94,7 @@ describe('ShadowRootRenderer', () => {
 			// Connects the custom element to DOM which will trigger connectedCallback() on it
 			document.body.appendChild(div);
 
-			expect(renderer.getOuterHTML(div).html).toBe(
+			expect(new ShadowRootRenderer().getOuterHTML(div).html).toBe(
 				'<div><custom-element attr1="value1" attr2="value2" attr3></custom-element></div>'
 			);
 		});

@@ -2,7 +2,7 @@ import Element from '../element/Element';
 import HTMLElement from '../html-element/HTMLElement';
 import TextNode from '../text-node/TextNode';
 import CommentNode from '../comment-node/CommentNode';
-import Window from '../../../Window';
+import Window from '../../../window/Window';
 import Node from '../node/Node';
 import NodeType from '../node/NodeType';
 import TreeWalker from '../../../tree-walker/TreeWalker';

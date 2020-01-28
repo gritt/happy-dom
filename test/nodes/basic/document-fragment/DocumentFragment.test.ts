@@ -1,4 +1,4 @@
-import Window from '../../../../src/Window';
+import Window from '../../../../src/window/Window';
 
 describe('DocumentFragment', () => {
 	let window, document, documentFragment;

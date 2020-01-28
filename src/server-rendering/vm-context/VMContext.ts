@@ -1,7 +1,7 @@
 import VM from 'vm';
-import AsyncWindow from '../AsyncWindow';
-import ShadowRootRenderer from '../html-renderer/shadow-root/ShadowRootRenderer';
-import HTMLRenderResult from 'src/html-renderer/HTMLRenderResult';
+import AsyncWindow from '../../window/AsyncWindow';
+import ShadowRootRenderer from '../shadow-root/ShadowRootRenderer';
+import ShadowRootRenderResult from '../shadow-root/ShadowRootRenderResult';
 
 /**
  * This class is used for rendering a script server side.
@@ -19,7 +19,7 @@ export default class VMContext {
 	 * @param {boolean} [options.openShadowRoots=false] Set to "true" to open up shadow roots.
 	 * @param {boolean} [options.extractCSS=true] Set to "true" to extract CSS when opening shadow roots.
 	 * @param {boolean} [options.scopeCSS=true] Set to "true" to enable scoping of CSS when opening shadow roots.
-	 * @return {Promise<HTMLRenderResult>} HTML.
+	 * @return {Promise<ShadowRootRenderResult>} HTML.
 	 */
 	public async render(options: {
 		html: string;
@@ -28,7 +28,7 @@ export default class VMContext {
 		openShadowRoots: boolean;
 		extractCSS: boolean;
 		scopeCSS: boolean;
-	}): Promise<HTMLRenderResult> {
+	}): Promise<ShadowRootRenderResult> {
 		return new Promise((resolve, reject) => {
 			const window = this.context.window;
 			const document = this.context.document;

@@ -907,7 +907,7 @@ import HTMLParser from '../../../html-parser/HTMLParser';
 import { decode, encode } from 'he';
 import ClassList from './ClassList';
 import QuerySelector from '../../../query-selector/QuerySelector';
-import ElementRenderer from '../../../html-renderer/element/ElementRenderer';
+import HTMLRenderer from '../../../html-renderer/element/HTMLRenderer';
 import MutationRecord from '../../../mutation-observer/MutationRecord';
 import MutationTypeConstant from '../../../mutation-observer/MutationType';
 &nbsp;
@@ -924,7 +924,7 @@ const ATTRIBUTE_REGEXP = /([^\s=]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|(\S+)))/gi;
 	public scrollTop = 0;
 	public scrollLeft = 0;
 	public _attributesMap: { [k: string]: string } = {};
-	public _renderer: ElementRenderer = null;
+	public _renderer: HTMLRenderer = null;
 &nbsp;
 	/**
 	 * Returns ID.
@@ -1016,7 +1016,7 @@ const ATTRIBUTE_REGEXP = /([^\s=]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|(\S+)))/gi;
 	 */
 	public get innerHTML(): string {
 		if (!this._renderer) {
-			this._renderer = new ElementRenderer();
+			this._renderer = new HTMLRenderer();
 		}
 		return this._renderer.getInnerHTML(this).html;
 	}
@@ -1043,7 +1043,7 @@ const ATTRIBUTE_REGEXP = /([^\s=]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|(\S+)))/gi;
 	 */
 	public get outerHTML(): string {
 		<span class="missing-if-branch" title="else path not taken" >E</span>if (!this._renderer) {
-			this._renderer = new ElementRenderer();
+			this._renderer = new HTMLRenderer();
 		}
 		return this._renderer.getOuterHTML(this).html;
 	}

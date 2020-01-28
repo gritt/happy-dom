@@ -1,4 +1,4 @@
-import Window from '../../../../src/Window';
+import Window from '../../../../src/window/Window';
 import ClassList from '../../../../src/nodes/basic/element/ClassList';
 
 describe('ClassList', () => {

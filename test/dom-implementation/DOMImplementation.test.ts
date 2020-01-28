@@ -1,5 +1,5 @@
 import DOMImplementation from '../../src/dom-implementation/DOMImplementation';
-import Window from '../../src/Window';
+import Window from '../../src/window/Window';
 
 describe('DOMImplementation', () => {
 	let domImplementation: DOMImplementation;
