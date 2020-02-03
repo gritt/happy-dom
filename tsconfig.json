@@ -33,11 +33,5 @@
 		"@types/node",
 		"src",
 		"src/**/*.json"
-	],
-	"exclude": [
-		"node_modules",
-		"lib",
-		"typings/main",
-		"typings/main.d.ts"
 	]
 }
