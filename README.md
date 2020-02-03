@@ -223,7 +223,20 @@ If you have a need for a missing feature or if you have found a bug, please let 
 
 | Version | Date       | Description      |
 | ------- | ---------- | ---------------- |
-| 0.6.0   | 2019-10-28 | Thanks to [@mat3e](https://github.com/mat3e) we now have support for hasAttributes(). The "attributes" property has also been changed. It is now returning an object instead of array. (#13).
+| 0.12.0  | 2020-01-30 | Adds support for node.remove(). (#23) |
+| 0.11.1  | 2020-01-30 | Adds check for space characters to the element.classList.add() function. (#29) |
+| 0.11.0  | 2020-01-30 | Adds support for firstElementChild and lastElementChild. (#32) |
+| 0.10.7  | 2020-01-28 | Thanks to [@DaSchTour](https://github.com/DaSchTour) we now have a fix for possible name conflicts when integrating with Angular. (#31) |
+| 0.10.6  | 2020-01-13 | No text node is created when there only is one character. (#28) |
+| 0.10.1  | 2019-12-11 | Fixes issue with parsing of self closing SVG elements. (#24) |
+| 0.10.0  | 2019-12-10 | Adds support for querying all (*). (#19) |
+| 0.9.0   | 2019-11-26 | Adds support for preventDefault() and stopPropagation(). (#11) |
+| 0.8.5   | 2019-11-25 | Fixes bug with cloneNode() not copying some node properties after fix in 0.8.3. |
+| 0.8.4   | 2019-11-25 | Fixes bug with dispatchEvent() not bubbling correctly. |
+| 0.8.3   | 2019-11-22 | Fixes bug with cloneNode() also copying non-node properties. |
+| 0.8.0   | 2019-11-22 | Adds support for previousElementSibling and nextElementSibling. (#18) |
+| 0.7.0   | 2019-11-21 | Thanks to [@AdeAttwood](https://github.com/AdeAttwood) we now have support for requestAnimationFrame() and cancelAnimationFrame(). (#9) |
+| 0.6.0   | 2019-10-28 | Thanks to [@mat3e](https://github.com/mat3e) we now have support for hasAttributes(). The "attributes" property has also been changed. It is now returning an object instead of array. (#13) |
 | 0.5.0   | 2019-10-21 | Adds support for click(), focus() and blur(). (#8) |
 | 0.4.4   | 2019-10-20 | Fixes issue with CustomEvent not being defined correctly causing issues with detail property. (#10) |
 | 0.4.3   | 2019-10-08 | Fixes issue with cloned nodes referring to the same attributes, which is causing weird issues in lit-html. (#5) |

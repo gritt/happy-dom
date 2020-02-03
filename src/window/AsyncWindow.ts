@@ -1,4 +1,4 @@
-import NodeFetch from 'node-fetch';
+import { Response, fetch } from 'node-fetch';
 import Window from './Window';
 import AsyncTaskManager from './AsyncTaskManager';
 
@@ -73,17 +73,38 @@ export default class AsyncWindow extends Window {
 	}
 
 	/**
+	 * Mock animation frames with timeouts.
+	 * 
+	 * @override
+	 * @param {function} callback Callback.
+	 * @returns {NodeJS.Timeout} Timeout ID.
+	 */
+	public requestAnimationFrame(callback: (timestamp: number) => void): NodeJS.Timeout {
+		return this.setTimeout(() =>  { callback(2); }, 0);
+	}
+
+	/**
+	 * Mock animation frames with timeouts.
+	 * 
+	 * @override
+	 * @param {NodeJS.Timeout} id Timeout ID.
+	 */
+	public cancelAnimationFrame(id): void {
+		this.clearTimeout(id);
+	}
+
+	/**
 	 * Provides a global fetch() method that provides an easy, logical way to fetch resources asynchronously across the network.
 	 *
 	 * @param url URL to resource.
 	 * @param [options] Options.
 	 * @returns Promise.
 	 */
-	public async fetch(url: string, options: object): Promise<NodeFetch.Response> {
+	public async fetch(url: string, options: object): Promise<Response> {
 		return new Promise((resolve, reject) => {
 			this.async.startTask('fetch');
 
-			NodeFetch(url, options)
+			fetch(url, options)
 				.then(response => {
 					for (const methodName of FETCH_RESPONSE_TYPE_METHODS) {
 						const asyncMethod = response[methodName];

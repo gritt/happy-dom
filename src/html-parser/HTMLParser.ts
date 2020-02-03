@@ -1,23 +1,8 @@
 import Node from '../nodes/basic/node/Node';
 import Element from '../nodes/basic/element/Element';
 import Document from '../nodes/basic/document/Document';
-
-const SELF_CLOSING_ELEMENTS = {
-	area: true,
-	base: true,
-	br: true,
-	col: true,
-	embed: true,
-	hr: true,
-	img: true,
-	input: true,
-	link: true,
-	meta: true,
-	param: true,
-	source: true,
-	track: true,
-	wbr: true
-};
+import SelfClosingElements from '../html-config/SelfClosingElements.json';
+import SelfClosingSVGElements from '../html-config/SelfClosingSVGElements.json';
 
 /**
  * HTML parser.
@@ -51,7 +36,7 @@ export default class HTMLParser {
 				const newElement = document.createElement(tagName);
 				newElement._setRawAttributes(match[3]);
 
-				if (!SELF_CLOSING_ELEMENTS[tagName]) {
+				if (!SelfClosingElements.includes(tagName) && !SelfClosingSVGElements.includes(tagName)) {
 					currentParent = <Element>currentParent.appendChild(newElement);
 					stack.push(currentParent);
 				} else {
@@ -111,7 +96,7 @@ export default class HTMLParser {
 			lastIndex = match.index + match[0].length;
 		}
 
-		if (lastIndex < text.length - 1) {
+		if (lastIndex < text.length) {
 			const textNode = document.createTextNode(text.substring(lastIndex));
 			nodes.push(textNode);
 		}

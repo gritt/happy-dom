@@ -1,7 +1,8 @@
 import Element from '../nodes/basic/element/Element';
 import HTMLTemplateElement from '../nodes/elements/template/HTMLTemplateElement';
-const SELF_CLOSED_REGEXP = /^(img|br|hr|area|base|input|doctype|link)$/i;
-const META_REGEXP = /^meta$/i;
+import SelfClosingElements from '../html-config/SelfClosingElements.json';
+import SelfClosingSVGElements from '../html-config/SelfClosingSVGElements.json';
+import UnclosedElements from '../html-config/UnclosedElements.json';
 
 /**
  * Utility for converting an element to string.
@@ -17,12 +18,10 @@ export default class HTMLRenderer {
 	 */
 	public static getOuterHTML(element: Element): string {
 		const tagName = element.tagName.toLowerCase();
-		const isUnClosed = META_REGEXP.test(tagName);
-		const isSelfClosed = SELF_CLOSED_REGEXP.test(tagName);
 
-		if (isUnClosed) {
+		if (UnclosedElements.includes(tagName)) {
 			return `<${tagName}${this.getAttributes(element)}>`;
-		} else if (isSelfClosed) {
+		} else if (SelfClosingElements.includes(tagName) || SelfClosingSVGElements.includes(tagName)) {
 			return `<${tagName}${this.getAttributes(element)}/>`;
 		}
 
