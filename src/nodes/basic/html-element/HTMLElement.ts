@@ -5,9 +5,8 @@ import Event from '../../../event/Event';
  * HTMLElement.
  */
 export default class HTMLElement extends Element {
-	protected static _observedPropertyAttributes: { [k: string]: string } = { tabindex: 'tabIndex' };
-	public style: object = {};
-	public tabIndex = 0;
+	public style: { [k: string]: string } = {};
+	public tabIndex = -1;
 	public offsetHeight = 0;
 	public offsetWidth = 0;
 	public offsetLeft = 0;
@@ -16,7 +15,7 @@ export default class HTMLElement extends Element {
 	/**
 	 * Returns inner text.
 	 *
-	 * @return {string} Text.
+	 * @return Text.
 	 */
 	public get innerText(): string {
 		return this.textContent;
@@ -25,7 +24,7 @@ export default class HTMLElement extends Element {
 	/**
 	 * Sets inner text.
 	 *
-	 * @param {string} text Text.
+	 * @param text Text.
 	 */
 	public set innerText(text: string) {
 		this.textContent = text;
@@ -35,74 +34,38 @@ export default class HTMLElement extends Element {
 	 * Triggers a click event.
 	 */
 	public click(): void {
-		this.dispatchEvent(new Event('click'));
+		const event = new Event('click', {
+			bubbles: true,
+			composed: true
+		});
+		event.target = this;
+		event.currentTarget = this;
+		this.dispatchEvent(event);
 	}
 
 	/**
 	 * Triggers a blur event.
 	 */
 	public blur(): void {
-		this.dispatchEvent(new Event('blur'));
+		const event = new Event('blur', {
+			bubbles: true,
+			composed: true
+		});
+		event.target = this;
+		event.currentTarget = this;
+		this.dispatchEvent(event);
 	}
 
 	/**
 	 * Triggers a focus event.
 	 */
 	public focus(): void {
-		this.dispatchEvent(new Event('focus'));
-	}
-
-	/**
-	 * Sets an attribute.
-	 *
-	 * @override
-	 * @param {string} name Name.
-	 * @param {string} value Value.
-	 */
-	public setAttribute(name: string, value: string): void {
-		const lowerName = name.toLowerCase();
-		super.setAttribute(lowerName, value);
-		const observedPropertyAttributes = (<typeof HTMLElement>this.constructor)._observedPropertyAttributes;
-		const observedAttributes = Object.keys(observedPropertyAttributes);
-		if (value !== null && value !== undefined && observedAttributes.includes(lowerName)) {
-			const property = observedPropertyAttributes[lowerName];
-			this[property] = typeof this[property] === 'boolean' ? value !== null : String(value);
-		}
-	}
-
-	/**
-	 * Sets raw attributes.
-	 *
-	 * @override
-	 * @param {string} rawAttributes Raw attributes.
-	 */
-	public _setRawAttributes(rawAttributes: string): void {
-		super._setRawAttributes(rawAttributes);
-		if (rawAttributes.trim()) {
-			this._defineInitialProperties();
-		}
-	}
-
-	/**
-	 * Defines initial properties.
-	 */
-	private _defineInitialProperties(): void {
-		const observedPropertyAttributes = (<typeof HTMLElement>this.constructor)._observedPropertyAttributes;
-
-		for (const name of Object.keys(observedPropertyAttributes)) {
-			const attribute = this._attributesMap[name];
-
-			if (attribute !== null && attribute !== undefined) {
-				const property = observedPropertyAttributes[name];
-				switch (typeof this[property]) {
-					case 'boolean':
-						this[property] = true;
-					case 'number':
-						this[property] = parseFloat(attribute);
-					default:
-						this[property] = attribute;
-				}
-			}
-		}
+		const event = new Event('focus', {
+			bubbles: true,
+			composed: true
+		});
+		event.target = this;
+		event.currentTarget = this;
+		this.dispatchEvent(event);
 	}
 }

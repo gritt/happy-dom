@@ -12,8 +12,8 @@ export default class HTMLRenderer {
 	/**
 	 * Renders an element as HTML.
 	 *
-	 * @param {Element} element Element to render.
-	 * @return {string} Result.
+	 * @param element Element to render.
+	 * @return Result.
 	 */
 	public static getOuterHTML(element: Element): string {
 		const tagName = element.tagName.toLowerCase();
@@ -32,8 +32,8 @@ export default class HTMLRenderer {
 	/**
 	 * Renders an element as HTML.
 	 *
-	 * @param {Element} element Element to render.
-	 * @return {HTMLRenderResult} Result.
+	 * @param element Element to render.
+	 * @returns Result.
 	 */
 	public static getInnerHTML(element): string {
 		const renderElement = (<HTMLTemplateElement>element).content || element;
@@ -53,8 +53,8 @@ export default class HTMLRenderer {
 	/**
 	 * Returns attributes as a string.
 	 *
-	 * @param {Element} element Element.
-	 * @return {string} Attributes.
+	 * @param element Element.
+	 * @return Attributes.
 	 */
 	private static getAttributes(element: Element): string {
 		const rawAttributes = element._getRawAttributes();

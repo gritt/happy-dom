@@ -12,7 +12,7 @@ export default class ShadowRoot extends DocumentFragment {
 	/**
 	 * Returns inner HTML.
 	 *
-	 * @return {string} HTML.
+	 * @return HTML.
 	 */
 	public get innerHTML(): string {
 		return HTMLRenderer.getInnerHTML(this);
@@ -21,8 +21,8 @@ export default class ShadowRoot extends DocumentFragment {
 	/**
 	 * Sets inner HTML.
 	 *
-	 * @param {string} html HTML.
-	 * @return {string} HTML.
+	 * @param html HTML.
+	 * @return HTML.
 	 */
 	public set innerHTML(html: string) {
 		const root = HTMLParser.parse(this.ownerDocument, html);
@@ -36,7 +36,7 @@ export default class ShadowRoot extends DocumentFragment {
 	/**
 	 * Converts to string.
 	 *
-	 * @return {string} String.
+	 * @return String.
 	 */
 	public toString(): string {
 		return this.innerHTML;

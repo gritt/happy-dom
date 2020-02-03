@@ -11,9 +11,9 @@ export default class QuerySelector {
 	/**
 	 * Finds elements based on a query selector.
 	 *
-	 * @param {string} node Node to search in.
-	 * @param {string} selector Selector.
-	 * @return {Element[]} HTML elements.
+	 * @param node Node to search in.
+	 * @param selector Selector.
+	 * @returns HTML elements.
 	 */
 	public static querySelectorAll(node: Node, selector: string): Element[] {
 		let matched = [];
@@ -31,9 +31,9 @@ export default class QuerySelector {
 	/**
 	 * Finds an element based on a query selector.
 	 *
-	 * @param {string} node Node to search in.
-	 * @param {string} selector Selector.
-	 * @return {Element} HTML element.
+	 * @param node Node to search in.
+	 * @param selector Selector.
+	 * @return HTML element.
 	 */
 	public static querySelector(node: Node, selector: string): Element {
 		for (const part of selector.split(',')) {
@@ -48,9 +48,9 @@ export default class QuerySelector {
 	/**
 	 * Finds elements based on a query selector for a part of a list of selectors separated with comma.
 	 *
-	 * @param {string} node Node to search in.
-	 * @param {string} selector Selector.
-	 * @return {Element[]} HTML elements.
+	 * @param node Node to search in.
+	 * @param selector Selector.
+	 * @returns HTML elements.
 	 */
 	private static querySelectorAllForPart(node: Node, selector: string): Element[] {
 		const parts = selector.split(' ');
@@ -77,9 +77,9 @@ export default class QuerySelector {
 	/**
 	 * Finds an element based on a query selector for a part of a list of selectors separated with comma.
 	 *
-	 * @param {string} node Node to search in.
-	 * @param {string} selector Selector.
-	 * @return {Element} HTML element.
+	 * @param node Node to search in.
+	 * @param selector Selector.
+	 * @return HTML element.
 	 */
 	private static querySelectorForPart(node: Node, selector: string): Element {
 		const parts = selector.split(' ');

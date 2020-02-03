@@ -35,7 +35,7 @@ export default class Node extends EventTarget {
 	/**
 	 * "true" if connected to DOM.
 	 *
-	 * @return {boolean} "true" if connected.
+	 * @return "true" if connected.
 	 */
 	public get isConnected(): boolean {
 		return this._isConnected;
@@ -44,7 +44,7 @@ export default class Node extends EventTarget {
 	/**
 	 * Sets the connected state.
 	 *
-	 * @param {boolean} isConnected "true" if connected.
+	 * @param isConnected "true" if connected.
 	 */
 	public set isConnected(isConnected) {
 		if (this._isConnected !== isConnected) {
@@ -71,7 +71,7 @@ export default class Node extends EventTarget {
 	/**
 	 * Node value.
 	 *
-	 * @return {string} Node value.
+	 * @return Node value.
 	 */
 	public get nodeValue(): string {
 		return null;
@@ -80,7 +80,7 @@ export default class Node extends EventTarget {
 	/**
 	 * Node name.
 	 *
-	 * @return {string} Node name.
+	 * @return Node name.
 	 */
 	public get nodeName(): string {
 		return '';
@@ -89,7 +89,7 @@ export default class Node extends EventTarget {
 	/**
 	 * Previous sibling.
 	 *
-	 * @return {Node} Node.
+	 * @return Node.
 	 */
 	public get previousSibling(): Node {
 		if (this.parentNode) {
@@ -104,7 +104,7 @@ export default class Node extends EventTarget {
 	/**
 	 * Next sibling.
 	 *
-	 * @return {Node} Node.
+	 * @return Node.
 	 */
 	public get nextSibling(): Node {
 		if (this.parentNode) {
@@ -119,7 +119,7 @@ export default class Node extends EventTarget {
 	/**
 	 * First child.
 	 *
-	 * @return {Node} Node.
+	 * @return Node.
 	 */
 	public get firstChild(): Node {
 		if (this.childNodes.length > 0) {
@@ -131,7 +131,7 @@ export default class Node extends EventTarget {
 	/**
 	 * Last child.
 	 *
-	 * @return {Node} Node.
+	 * @return Node.
 	 */
 	public get lastChild(): Node {
 		if (this.childNodes.length > 0) {
@@ -153,7 +153,7 @@ export default class Node extends EventTarget {
 	/**
 	 * Returns "true" if the node has attributes.
 	 *
-	 * @return {boolean} "true" if the node has attributes.
+	 * @return "true" if the node has attributes.
 	 */
 	public hasAttributes(): boolean {
 		return false;
@@ -162,8 +162,8 @@ export default class Node extends EventTarget {
 	/**
 	 * Clones a node.
 	 *
-	 * @param {boolean} [deep=true] "false" to not clone deep.
-	 * @return {Node} Cloned node.
+	 * @param [deep=true] "false" to not clone deep.
+	 * @return Cloned node.
 	 */
 	public cloneNode(deep = true): Node {
 		const clone = new (<typeof Node>this.constructor)();
@@ -198,8 +198,8 @@ export default class Node extends EventTarget {
 	/**
 	 * Append a child node to childNodes.
 	 *
-	 * @param  {Node} node Node to append.
-	 * @return {Node} Appended node.
+	 * @param  node Node to append.
+	 * @return Appended node.
 	 */
 	public appendChild(node: Node): Node {
 		if (node === this) {
@@ -247,7 +247,7 @@ export default class Node extends EventTarget {
 	/**
 	 * Remove Child element from childNodes array.
 	 *
-	 * @param {Node} node Node to remove
+	 * @param node Node to remove
 	 */
 	public removeChild(node: Node): void {
 		const index = this.childNodes.indexOf(node);
@@ -276,9 +276,9 @@ export default class Node extends EventTarget {
 	/**
 	 * Inserts a node before another.
 	 *
-	 * @param {Node} newNode Node to insert.
-	 * @param {Node} referenceNode Node to insert before.
-	 * @return {Node} Inserted node.
+	 * @param newNode Node to insert.
+	 * @param referenceNode Node to insert before.
+	 * @return Inserted node.
 	 */
 	public insertBefore(newNode: Node, referenceNode: Node): Node {
 		if (newNode.nodeType === NodeType.DOCUMENT_FRAGMENT_NODE) {
@@ -332,9 +332,9 @@ export default class Node extends EventTarget {
 	/**
 	 * Replaces a node with another.
 	 *
-	 * @param {Node} newChild New child.
-	 * @param {Node} oldChild Old child.
-	 * @return {Node} Replaced node.
+	 * @param newChild New child.
+	 * @param oldChild Old child.
+	 * @return Replaced node.
 	 */
 	public replaceChild(newChild: Node, oldChild: Node): Node {
 		this.insertBefore(newChild, oldChild);
@@ -344,11 +344,7 @@ export default class Node extends EventTarget {
 	}
 
 	/**
-	 * Dispatches an event.
-	 *
 	 * @override
-	 * @param {Event} event Event.
-	 * @return {boolean} The return value is false if event is cancelable and at least one of the event handlers which handled this event called Event.preventDefault()
 	 */
 	public dispatchEvent(event: Event): boolean {
 		const onEventName = 'on' + event.type.toLowerCase();
@@ -375,7 +371,7 @@ export default class Node extends EventTarget {
 	 * Observeres the node.
 	 * Used by MutationObserver, but it is not part of the HTML standard.
 	 *
-	 * @param {MutationObserverListener} listener Listener.
+	 * @param listener Listener.
 	 */
 	public _observe(listener: MutationObserverListener): void {
 		this._observers.push(listener);
@@ -390,7 +386,7 @@ export default class Node extends EventTarget {
 	 * Stops observing the node.
 	 * Used by MutationObserver, but it is not part of the HTML standard.
 	 *
-	 * @param {MutationObserverListener} listener Listener.
+	 * @param listener Listener.
 	 */
 	public _unobserve(listener: MutationObserverListener): void {
 		const index = this._observers.indexOf(listener);

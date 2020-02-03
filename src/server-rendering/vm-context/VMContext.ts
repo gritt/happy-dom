@@ -12,14 +12,14 @@ export default class VMContext {
 	/**
 	 * Returns route HTML.
 	 *
-	 * @param {object} options Options.
-	 * @param {string} options.html HTML.
-	 * @param {VM.Script} [options.script] Script.
-	 * @param {string} [options.url] Page URL.
-	 * @param {boolean} [options.openShadowRoots=false] Set to "true" to open up shadow roots.
-	 * @param {boolean} [options.extractCSS=true] Set to "true" to extract CSS when opening shadow roots.
-	 * @param {boolean} [options.scopeCSS=true] Set to "true" to enable scoping of CSS when opening shadow roots.
-	 * @return {Promise<ShadowRootRenderResult>} HTML.
+	 * @param options Options.
+	 * @param options.html HTML.
+	 * @param [options.script] Script.
+	 * @param [options.url] Page URL.
+	 * @param [options.openShadowRoots=false] Set to "true" to open up shadow roots.
+	 * @param [options.extractCSS=true] Set to "true" to extract CSS when opening shadow roots.
+	 * @param [options.scopeCSS=true] Set to "true" to enable scoping of CSS when opening shadow roots.
+	 * @return HTML.
 	 */
 	public async render(options: {
 		html: string;
@@ -64,7 +64,7 @@ export default class VMContext {
 	/**
 	 * Creates a context.
 	 *
-	 * @return {VM.Context} Context.
+	 * @return Context.
 	 */
 	private createContext(): VM.Context {
 		return VM.createContext(new AsyncWindow());

@@ -27,8 +27,8 @@ export default class HTMLParser {
 	 * Parses HTML and returns a root element.
 	 *
 	 * @param  {Document} document Document.
-	 * @param  {string} data HTML data.
-	 * @return {Element} Root element.
+	 * @param  data HTML data.
+	 * @return Root element.
 	 */
 	public static parse(document: Document, data: string): Element {
 		const root = document.createElement('root');
@@ -79,8 +79,8 @@ export default class HTMLParser {
 	 * Appends text and comment nodes.
 	 *
 	 * @param  {Document} document Document.
-	 * @param  {Node} node Node.
-	 * @param  {string} text Text to search in.
+	 * @param  node Node.
+	 * @param  text Text to search in.
 	 */
 	private static appendTextAndCommentNodes(document: Document, node: Node, text: string): void {
 		for (const innerNode of this.getTextAndCommentNodes(document, text)) {
@@ -92,8 +92,8 @@ export default class HTMLParser {
 	 * Returns text and comment nodes from a text.
 	 *
 	 * @param  {Document} document Document.
-	 * @param  {string} text Text to search in.
-	 * @return {Node[]} Nodes.
+	 * @param  text Text to search in.
+	 * @returns Nodes.
 	 */
 	private static getTextAndCommentNodes(document: Document, text: string): Node[] {
 		const nodes = [];

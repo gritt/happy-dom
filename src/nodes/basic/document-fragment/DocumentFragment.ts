@@ -13,7 +13,7 @@ export default class DocumentFragment extends Node {
 	/**
 	 * Returns children.
 	 *
-	 * @return {Element[]} Children.
+	 * @returns Children.
 	 */
 	public get children(): Element[] {
 		return <Element[]>this.childNodes.filter(childNode => childNode instanceof Element);
@@ -22,8 +22,8 @@ export default class DocumentFragment extends Node {
 	/**
 	 * Query CSS selector to find matching nodes.
 	 *
-	 * @param  {string} selector CSS selector.
-	 * @return {Element[]} Matching elements.
+	 * @param selector CSS selector.
+	 * @returns Matching elements.
 	 */
 	public querySelectorAll(selector: string): Element[] {
 		return QuerySelector.querySelectorAll(this, selector);
@@ -32,8 +32,8 @@ export default class DocumentFragment extends Node {
 	/**
 	 * Query CSS Selector to find matching node.
 	 *
-	 * @param  {string} selector CSS selector.
-	 * @return {Element} Matching node.
+	 * @param selector CSS selector.
+	 * @return Matching node.
 	 */
 	public querySelector(selector: string): Element {
 		return QuerySelector.querySelector(this, selector);
@@ -42,8 +42,8 @@ export default class DocumentFragment extends Node {
 	/**
 	 * Returns an element by ID.
 	 *
-	 * @param {string} id ID.
-	 * @return {Element} Matching node.
+	 * @param id ID.
+	 * @return Matching node.
 	 */
 	public getElementById(id: string): Element {
 		return this.querySelector('#' + id);
@@ -52,8 +52,8 @@ export default class DocumentFragment extends Node {
 	/**
 	 * Returns an elements by tag name.
 	 *
-	 * @param {string} tagName Tag name.
-	 * @return {Element[]} Matching nodes.
+	 * @param tagName Tag name.
+	 * @returns Matching nodes.
 	 */
 	public getElementsByTagName(tagName: string): Element[] {
 		return this.querySelectorAll(tagName);
@@ -62,8 +62,8 @@ export default class DocumentFragment extends Node {
 	/**
 	 * Returns an elements by class name.
 	 *
-	 * @param {string} className Tag name.
-	 * @return {Element[]} Matching nodes.
+	 * @param className Tag name.
+	 * @returns Matching nodes.
 	 */
 	public getElementsByClassName(className: string): Element[] {
 		return this.querySelectorAll('.' + className.split(' ').join('.'));

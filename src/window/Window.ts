@@ -84,7 +84,7 @@ export default class Window extends EventTarget {
 	 * Returns an object containing the values of all CSS properties of an element.
 	 *
 	 * @note This method has not been implemented. It is just here for compatibility.
-	 * @return {object} Empty object.
+	 * @returns Empty object.
 	 */
 	public getComputedStyle(): {} {
 		return {};

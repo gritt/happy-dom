@@ -7,18 +7,11 @@ import SVGAngle from './SVGAngle';
 import SVGNumber from './SVGNumber';
 import SVGTransform from './SVGTransform';
 import SVGAnimatedRect from './SVGAnimatedRect';
-import * as SVGSVGElementPropertyAttributes from './SVGSVGElementPropertyAttributes.json';
 
 /**
  * SVGSVGElement.
  */
 export default class SVGSVGElement extends SVGGraphicsElement {
-	protected static _observedPropertyAttributes = Object.assign(
-		{},
-		SVGGraphicsElement._observedPropertyAttributes,
-		SVGSVGElementPropertyAttributes
-	);
-
 	public preserveAspectRatio = 'xMidYMid meet';
 	public width = '';
 	public height = '';
@@ -31,7 +24,7 @@ export default class SVGSVGElement extends SVGGraphicsElement {
 	/**
 	 * Returns viewport.
 	 *
-	 * @return {SVGRect} SVG rect.
+	 * @returns SVG rect.
 	 */
 	public get viewport(): SVGRect {
 		return new SVGRect();
@@ -40,7 +33,7 @@ export default class SVGSVGElement extends SVGGraphicsElement {
 	/**
 	 * Returns current translate.
 	 *
-	 * @return {SVGPoint} SVG point.
+	 * @returns SVG point.
 	 */
 	public get currentTranslate(): SVGPoint {
 		return new SVGPoint();
@@ -49,7 +42,7 @@ export default class SVGSVGElement extends SVGGraphicsElement {
 	/**
 	 * Returns view box.
 	 *
-	 * @return {SVGAnimatedRect} Viewbox.
+	 * @returns Viewbox.
 	 */
 	public get viewBox(): SVGAnimatedRect {
 		return new SVGAnimatedRect();
@@ -68,7 +61,7 @@ export default class SVGSVGElement extends SVGGraphicsElement {
 	/**
 	 * Returns "true" if animation is paused.
 	 *
-	 * @returns {boolean} "true" if animation is paused.
+	 * @returns "true" if animation is paused.
 	 */
 	public animationsPaused(): boolean {
 		return false;
@@ -77,7 +70,7 @@ export default class SVGSVGElement extends SVGGraphicsElement {
 	/**
 	 * Returns the current time in seconds relative to the start time for the current SVG document fragment.
 	 *
-	 * @returns {number} Current time.
+	 * @returns Current time.
 	 */
 	public getCurrentTime(): number {
 		return 0;
@@ -91,7 +84,7 @@ export default class SVGSVGElement extends SVGGraphicsElement {
 	/**
 	 * Returns intersection list.
 	 *
-	 * @returns {Node[]} Intersection list.
+	 * @returns Intersection list.
 	 */
 	public getIntersectionList(): Node[] {
 		return [];
@@ -100,7 +93,7 @@ export default class SVGSVGElement extends SVGGraphicsElement {
 	/**
 	 * Returns enclousure list.
 	 *
-	 * @returns {Node[]} Enclousure list.
+	 * @returns Enclousure list.
 	 */
 	public getEnclosureList(): Node[] {
 		return [];
@@ -109,7 +102,7 @@ export default class SVGSVGElement extends SVGGraphicsElement {
 	/**
 	 * Returns true if the rendered content of the given element intersects the supplied rectangle.
 	 *
-	 * @returns {boolean} Intersection state.
+	 * @returns Intersection state.
 	 */
 	public checkIntersection(): boolean {
 		return false;
@@ -118,7 +111,7 @@ export default class SVGSVGElement extends SVGGraphicsElement {
 	/**
 	 * Returns true if the rendered content of the given element is entirely contained within the supplied rectangle.
 	 *
-	 * @returns {boolean} Enclousure state.
+	 * @returns Enclousure state.
 	 */
 	public checkEnclosure(): boolean {
 		return false;
@@ -132,7 +125,7 @@ export default class SVGSVGElement extends SVGGraphicsElement {
 	/**
 	 * Returns a number.
 	 *
-	 * @return {SVGNumber} Number.
+	 * @returns Number.
 	 */
 	public get createSVGNumber(): SVGNumber {
 		return new SVGNumber();
@@ -141,7 +134,7 @@ export default class SVGSVGElement extends SVGGraphicsElement {
 	/**
 	 * Returns a length.
 	 *
-	 * @return {SVGLength} Length.
+	 * @returns Length.
 	 */
 	public get createSVGLength(): SVGLength {
 		return new SVGLength();
@@ -150,7 +143,7 @@ export default class SVGSVGElement extends SVGGraphicsElement {
 	/**
 	 * Returns a angle.
 	 *
-	 * @return {SVGAngle} Angle.
+	 * @returns Angle.
 	 */
 	public get createSVGAngle(): SVGAngle {
 		return new SVGAngle();
@@ -159,7 +152,7 @@ export default class SVGSVGElement extends SVGGraphicsElement {
 	/**
 	 * Returns a point.
 	 *
-	 * @return {SVGPoint} Point.
+	 * @returns Point.
 	 */
 	public get createSVGPoint(): SVGPoint {
 		return new SVGPoint();
@@ -168,7 +161,7 @@ export default class SVGSVGElement extends SVGGraphicsElement {
 	/**
 	 * Returns a rect.
 	 *
-	 * @return {SVGRect} Rect.
+	 * @returns Rect.
 	 */
 	public get createSVGRect(): SVGRect {
 		return new SVGRect();
@@ -177,9 +170,20 @@ export default class SVGSVGElement extends SVGGraphicsElement {
 	/**
 	 * Returns a transform.
 	 *
-	 * @return {SVGTransform} Transform.
+	 * @returns Transform.
 	 */
 	public get createSVGTransform(): SVGTransform {
 		return new SVGTransform();
+	}
+
+	/**
+	 * @override
+	 */
+	public _setAttributeProperty(name: string, value: string): void {
+		if (name.toLowerCase() === 'preserveAspectRatio') {
+			this.preserveAspectRatio = value;
+		} else {
+			super._setAttributeProperty(name, value);
+		}
 	}
 }

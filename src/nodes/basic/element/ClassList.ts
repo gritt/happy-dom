@@ -9,7 +9,7 @@ export default class ClassList {
 	/**
 	 * Adds class names.
 	 *
-	 * @param {Element} ownerElement Owner element.
+	 * @param ownerElement Owner element.
 	 */
 	constructor(ownerElement: Element) {
 		this._ownerElement = ownerElement;
@@ -18,7 +18,7 @@ export default class ClassList {
 	/**
 	 * Adds class names.
 	 *
-	 * @param {string[]} classNames Class names.
+	 * @param classNames Class names.
 	 */
 	public add(...classNames: string[]): void {
 		const attr = this._ownerElement.getAttribute('class');
@@ -34,7 +34,7 @@ export default class ClassList {
 	/**
 	 * Adds class names.
 	 *
-	 * @param {string[]} classNames Class names.
+	 * @param classNames Class names.
 	 */
 	public remove(...classNames: string[]): void {
 		const attr = this._ownerElement.getAttribute('class');
@@ -51,8 +51,8 @@ export default class ClassList {
 	/**
 	 * Check if the list contains a class.
 	 *
-	 * @param {string} className Class name.
-	 * @return {boolean} TRUE if it contains.
+	 * @param className Class name.
+	 * @return TRUE if it contains.
 	 */
 	public contains(className: string): boolean {
 		const attr = this._ownerElement.getAttribute('class');

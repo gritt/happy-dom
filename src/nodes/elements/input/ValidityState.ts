@@ -17,7 +17,7 @@ export default class ValidityState {
 	/**
 	 * Constructor.
 	 *
-	 * @param {HTMLInputElement} element Input element.
+	 * @param element Input element.
 	 */
 	constructor(element: HTMLInputElement) {
 		this.element = element;
@@ -26,7 +26,7 @@ export default class ValidityState {
 	/**
 	 * Returns validity.
 	 *
-	 * @return {boolean} "true" if valid.
+	 * @return "true" if valid.
 	 */
 	public get tooLong(): boolean {
 		return this.element.maxLength && this.element.value.length > this.element.maxLength;
@@ -35,7 +35,7 @@ export default class ValidityState {
 	/**
 	 * Returns validity.
 	 *
-	 * @return {boolean} "true" if valid.
+	 * @return "true" if valid.
 	 */
 	public get tooShort(): boolean {
 		return this.element.minLength && this.element.value.length < this.element.minLength;
@@ -44,7 +44,7 @@ export default class ValidityState {
 	/**
 	 * Returns validity.
 	 *
-	 * @return {boolean} "true" if valid.
+	 * @return "true" if valid.
 	 */
 	public get typeMismatch(): boolean {
 		return false;
@@ -53,7 +53,7 @@ export default class ValidityState {
 	/**
 	 * Returns validity.
 	 *
-	 * @return {boolean} "true" if valid.
+	 * @return "true" if valid.
 	 */
 	public get valueMissing(): boolean {
 		return this.element.required && !this.element.value;
@@ -62,7 +62,7 @@ export default class ValidityState {
 	/**
 	 * Returns validity.
 	 *
-	 * @return {boolean} "true" if valid.
+	 * @return "true" if valid.
 	 */
 	public get valid(): boolean {
 		for (const key of Object.keys(this)) {

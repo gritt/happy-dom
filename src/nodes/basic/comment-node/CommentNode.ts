@@ -13,7 +13,7 @@ export default class CommentNode extends Node {
 	/**
 	 * Converts to string.
 	 *
-	 * @return {string} String.
+	 * @return String.
 	 */
 	public toString(): string {
 		return '<!--' + this._textContent + '-->';
@@ -22,7 +22,7 @@ export default class CommentNode extends Node {
 	/**
 	 * Node name.
 	 *
-	 * @return {string} Node name.
+	 * @return Node name.
 	 */
 	public get nodeName(): string {
 		return '#comment';
@@ -31,7 +31,7 @@ export default class CommentNode extends Node {
 	/**
 	 * Returns text content.
 	 *
-	 * @return {string} Text content.
+	 * @return Text content.
 	 */
 	public get textContent(): string {
 		return this._textContent;
@@ -40,7 +40,7 @@ export default class CommentNode extends Node {
 	/**
 	 * Sets text content.
 	 *
-	 * @param {string} textContent Text content.
+	 * @param textContent Text content.
 	 */
 	public set textContent(textContent: string) {
 		const oldValue = this._textContent;
@@ -62,7 +62,7 @@ export default class CommentNode extends Node {
 	/**
 	 * Returns node value.
 	 *
-	 * @return {string} Node value.
+	 * @return Node value.
 	 */
 	public get nodeValue(): string {
 		return this._textContent;
@@ -71,7 +71,7 @@ export default class CommentNode extends Node {
 	/**
 	 * Sets node value.
 	 *
-	 * @param {string} nodeValue Node value.
+	 * @param nodeValue Node value.
 	 */
 	public set nodeValue(nodeValue: string) {
 		this.textContent = nodeValue;
@@ -80,7 +80,7 @@ export default class CommentNode extends Node {
 	/**
 	 * Returns data.
 	 *
-	 * @return {string} Data.
+	 * @return Data.
 	 */
 	public get data(): string {
 		return this._textContent;
@@ -89,7 +89,7 @@ export default class CommentNode extends Node {
 	/**
 	 * Sets data.
 	 *
-	 * @param {string} data Data.
+	 * @param data Data.
 	 */
 	public set data(nodeValue: string) {
 		this.textContent = nodeValue;

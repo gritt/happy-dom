@@ -1,5 +1,5 @@
-import HTMLRenderer from '../../../src/html-renderer/HTMLRenderer';
-import Window from '../../../src/window/Window';
+import HTMLRenderer from '../../src/html-renderer/HTMLRenderer';
+import Window from '../../src/window/Window';
 
 describe('HTMLRenderer', () => {
 	let window, document;

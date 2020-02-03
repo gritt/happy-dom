@@ -28,9 +28,9 @@ export default class AsyncWindow extends Window {
 	/**
 	 * Sets a timer which executes a function once the timer expires.
 	 *
-	 * @param {function} callback Function to be executed.
-	 * @param {number} [delay] Delay in ms.
-	 * @return {NodeJS.Timeout} Timeout ID.
+	 * @param callback Function to be executed.
+	 * @param [delay] Delay in ms.
+	 * @return Timeout ID.
 	 */
 	public setTimeout(callback: () => void, delay?: number): NodeJS.Timeout {
 		this.async.startTask('timeout');
@@ -43,7 +43,7 @@ export default class AsyncWindow extends Window {
 	/**
 	 * Cancels a timeout previously established by calling setTimeout().
 	 *
-	 * @param {NodeJS.Timeout} id ID of the timeout.
+	 * @param id ID of the timeout.
 	 */
 	public clearTimeout(id: NodeJS.Timeout): void {
 		global.clearTimeout(id);
@@ -53,9 +53,9 @@ export default class AsyncWindow extends Window {
 	/**
 	 * Calls a function with a fixed time delay between each call.
 	 *
-	 * @param {function} callback Function to be executed.
-	 * @param {number} [delay] Delay in ms.
-	 * @return {NodeJS.Timeout} Interval ID.
+	 * @param callback Function to be executed.
+	 * @param [delay] Delay in ms.
+	 * @return Interval ID.
 	 */
 	public setInterval(callback: () => void, delay?: number): NodeJS.Timeout {
 		this.async.startTask('interval');
@@ -65,7 +65,7 @@ export default class AsyncWindow extends Window {
 	/**
 	 * Cancels a timed repeating action which was previously established by a call to setInterval().
 	 *
-	 * @param {NodeJS.Timeout} id ID of the interval.
+	 * @param id ID of the interval.
 	 */
 	public clearInterval(id: NodeJS.Timeout): void {
 		global.clearInterval(id);
@@ -75,9 +75,9 @@ export default class AsyncWindow extends Window {
 	/**
 	 * Provides a global fetch() method that provides an easy, logical way to fetch resources asynchronously across the network.
 	 *
-	 * @param {string} url URL to resource.
-	 * @param {object} [options] Options.
-	 * @return {Promise<NodeFetch.Response>} Promise.
+	 * @param url URL to resource.
+	 * @param [options] Options.
+	 * @returns Promise.
 	 */
 	public async fetch(url: string, options: object): Promise<NodeFetch.Response> {
 		return new Promise((resolve, reject) => {
@@ -118,7 +118,7 @@ export default class AsyncWindow extends Window {
 	 * Returns a promise that is fulfilled when async tasks are complete.
 	 * This method is not part of the HTML standard.
 	 *
-	 * @return {Promise<void>} Promise.
+	 * @returns Promise.
 	 */
 	public async whenAsyncComplete(): Promise<void> {
 		return this.async.whenComplete();

@@ -13,7 +13,7 @@ export default class AsyncTaskManager {
 	 * Returns a promise that is fulfilled when async tasks are complete.
 	 * This method is not part of the HTML standard.
 	 *
-	 * @return {Promise<void>} Promise.
+	 * @returns Promise.
 	 */
 	public async whenComplete(): Promise<void> {
 		return new Promise((resolve, reject) => {
@@ -38,7 +38,7 @@ export default class AsyncTaskManager {
 	/**
 	 * Starts an async task.
 	 *
-	 * @param {string} name Name of task.
+	 * @param name Name of task.
 	 */
 	public startTask(name: string): void {
 		this.tasks[name] = this.tasks[name] || 0;
@@ -48,8 +48,8 @@ export default class AsyncTaskManager {
 	/**
 	 * Ends an async task.
 	 *
-	 * @param {string} name Name of task.
-	 * @param {Error} [error] Error.
+	 * @param name Name of task.
+	 * @param [error] Error.
 	 */
 	public endTask(name: string, error?: Error): void {
 		if (!this.isDisposed && this.tasks[name] !== undefined) {

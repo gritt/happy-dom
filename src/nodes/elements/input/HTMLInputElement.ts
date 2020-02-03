@@ -1,18 +1,11 @@
 import HTMLElement from '../../basic/html-element/HTMLElement';
 import HTMLFormElement from '../form/HTMLFormElement';
 import ValidityState from './ValidityState';
-import * as HTMLInputPropertyAttributes from './HTMLInputPropertyAttributes.json';
 
 /**
  * HTMLElement.
  */
 export default class HTMLInputElement extends HTMLElement {
-	protected static _observedPropertyAttributes = Object.assign(
-		{},
-		HTMLElement._observedPropertyAttributes,
-		HTMLInputPropertyAttributes
-	);
-
 	// Related to parent form.
 	public form: HTMLFormElement = null;
 	public formAction = '';
@@ -68,7 +61,7 @@ export default class HTMLInputElement extends HTMLElement {
 	/**
 	 * Returns value.
 	 *
-	 * @return {string} Value.
+	 * @return Value.
 	 */
 	public get value(): string {
 		return this._value;
@@ -77,7 +70,7 @@ export default class HTMLInputElement extends HTMLElement {
 	/**
 	 * Sets value.
 	 *
-	 * @param {string} value Value.
+	 * @param value Value.
 	 */
 	public set value(value: string) {
 		this._value = value;
@@ -89,7 +82,7 @@ export default class HTMLInputElement extends HTMLElement {
 	/**
 	 * Returns checked.
 	 *
-	 * @return {boolean} Checked.
+	 * @return Checked.
 	 */
 	public get checked(): boolean {
 		return this._checked;
@@ -98,7 +91,7 @@ export default class HTMLInputElement extends HTMLElement {
 	/**
 	 * Sets checked.
 	 *
-	 * @param {boolean} checked Checked.
+	 * @param checked Checked.
 	 */
 	public set checked(checked: boolean) {
 		this._checked = checked;
@@ -110,7 +103,7 @@ export default class HTMLInputElement extends HTMLElement {
 	/**
 	 * Returns validity state.
 	 *
-	 * @return {ValidityState} Validity state.
+	 * @returns Validity state.
 	 */
 	public get validity(): ValidityState {
 		return new ValidityState(this);
@@ -119,7 +112,7 @@ export default class HTMLInputElement extends HTMLElement {
 	/**
 	 * Returns validity message.
 	 *
-	 * @return {string} Validation message.
+	 * @return Validation message.
 	 */
 	public get validationMessage(): string {
 		return null;
@@ -128,7 +121,7 @@ export default class HTMLInputElement extends HTMLElement {
 	/**
 	 * Returns "true" if it will validate.
 	 *
-	 * @return {boolean} "true" if it will validate.
+	 * @return "true" if it will validate.
 	 */
 	public get willValidate(): boolean {
 		return (
@@ -139,7 +132,7 @@ export default class HTMLInputElement extends HTMLElement {
 	/**
 	 * Returns value as Date.
 	 *
-	 * @return {Date} Date.
+	 * @returns Date.
 	 */
 	public get valueAsDate(): Date {
 		return this.value ? new Date(this.value) : null;
@@ -148,7 +141,7 @@ export default class HTMLInputElement extends HTMLElement {
 	/**
 	 * Returns value as number.
 	 *
-	 * @return {number} Number.
+	 * @return Number.
 	 */
 	public get valueAsNumber(): number {
 		return this.value ? parseFloat(this.value) : NaN;
@@ -157,9 +150,20 @@ export default class HTMLInputElement extends HTMLElement {
 	/**
 	 * Checks validity.
 	 *
-	 * @return {boolean} "true" if validation does'nt fail.
+	 * @return "true" if validation does'nt fail.
 	 */
 	public checkValidity(): boolean {
 		return true;
+	}
+
+	/**
+	 * @override
+	 */
+	public _setAttributeProperty(name: string, value: string): void {
+		if (name === 'type') {
+			this.type = value;
+		} else {
+			super._setAttributeProperty(name, value);
+		}
 	}
 }

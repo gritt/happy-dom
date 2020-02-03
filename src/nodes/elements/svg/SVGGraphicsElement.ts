@@ -5,12 +5,10 @@ import DOMRect from '../../basic/element/DOMRect';
  * SVGGraphicsElement.
  */
 export default class SVGGraphicsElement extends SVGElement {
-	protected static _observedPropertyAttributes = Object.assign({}, SVGElement._observedPropertyAttributes);
-
 	/**
 	 * Returns DOM rect.
 	 *
-	 * @return {DOMRect} DOM rect.
+	 * @returns DOM rect.
 	 */
 	public getBBox(): DOMRect {
 		return new DOMRect();

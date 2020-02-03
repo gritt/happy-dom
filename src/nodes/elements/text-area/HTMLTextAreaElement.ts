@@ -1,18 +1,11 @@
 import HTMLElement from '../../basic/html-element/HTMLElement';
 import Node from '../../basic/node/Node';
-import * as HTMLTextAreaPropertyAttributes from './HTMLTextAreaPropertyAttributes.json';
 import HTMLFormElement from '../form/HTMLFormElement';
 
 /**
  * HTMLTextAreaElement.
  */
 export default class HTMLTextAreaElement extends HTMLElement {
-	protected static _observedPropertyAttributes = Object.assign(
-		{},
-		HTMLElement._observedPropertyAttributes,
-		HTMLTextAreaPropertyAttributes
-	);
-
 	public form: HTMLFormElement = null;
 	public name = '';
 	public readonly type = 'textarea';
@@ -34,7 +27,7 @@ export default class HTMLTextAreaElement extends HTMLElement {
 	/**
 	 * Returns value.
 	 *
-	 * @return {string} Value.
+	 * @return Value.
 	 */
 	public get value(): string {
 		return this._value;
@@ -43,7 +36,7 @@ export default class HTMLTextAreaElement extends HTMLElement {
 	/**
 	 * Sets value.
 	 *
-	 * @param {string} value Value.
+	 * @param value Value.
 	 */
 	public set value(value: string) {
 		this._value = value;
@@ -55,18 +48,14 @@ export default class HTMLTextAreaElement extends HTMLElement {
 	/**
 	 * Returns text length.
 	 *
-	 * @param {number} Text length.
+	 * @param Text length.
 	 */
 	public get textLength(): number {
 		return this.value.length;
 	}
 
 	/**
-	 * Append a child node to childNodes.
-	 *
 	 * @override
-	 * @param  {Node} node Node to append.
-	 * @return {Node} Appended node.
 	 */
 	public appendChild(node: Node): Node {
 		super.appendChild(node);
@@ -77,7 +66,7 @@ export default class HTMLTextAreaElement extends HTMLElement {
 	/**
 	 * Remove Child element from childNodes array.
 	 *
-	 * @param {Node} node Node to remove
+	 * @param node Node to remove
 	 */
 	public removeChild(node: Node): void {
 		super.removeChild(node);
@@ -87,9 +76,9 @@ export default class HTMLTextAreaElement extends HTMLElement {
 	/**
 	 * Inserts a node before another.
 	 *
-	 * @param {Node} newNode Node to insert.
-	 * @param {Node} referenceNode Node to insert before.
-	 * @return {Node} Inserted node.
+	 * @param newNode Node to insert.
+	 * @param referenceNode Node to insert before.
+	 * @return Inserted node.
 	 */
 	public insertBefore(newNode: Node, referenceNode: Node): Node {
 		super.insertBefore(newNode, referenceNode);
@@ -100,7 +89,7 @@ export default class HTMLTextAreaElement extends HTMLElement {
 	/**
 	 * Checks validity.
 	 *
-	 * @return {boolean} "true" if validation does'nt fail.
+	 * @return "true" if validation does'nt fail.
 	 */
 	public checkValidity(): boolean {
 		return true;

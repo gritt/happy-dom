@@ -40,5 +40,15 @@ describe('HTMLParser', () => {
 			const root = HTMLParser.parse(window.document, HTMLPage);
 			expect(root.innerHTML).toBe(HTMLPage);
 		});
+
+		test('Sets property values if a property name matches the attribute name.', () => {
+			const root = HTMLParser.parse(window.document, '<input name="name" type="number" tabindex="5" disabled />');
+			const input = root.childNodes[0];
+
+			expect(input['name']).toBe('name');
+			expect(input['type']).toBe('number');
+			expect(input['tabIndex']).toBe(5);
+			expect(input['disabled']).toBe(true);
+		});
 	});
 });

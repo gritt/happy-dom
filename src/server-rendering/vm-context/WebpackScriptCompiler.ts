@@ -18,13 +18,13 @@ export default class WebpackScriptCompiler {
 	/**
 	 * Setup of scripts.
 	 *
-	 * @param {IWebpackConfig} config Webpack config.
-	 * @return {Promise<VM.Script>} Promise.
+	 * @param [config] Webpack config.
+	 * @return Promise.
 	 */
-	public compile(config: IWebpackConfig): Promise<VM.Script> {
+	public compile(config: IWebpackConfig = null): Promise<VM.Script> {
 		return new Promise((resolve, reject) => {
 			const compiler = Webpack(
-				Object.assign({}, config, DEFAULT_CONFIG, {
+				Object.assign({}, DEFAULT_CONFIG, config, {
 					output: {
 						filename: 'output.js',
 						path: '/'

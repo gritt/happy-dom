@@ -16,7 +16,7 @@ export default class MutationObserver {
 	/**
 	 * Constructor.
 	 *
-	 * @param {function} callback Callback.
+	 * @param callback Callback.
 	 */
 	constructor(callback: (records: MutationRecord[]) => void) {
 		this.callback = callback;
@@ -25,8 +25,8 @@ export default class MutationObserver {
 	/**
 	 * Starts observing.
 	 *
-	 * @param {Node} target Target.
-	 * @param {IMutationObserverInit} options Options.
+	 * @param target Target.
+	 * @param options Options.
 	 */
 	public observe(target: Node, options: IMutationObserverInit): void {
 		if (!target) {

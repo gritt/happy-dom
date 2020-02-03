@@ -7,10 +7,10 @@ export default class StyleScoper {
 	/**
 	 * Scopes CSS.
 	 *
-	 * @param {string} css CSS code.
-	 * @param {string} id Unique id to use.
-	 * @param {string} tagName Tag name.
-	 * @return {string} Scoped CSS.
+	 * @param css CSS code.
+	 * @param id Unique id to use.
+	 * @param tagName Tag name.
+	 * @return Scoped CSS.
 	 */
 	public static scope(css: string, id: string, tagName: string): string {
 		const ast = CSSTree.parse(css);

@@ -13,7 +13,7 @@ export default class URL {
 	/**
 	 * Constructor.
 	 *
-	 * @param {string} url URL.
+	 * @param url URL.
 	 */
 	constructor(url: string) {
 		if (url) {
@@ -31,7 +31,7 @@ export default class URL {
 	/**
 	 * Parses an URL.
 	 *
-	 * @param {string} url URL.
+	 * @param url URL.
 	 */
 	protected parse(url: string): void {
 		const match = url.match(URL_REGEXP);
@@ -55,7 +55,7 @@ export default class URL {
 	/**
 	 * Returns the entire URL as a string.
 	 *
-	 * @return {string} Href.
+	 * @return Href.
 	 */
 	public get href(): string {
 		const credentials = this.username ? `${this.username}:${this.password}@` : '';
@@ -65,7 +65,7 @@ export default class URL {
 	/**
 	 * Sets the href.
 	 *
-	 * @param {string} url URL.
+	 * @param url URL.
 	 */
 	public set href(url: string) {
 		this.parse(url);
@@ -74,7 +74,7 @@ export default class URL {
 	/**
 	 * Returns the origin.
 	 *
-	 * @return {string} HREF.
+	 * @return HREF.
 	 */
 	public get origin(): string {
 		return this.protocol + '//' + this.host;
@@ -83,7 +83,7 @@ export default class URL {
 	/**
 	 * Returns the entire URL as a string.
 	 *
-	 * @return {string} Host.
+	 * @return Host.
 	 */
 	public get host(): string {
 		return this.hostname + this.port;

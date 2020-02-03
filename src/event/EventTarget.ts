@@ -9,8 +9,8 @@ export default abstract class EventTarget {
 	/**
 	 * Adds an event listener.
 	 *
-	 * @param {string} type Event type.
-	 * @param {function} listener Listener.
+	 * @param type Event type.
+	 * @param listener Listener.
 	 */
 	public addEventListener(type: string, listener: (event: Event) => void): void {
 		this._listeners[type] = this._listeners[type] || [];
@@ -20,8 +20,8 @@ export default abstract class EventTarget {
 	/**
 	 * Adds an event listener.
 	 *
-	 * @param {string} type Event type.
-	 * @param {function} listener Listener.
+	 * @param type Event type.
+	 * @param listener Listener.
 	 */
 	public removeEventListener(type: string, listener: (event: Event) => void): void {
 		if (this._listeners[type]) {
@@ -35,8 +35,8 @@ export default abstract class EventTarget {
 	/**
 	 * Dispatches an event.
 	 *
-	 * @param {Event} event Event.
-	 * @return {boolean} The return value is false if event is cancelable and at least one of the event handlers which handled this event called Event.preventDefault()
+	 * @param event Event.
+	 * @return The return value is false if event is cancelable and at least one of the event handlers which handled this event called Event.preventDefault()
 	 */
 	public dispatchEvent(event: Event): boolean {
 		let returnValue = true;

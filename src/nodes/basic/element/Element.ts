@@ -26,11 +26,12 @@ export default class Element extends Node {
 	public scrollTop = 0;
 	public scrollLeft = 0;
 	public _attributesMap: { [k: string]: string } = {};
+	private _attributePropertyMap = null;
 
 	/**
 	 * Returns ID.
 	 *
-	 * @return {string} ID.
+	 * @return ID.
 	 */
 	public get id(): string {
 		return this.getAttribute('id');
@@ -39,8 +40,8 @@ export default class Element extends Node {
 	/**
 	 * Sets ID.
 	 *
-	 * @param {string} id ID.
-	 * @return {string} HTML.
+	 * @param id ID.
+	 * @return HTML.
 	 */
 	public set id(id: string) {
 		this.setAttribute('id', id);
@@ -49,7 +50,7 @@ export default class Element extends Node {
 	/**
 	 * Returns class name.
 	 *
-	 * @return {string} Class name.
+	 * @return Class name.
 	 */
 	public get className(): string {
 		return this.getAttribute('class');
@@ -58,8 +59,8 @@ export default class Element extends Node {
 	/**
 	 * Sets class name.
 	 *
-	 * @param {string} className Class name.
-	 * @return {string} Class name.
+	 * @param className Class name.
+	 * @return Class name.
 	 */
 	public set className(className: string) {
 		this.setAttribute('class', className);
@@ -68,7 +69,7 @@ export default class Element extends Node {
 	/**
 	 * Returns children.
 	 *
-	 * @return {Element[]} Children.
+	 * @returns Children.
 	 */
 	public get children(): Element[] {
 		return <Element[]>this.childNodes.filter(childNode => childNode instanceof Element);
@@ -77,7 +78,7 @@ export default class Element extends Node {
 	/**
 	 * Node name.
 	 *
-	 * @return {string} Node name.
+	 * @return Node name.
 	 */
 	public get nodeName(): string {
 		return this.tagName;
@@ -86,7 +87,7 @@ export default class Element extends Node {
 	/**
 	 * Get text value of children.
 	 *
-	 * @return {string} Text content.
+	 * @return Text content.
 	 */
 	public get textContent(): string {
 		let result = '';
@@ -101,7 +102,7 @@ export default class Element extends Node {
 	/**
 	 * Sets text content.
 	 *
-	 * @param {string} textContent Text content.
+	 * @param textContent Text content.
 	 */
 	public set textContent(textContent: string) {
 		for (const child of this.childNodes.slice()) {
@@ -113,7 +114,7 @@ export default class Element extends Node {
 	/**
 	 * Returns inner HTML.
 	 *
-	 * @return {string} HTML.
+	 * @return HTML.
 	 */
 	public get innerHTML(): string {
 		return HTMLRenderer.getInnerHTML(this);
@@ -122,7 +123,7 @@ export default class Element extends Node {
 	/**
 	 * Sets inner HTML.
 	 *
-	 * @param {string} html HTML.
+	 * @param html HTML.
 	 */
 	public set innerHTML(html: string) {
 		const root = HTMLParser.parse(this.ownerDocument, html);
@@ -137,7 +138,7 @@ export default class Element extends Node {
 	/**
 	 * Returns outer HTML.
 	 *
-	 * @return {string} HTML.
+	 * @return HTML.
 	 */
 	public get outerHTML(): string {
 		return HTMLRenderer.getOuterHTML(this);
@@ -146,7 +147,7 @@ export default class Element extends Node {
 	/**
 	 * Returns attributes.
 	 *
-	 * @return {{ [k: string]: Attribute | number }} Attributes.
+	 * @returns Attributes.
 	 */
 	public get attributes(): { [k: string]: Attribute | number } {
 		const names = Object.keys(this._attributesMap);
@@ -165,7 +166,7 @@ export default class Element extends Node {
 	/**
 	 * Get first child node.
 	 *
-	 * @return {Node} first child node
+	 * @return first child node
 	 */
 	public get firstChild(): Node {
 		return this.childNodes[0] || null;
@@ -174,7 +175,7 @@ export default class Element extends Node {
 	/**
 	 * Get last child node.
 	 *
-	 * @return {Node} last child node
+	 * @return last child node
 	 */
 	public get lastChild(): Node {
 		return this.childNodes[this.childNodes.length - 1] || null;
@@ -183,22 +184,24 @@ export default class Element extends Node {
 	/**
 	 * Attribute changed callback.
 	 *
-	 * @param {string} name Name.
-	 * @param {string} oldValue Old value.
-	 * @param {string} newValue New value.
+	 * @param name Name.
+	 * @param oldValue Old value.
+	 * @param newValue New value.
 	 */
 	public attributeChangedCallback?(name: string, oldValue: string, newValue: string): void;
 
 	/**
 	 * Sets an attribute.
 	 *
-	 * @param {string} name Name.
-	 * @param {string} value Value.
+	 * @param name Name.
+	 * @param value Value.
 	 */
 	public setAttribute(name: string, value: string): void {
 		const lowerName = name.toLowerCase();
 		const oldValue = this._attributesMap[lowerName] !== undefined ? this._attributesMap[lowerName] : null;
 		this._attributesMap[lowerName] = String(value);
+
+		this._setAttributeProperty(lowerName, this._attributesMap[lowerName]);
 
 		if (this.attributeChangedCallback) {
 			this.attributeChangedCallback(name, oldValue, value);
@@ -224,7 +227,7 @@ export default class Element extends Node {
 	/**
 	 * Returns attribute value.
 	 *
-	 * @param {string} name Name.
+	 * @param name Name.
 	 */
 	public getAttribute(name: string): string {
 		const lowerName = name.toLowerCase();
@@ -234,8 +237,8 @@ export default class Element extends Node {
 	/**
 	 * Returns a boolean value indicating whether the specified element has the attribute or not.
 	 *
-	 * @param {string} name Attribute name.
-	 * @returns {boolean} True if attribute exists, false otherwise.
+	 * @param name Attribute name.
+	 * @returns True if attribute exists, false otherwise.
 	 */
 	public hasAttribute(name: string): boolean {
 		const lowerName = name.toLowerCase();
@@ -243,10 +246,7 @@ export default class Element extends Node {
 	}
 
 	/**
-	 * Returns "true" if the node has attributes.
-	 *
 	 * @override
-	 * @return {boolean} "true" if the node has attributes.
 	 */
 	public hasAttributes(): boolean {
 		return Object.keys(this._attributesMap).length > 0;
@@ -255,12 +255,18 @@ export default class Element extends Node {
 	/**
 	 * Removes an attribute.
 	 *
-	 * @param {string} name Name.
+	 * @param name Name.
 	 */
 	public removeAttribute(name: string): void {
 		const lowerName = name.toLowerCase();
 		const oldValue = this._attributesMap[lowerName] !== undefined ? this._attributesMap[lowerName] : null;
 		delete this._attributesMap[lowerName];
+
+		this._removeAttributeProperty(name);
+
+		if (this.attributeChangedCallback) {
+			this.attributeChangedCallback(name, oldValue, null);
+		}
 
 		// MutationObserver
 		if (this._observers.length > 0) {
@@ -282,7 +288,7 @@ export default class Element extends Node {
 	/**
 	 * Sets raw attributes.
 	 *
-	 * @param {string} rawAttributes Raw attributes.
+	 * @param rawAttributes Raw attributes.
 	 */
 	public _setRawAttributes(rawAttributes: string): void {
 		rawAttributes = rawAttributes.trim();
@@ -295,6 +301,7 @@ export default class Element extends Node {
 				const name = match[1].toLowerCase();
 				if (name) {
 					this._attributesMap[name] = decode(match[2] || match[3] || match[4] || '');
+					this._setAttributeProperty(name, this._attributesMap[name]);
 				}
 			}
 
@@ -306,6 +313,7 @@ export default class Element extends Node {
 				const trimmedName = name.trim().toLowerCase();
 				if (trimmedName) {
 					this._attributesMap[trimmedName] = '';
+					this._setAttributeProperty(trimmedName, this._attributesMap[trimmedName]);
 				}
 			}
 		}
@@ -329,8 +337,8 @@ export default class Element extends Node {
 	/**
 	 * Attaches a shadow root.
 	 *
-	 * @param {{ mode: string }} _shadowRootInit Shadow root init.
-	 * @return {ShadowRoot} Shadow root.
+	 * @param _shadowRootInit Shadow root init.
+	 * @returns Shadow root.
 	 */
 	public attachShadow(_shadowRootInit: { mode: string }): ShadowRoot {
 		if (this.shadowRoot) {
@@ -352,7 +360,7 @@ export default class Element extends Node {
 	/**
 	 * Converts to string.
 	 *
-	 * @return {string} String.
+	 * @return String.
 	 */
 	public toString(): string {
 		return this.outerHTML;
@@ -361,7 +369,7 @@ export default class Element extends Node {
 	/**
 	 * Returns the size of an element and its position relative to the viewport.
 	 *
-	 * @return {DOMRect} DOM rect.
+	 * @returns DOM rect.
 	 */
 	public getBoundingClientRect(): DOMRect {
 		return new DOMRect();
@@ -370,7 +378,7 @@ export default class Element extends Node {
 	/**
 	 * Returns a range.
 	 *
-	 * @return {Range} Range.
+	 * @returns Range.
 	 */
 	public createTextRange(): Range {
 		return new Range();
@@ -379,8 +387,8 @@ export default class Element extends Node {
 	/**
 	 * Query CSS selector to find matching nodes.
 	 *
-	 * @param {string} selector CSS selector.
-	 * @return {Element[]} Matching elements.
+	 * @param selector CSS selector.
+	 * @returns Matching elements.
 	 */
 	public querySelectorAll(selector: string): Element[] {
 		return QuerySelector.querySelectorAll(this, selector);
@@ -389,8 +397,8 @@ export default class Element extends Node {
 	/**
 	 * Query CSS Selector to find matching node.
 	 *
-	 * @param {string} selector CSS selector.
-	 * @return {Element} Matching node.
+	 * @param selector CSS selector.
+	 * @return Matching node.
 	 */
 	public querySelector(selector: string): Element {
 		return QuerySelector.querySelector(this, selector);
@@ -399,8 +407,8 @@ export default class Element extends Node {
 	/**
 	 * Returns an elements by tag name.
 	 *
-	 * @param {string} tagName Tag name.
-	 * @return {Element[]} Matching nodes.
+	 * @param tagName Tag name.
+	 * @returns Matching nodes.
 	 */
 	public getElementsByTagName(tagName: string): Element[] {
 		return this.querySelectorAll(tagName);
@@ -409,10 +417,69 @@ export default class Element extends Node {
 	/**
 	 * Returns an elements by class name.
 	 *
-	 * @param {string} className Tag name.
-	 * @return {Element[]} Matching nodes.
+	 * @param className Tag name.
+	 * @returns Matching nodes.
 	 */
 	public getElementsByClassName(className: string): Element[] {
 		return this.querySelectorAll('.' + className.split(' ').join('.'));
+	}
+
+	/**
+	 * Sets a property when setting an attribute.
+	 *
+	 * @param name Name.
+	 * @param value Value.
+	 */
+	protected _setAttributeProperty(name, value): void {
+		if (name === 'style' && this['style']) {
+			for (const part of value.split(';')) {
+				const [key, value] = part.split(':');
+				this['style'][key.trim()] = value.trim();
+			}
+		} else {
+			const property = this._getPropertyNameFromAttribute(name);
+
+			if (property) {
+				if (this[property] === '') {
+					this[property] = value;
+				} else if (typeof this[property] === 'boolean') {
+					this[property] = true;
+				} else if (typeof this[property] === 'number') {
+					this[property] = parseFloat(value);
+				}
+			}
+		}
+	}
+
+	/**
+	 * Sets boolean properties to false if a matching attribute is removed.
+	 *
+	 * @param name Name.
+	 */
+	protected _removeAttributeProperty(name): void {
+		const property = this._getPropertyNameFromAttribute(name);
+
+		if (property && typeof this[property] === 'boolean') {
+			this[property] = false;
+		}
+	}
+
+	/**
+	 * Returns the property name based on an attribute name.
+	 * This will be used for setting attribute values as properties on the element.
+	 *
+	 * @param name Attribute name.
+	 * @returns Property name.
+	 */
+	protected _getPropertyNameFromAttribute(name: string): string {
+		if (!this._attributePropertyMap) {
+			this._attributePropertyMap = {};
+
+			for (const key of Object.keys(this)) {
+				this._attributePropertyMap[key.toLowerCase()] = key;
+			}
+		}
+
+		return this._attributePropertyMap[name] || null;
 	}
 }

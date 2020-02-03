@@ -14,7 +14,7 @@ export default class SelectorItem {
 	/**
 	 * Constructor.
 	 *
-	 * @param {string} part Part.
+	 * @param part Part.
 	 */
 	constructor(part: string) {
 		this.isID = part.startsWith('#');

@@ -11,7 +11,7 @@ export default class HTMLTemplateElement extends HTMLElement {
 	/**
 	 * Returns the content.
 	 *
-	 * @return {DocumentFragment} Content.
+	 * @returns Content.
 	 */
 	public get content(): DocumentFragment {
 		if (!this.contentElement) {
@@ -23,7 +23,7 @@ export default class HTMLTemplateElement extends HTMLElement {
 	/**
 	 * Previous sibling.
 	 *
-	 * @return {Node} Node.
+	 * @return Node.
 	 */
 	public get previousSibling(): Node {
 		return this.content.previousSibling;
@@ -32,7 +32,7 @@ export default class HTMLTemplateElement extends HTMLElement {
 	/**
 	 * Next sibling.
 	 *
-	 * @return {Node} Node.
+	 * @return Node.
 	 */
 	public get nextSibling(): Node {
 		return this.content.nextSibling;
@@ -41,7 +41,7 @@ export default class HTMLTemplateElement extends HTMLElement {
 	/**
 	 * First child.
 	 *
-	 * @return {Node} Node.
+	 * @return Node.
 	 */
 	public get firstChild(): Node {
 		return this.content.firstChild;
@@ -50,7 +50,7 @@ export default class HTMLTemplateElement extends HTMLElement {
 	/**
 	 * Last child.
 	 *
-	 * @return {Node} Node.
+	 * @return Node.
 	 */
 	public get lastChild(): Node {
 		return this.content.lastChild;
@@ -59,8 +59,8 @@ export default class HTMLTemplateElement extends HTMLElement {
 	/**
 	 * Append a child node to childNodes.
 	 *
-	 * @param  {Node} node Node to append.
-	 * @return {Node} Appended node.
+	 * @param  node Node to append.
+	 * @return Appended node.
 	 */
 	public appendChild(node: Node): Node {
 		return this.content.appendChild(node);
@@ -69,7 +69,7 @@ export default class HTMLTemplateElement extends HTMLElement {
 	/**
 	 * Remove Child element from childNodes array.
 	 *
-	 * @param {Node} node Node to remove
+	 * @param node Node to remove
 	 */
 	public removeChild(node: Node): void {
 		return this.content.removeChild(node);
@@ -78,9 +78,9 @@ export default class HTMLTemplateElement extends HTMLElement {
 	/**
 	 * Inserts a node before another.
 	 *
-	 * @param {Node} newNode Node to insert.
-	 * @param {Node} referenceNode Node to insert before.
-	 * @return {Node} Inserted node.
+	 * @param newNode Node to insert.
+	 * @param referenceNode Node to insert before.
+	 * @return Inserted node.
 	 */
 	public insertBefore(newNode: Node, referenceNode: Node): Node {
 		return this.content.insertBefore(newNode, referenceNode);
@@ -89,9 +89,9 @@ export default class HTMLTemplateElement extends HTMLElement {
 	/**
 	 * Replaces a node with another.
 	 *
-	 * @param {Node} newChild New child.
-	 * @param {Node} oldChild Old child.
-	 * @return {Node} Replaced node.
+	 * @param newChild New child.
+	 * @param oldChild Old child.
+	 * @return Replaced node.
 	 */
 	public replaceChild(newChild: Node, oldChild: Node): Node {
 		return this.content.replaceChild(newChild, oldChild);

@@ -10,7 +10,7 @@ export default class DOMImplementation {
 	/**
 	 * Constructor.
 	 *
-	 * @param {Window} window Window.
+	 * @param window Window.
 	 */
 	constructor(window: Window) {
 		this._window = window;

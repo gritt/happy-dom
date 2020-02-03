@@ -4,12 +4,10 @@ import HTMLElement from '../../basic/html-element/HTMLElement';
  * SVGElement.
  */
 export default class SVGElement extends HTMLElement {
-	protected static _observedPropertyAttributes = Object.assign({}, HTMLElement._observedPropertyAttributes);
-
 	/**
 	 * Returns viewport.
 	 *
-	 * @return {SVGRect} SVG rect.
+	 * @returns SVG rect.
 	 */
 	public get viewportElement(): HTMLElement {
 		return null;
@@ -18,7 +16,7 @@ export default class SVGElement extends HTMLElement {
 	/**
 	 * Returns current translate.
 	 *
-	 * @return {HTMLElement} Element.
+	 * @returns Element.
 	 */
 	public get ownerSVGElement(): HTMLElement {
 		return null;

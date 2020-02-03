@@ -21,7 +21,7 @@ export default class ShadowRootRenderer {
 	/**
 	 * Renders an element as HTML.
 	 *
-	 * @param {IShadowRootRenderOptions} [renderOptions] Render this.renderOptions.
+	 * @param [renderOptions] Render this.renderOptions.
 	 */
 	constructor(renderOptions: IShadowRootRenderOptions = {}) {
 		this.renderOptions = renderOptions;
@@ -31,8 +31,8 @@ export default class ShadowRootRenderer {
 	/**
 	 * Renders an element as HTML.
 	 *
-	 * @param {Element} element Element to render.
-	 * @return {ShadowrootRenderResult} Result.
+	 * @param element Element to render.
+	 * @return Result.
 	 */
 	public getOuterHTML(element: Element): ShadowrootRenderResult {
 		const tagName = element.tagName.toLowerCase();
@@ -67,8 +67,8 @@ export default class ShadowRootRenderer {
 	/**
 	 * Renders an element as HTML.
 	 *
-	 * @param {Element|DocumentFragment|ShadowRoot} element Element to render.
-	 * @return {ShadowrootRenderResult} Result.
+	 * @param element Element to render.
+	 * @return Result.
 	 */
 	public getInnerHTML(element: Element | DocumentFragment | ShadowRoot): ShadowrootRenderResult {
 		const result = new ShadowrootRenderResult();
@@ -92,8 +92,8 @@ export default class ShadowRootRenderer {
 	/**
 	 * Returns attributes as a string.
 	 *
-	 * @param {Element} element Element.
-	 * @return {string} Attributes.
+	 * @param element Element.
+	 * @return Attributes.
 	 */
 	private getAttributes(element: Element): string {
 		const rawAttributes = element._getRawAttributes();

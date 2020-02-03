@@ -14,7 +14,7 @@ export default class ShadowRootScoper {
 	/**
 	 * Renders an element as HTML.
 	 *
-	 * @param {IShadowRootRenderOptions} renderOptions Render this.renderOptions.
+	 * @param renderOptions Render this.renderOptions.
 	 */
 	constructor(renderOptions: IShadowRootRenderOptions) {
 		this.renderOptions = renderOptions;
@@ -23,10 +23,10 @@ export default class ShadowRootScoper {
 	/**
 	 * Clones an element and scopes it.
 	 *
-	 * @param {Element} element Element to render.
-	 * @param {ScopedCSSCache} cssCache Options object.
-	 * @param {IShadowRootRenderOptions} options Render options.
-	 * @returns {Element} Element clone.
+	 * @param element Element to render.
+	 * @param cssCache Options object.
+	 * @param options Render options.
+	 * @returns Element clone.
 	 */
 	public getScopedClone(element: Element): Element {
 		const clone = <Element>element.cloneNode(true);
@@ -38,7 +38,7 @@ export default class ShadowRootScoper {
 	/**
 	 * Returns scoped CSS.
 	 *
-	 * @returns {string[]} CSS strings.
+	 * @returns CSS strings.
 	 */
 	public getScopedCSS(): string[] {
 		return this.scopedCSSCache.getAllScoped();
@@ -47,7 +47,7 @@ export default class ShadowRootScoper {
 	/**
 	 * Moves child nodes into shadow root slot elements.
 	 *
-	 * @param {Element} element Element.
+	 * @param element Element.
 	 */
 	private moveChildNodesIntoSlots(element: Element): void {
 		const slotChildren = {};
@@ -82,7 +82,7 @@ export default class ShadowRootScoper {
 	/**
 	 * Extracts CSS.
 	 *
-	 * @param {Element} element Element.
+	 * @param element Element.
 	 */
 	private extractAndScopeCSS(element: Element): void {
 		const options = this.renderOptions;
@@ -124,8 +124,8 @@ export default class ShadowRootScoper {
 	/**
 	 * Extracts CSS.
 	 *
-	 * @param {ShadowRoot} shadowRoot Shadow root.
-	 * @return {string} CSS.
+	 * @param shadowRoot Shadow root.
+	 * @return CSS.
 	 */
 	private extractCSS(shadowRoot: ShadowRoot): string {
 		const styles = Array.from(shadowRoot.querySelectorAll('style'));
@@ -142,8 +142,8 @@ export default class ShadowRootScoper {
 	/**
 	 * Scopes an element by adding a unique id as a class to it and its children.
 	 *
-	 * @param {Element|ShadowRoot} element Element to scope.
-	 * @param {string} id Unique ID.
+	 * @param element Element to scope.
+	 * @param id Unique ID.
 	 */
 	private scopeChildElements(element: Element | ShadowRoot, id: string): void {
 		if (element instanceof Element) {

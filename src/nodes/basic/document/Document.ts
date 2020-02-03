@@ -28,7 +28,7 @@ export default class Document extends DocumentFragment {
 	/**
 	 * Creates an instance of Document.
 	 *
-	 * @param {Window} window Window instance.
+	 * @param window Window instance.
 	 */
 	constructor(window: Window) {
 		super();
@@ -47,7 +47,7 @@ export default class Document extends DocumentFragment {
 	/**
 	 * Node name.
 	 *
-	 * @return {string} Node name.
+	 * @return Node name.
 	 */
 	public get nodeName(): string {
 		return '#document';
@@ -56,7 +56,7 @@ export default class Document extends DocumentFragment {
 	/**
 	 * Replaces the document HTML with new HTML.
 	 *
-	 * @param {string} html HTML.
+	 * @param html HTML.
 	 */
 	public write(html: string): void {
 		const root = HTMLParser.parse(this, html);
@@ -84,8 +84,8 @@ export default class Document extends DocumentFragment {
 	/**
 	 * Creates an element.
 	 *
-	 * @param  {string} tagName Tag name.
-	 * @return {Element} Element.
+	 * @param  tagName Tag name.
+	 * @return Element.
 	 */
 	public createElement(tagName: string): Element {
 		const customElementClass = this.defaultView.customElements.get(tagName);
@@ -103,8 +103,8 @@ export default class Document extends DocumentFragment {
 	/**
 	 * Creates a text node.
 	 *
-	 * @param  {string} data Text data.
-	 * @return {TextNode} Text node.
+	 * @param  data Text data.
+	 * @returns Text node.
 	 */
 	public createTextNode(data: string): TextNode {
 		TextNode.ownerDocument = this;
@@ -116,8 +116,8 @@ export default class Document extends DocumentFragment {
 	/**
 	 * Creates a comment node.
 	 *
-	 * @param  {string} data Text data.
-	 * @return {TextNode} Text node.
+	 * @param  data Text data.
+	 * @returns Text node.
 	 */
 	public createComment(data: string): CommentNode {
 		CommentNode.ownerDocument = this;
@@ -129,7 +129,7 @@ export default class Document extends DocumentFragment {
 	/**
 	 * Creates a document fragment.
 	 *
-	 * @return {DocumentFragment} Document fragment.
+	 * @returns Document fragment.
 	 */
 	public createDocumentFragment(): DocumentFragment {
 		DocumentFragment.ownerDocument = this;
@@ -140,9 +140,9 @@ export default class Document extends DocumentFragment {
 	/**
 	 * Creates a Tree Walker.
 	 *
-	 * @param {Node} root Root.
-	 * @param {number} [whatToShow] What to show.
-	 * @param {(node: Node) => number} [filter] Filter.
+	 * @param root Root.
+	 * @param [whatToShow] What to show.
+	 * @param [filter] Filter.
 	 */
 	public createTreeWalker(root: Node, whatToShow = -1, filter: (node: Node) => number = null): TreeWalker {
 		return new TreeWalker(root, whatToShow, filter);
@@ -152,8 +152,8 @@ export default class Document extends DocumentFragment {
 	 * Creates an event.
 	 *
 	 * @legacy
-	 * @param {string} _type Type.
-	 * @return {Event} Event.
+	 * @param _type Type.
+	 * @returns Event.
 	 */
 	public createEvent(_type: string): Event {
 		return new Event('init');
@@ -162,8 +162,8 @@ export default class Document extends DocumentFragment {
 	/**
 	 * Imports a node.
 	 *
-	 * @param {Node} node Node to import.
-	 * @param {Node} Imported node.
+	 * @param node Node to import.
+	 * @param Imported node.
 	 */
 	public importNode(node: Node): Node {
 		if (!(node instanceof Node)) {
@@ -177,8 +177,8 @@ export default class Document extends DocumentFragment {
 	/**
 	 * Returns the element class for a tag name.
 	 *
-	 * @param {string} tagName Tag name.
-	 * @return {typeof Element} Element class.
+	 * @param tagName Tag name.
+	 * @returns Element class.
 	 */
 	private getElementClass(tagName: string): typeof Element {
 		return Elements[tagName] || HTMLElement;

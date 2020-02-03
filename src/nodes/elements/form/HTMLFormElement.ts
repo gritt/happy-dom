@@ -1,31 +1,24 @@
 import HTMLElement from '../../basic/html-element/HTMLElement';
 import Element from '../../basic/element/Element';
-import * as HTMLFormPropertyAttributes from './HTMLFormPropertyAttributes.json';
 
 /**
  * HTMLFormElement.
  */
 export default class HTMLFormElement extends HTMLElement {
-	protected static _observedPropertyAttributes = Object.assign(
-		{},
-		HTMLElement._observedPropertyAttributes,
-		HTMLFormPropertyAttributes
-	);
-
-	public name: string = null;
-	public method: string = null;
-	public target: string = null;
-	public action: string = null;
-	public encoding: string = null;
-	public enctype: string = null;
-	public acceptCharset: string = null;
-	public autocomplete = 'off';
-	public noValidate: string = null;
+	public name = '';
+	public method = 'get';
+	public target = '';
+	public action = '';
+	public encoding = '';
+	public enctype = '';
+	public acceptCharset = '';
+	public autocomplete = '';
+	public noValidate = '';
 
 	/**
 	 * Returns input elements.
 	 *
-	 * @return {Element[]} Elements.
+	 * @returns Elements.
 	 */
 	public get elements(): Element[] {
 		return this.querySelectorAll('input,textarea');
@@ -34,7 +27,7 @@ export default class HTMLFormElement extends HTMLElement {
 	/**
 	 * Returns number of input elements.
 	 *
-	 * @return {number} Length.
+	 * @return Length.
 	 */
 	public get length(): number {
 		return this.elements.length;
@@ -58,9 +51,20 @@ export default class HTMLFormElement extends HTMLElement {
 	/**
 	 * Checks validity.
 	 *
-	 * @return {boolean} "true" if validation does'nt fail.
+	 * @return "true" if validation does'nt fail.
 	 */
 	public checkValidity(): boolean {
 		return true;
+	}
+
+	/**
+	 * @override
+	 */
+	public _setAttributeProperty(name: string, value: string): void {
+		if (name === 'method') {
+			this.method = value;
+		} else {
+			super._setAttributeProperty(name, value);
+		}
 	}
 }

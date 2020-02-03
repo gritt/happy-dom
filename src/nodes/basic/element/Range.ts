@@ -17,7 +17,7 @@ export default class Range {
 	/**
 	 * Returns collapsed.
 	 *
-	 * @return {boolean} "true" if collapsed.
+	 * @return "true" if collapsed.
 	 */
 	public get collapsed(): boolean {
 		return this._collapsed;
@@ -26,7 +26,7 @@ export default class Range {
 	/**
 	 * Returns common ancestor container.
 	 *
-	 * @return {Node} Node.
+	 * @return Node.
 	 */
 	public get commonAncestorContainer(): Node {
 		return null;
@@ -35,7 +35,7 @@ export default class Range {
 	/**
 	 * Returns end container.
 	 *
-	 * @return {Node} Node.
+	 * @return Node.
 	 */
 	public get endContainer(): Node {
 		return this._endContainer;
@@ -44,7 +44,7 @@ export default class Range {
 	/**
 	 * Returns start container.
 	 *
-	 * @return {Node} Node.
+	 * @return Node.
 	 */
 	public get startContainer(): Node {
 		return this._startContainer;
@@ -53,7 +53,7 @@ export default class Range {
 	/**
 	 * Returns end offset.
 	 *
-	 * @return {number} Offset.
+	 * @return Offset.
 	 */
 	public get endOffset(): number {
 		return this._endOffset;
@@ -62,7 +62,7 @@ export default class Range {
 	/**
 	 * Returns start offset.
 	 *
-	 * @return {number} Offset.
+	 * @return Offset.
 	 */
 	public get startOffset(): number {
 		return this._startOffset;
@@ -71,8 +71,8 @@ export default class Range {
 	/**
 	 * Sets start.
 	 *
-	 * @param {Node} startNode Start node.
-	 * @param {number} startOffset Start offset.
+	 * @param startNode Start node.
+	 * @param startOffset Start offset.
 	 */
 	public setStart(startNode: Node, startOffset: number): void {
 		this._startContainer = startNode;
@@ -82,8 +82,8 @@ export default class Range {
 	/**
 	 * Sets end.
 	 *
-	 * @param {Node} endNode End node.
-	 * @param {number} endOffset End offset.
+	 * @param endNode End node.
+	 * @param endOffset End offset.
 	 */
 	public setEnd(endNode: Node, endOffset: number): void {
 		this._endContainer = endNode;
@@ -152,7 +152,7 @@ export default class Range {
 	/**
 	 * Compares the boundary points of the Range with another Range.
 	 *
-	 * @returns {boolean} "true" when equal.
+	 * @returns "true" when equal.
 	 */
 	public compareBoundaryPoints(): boolean {
 		return false;
@@ -161,7 +161,7 @@ export default class Range {
 	/**
 	 * Clones the range.
 	 *
-	 * @returns {Range} Range.
+	 * @returns Range.
 	 */
 	public cloneRange(): Range {
 		return new Range();
@@ -175,7 +175,7 @@ export default class Range {
 	/**
 	 * Returns the text of the Range.
 	 *
-	 * @returns {string} Text.
+	 * @returns Text.
 	 */
 	public toString(): string {
 		return '';
@@ -184,7 +184,7 @@ export default class Range {
 	/**
 	 * Returns -1, 0, or 1 indicating whether the point occurs before, inside, or after the Range.
 	 *
-	 * @returns {number} Number.
+	 * @returns Number.
 	 */
 	public comparePoint(): number {
 		return 0;
@@ -193,7 +193,7 @@ export default class Range {
 	/**
 	 * Returns a DocumentFragment created from a given string of code.
 	 *
-	 * @returns {DocumentFragment} Document fragment.
+	 * @returns Document fragment.
 	 */
 	public createContextualFragment(): DocumentFragment {
 		return new DocumentFragment();
@@ -202,7 +202,7 @@ export default class Range {
 	/**
 	 * Returns a DOMRect object which bounds the entire contents of the Range; this would be the union of all the rectangles returned by range.getClientRects().
 	 *
-	 * @returns {DOMRect} DOM rect.
+	 * @returns DOM rect.
 	 */
 	public getBoundingClientRect(): DOMRect {
 		return new DOMRect();
@@ -211,7 +211,7 @@ export default class Range {
 	/**
 	 * Returns a list of DOMRect objects that aggregates the results of Element.getClientRects() for all the elements in the Range.
 	 *
-	 * @returns {DOMRect} DOM rect.
+	 * @returns DOM rect.
 	 */
 	public getClientRects(): DOMRect {
 		return new DOMRect();
@@ -220,7 +220,7 @@ export default class Range {
 	/**
 	 * Returns a boolean indicating whether the given node intersects the Range.
 	 *
-	 * @returns {boolean} "true" when intersecting.
+	 * @returns "true" when intersecting.
 	 */
 	public intersectsNode(): boolean {
 		return false;
@@ -229,7 +229,7 @@ export default class Range {
 	/**
 	 * Returns a boolean indicating whether the given point is in the Range.
 	 *
-	 * @returns {boolean} "true" when in range.
+	 * @returns "true" when in range.
 	 */
 	public isPointInRange(): boolean {
 		return false;

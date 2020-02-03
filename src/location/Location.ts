@@ -11,7 +11,7 @@ export default class Location extends URL {
 	/**
 	 * Replaces the current resource with the one at the provided URL. The difference from the assign() method is that after using replace() the current page will not be saved in session History, meaning the user won't be able to use the back button to navigate to it.
 	 *
-	 * @param {string} url URL.
+	 * @param url URL.
 	 */
 	public replace(url: string): void {
 		this.parse(url);

@@ -2,6 +2,10 @@ import Window from '../../../../src/window/Window';
 import HTMLRenderer from '../../../../src/html-renderer/HTMLRenderer';
 import HTMLParser from '../../../../src/html-parser/HTMLParser';
 import CustomElement from '../../../CustomElement';
+import ShadowRoot from '../../../../src/nodes/basic/shadow-root/ShadowRoot';
+import DOMRect from '../../../../src/nodes/basic/element/DOMRect';
+import Range from '../../../../src/nodes/basic/element/Range';
+import QuerySelector from '../../../../src/query-selector/QuerySelector';
 
 describe('Element', () => {
 	let window, document, element;
@@ -222,6 +226,24 @@ describe('Element', () => {
 				length: 2
 			});
 		});
+
+		test('Sets the property with the same name as the attribute to the same value if the property is set to an empty string.', () => {
+			element.stringProperty = '';
+			element.setAttribute('stringproperty', 'test');
+			expect(element.stringProperty).toBe('test');
+		});
+
+		test('Sets the property with the same name as the attribute to "true" if the property is of type boolean.', () => {
+			element.booleanProperty = false;
+			element.setAttribute('booleanproperty', 'anyvalue');
+			expect(element.booleanProperty).toBe(true);
+		});
+
+		test('Sets the property with the same name as the attribute to the same value value parsed as a float if the property is set to -1 (number).', () => {
+			element.numberProperty = -1;
+			element.setAttribute('numberproperty', '20.50');
+			expect(element.numberProperty).toBe(20.5);
+		});
 	});
 
 	describe('hasAttribute()', () => {
@@ -234,6 +256,106 @@ describe('Element', () => {
 			element.removeAttribute('key2');
 			expect(element.hasAttribute('key1')).toBe(false);
 			expect(element.hasAttribute('key2')).toBe(false);
+		});
+	});
+
+	describe('removeAttribute()', () => {
+		test('Returns "true" if an element has an attribute.', () => {
+			element.setAttribute('key1', 'value1');
+			element.removeAttribute('key1');
+			expect(element.attributes).toEqual({
+				length: 0
+			});
+		});
+	});
+
+	describe('attachShadow()', () => {
+		test('Creates a new ShadowRoot node and sets it to the shadowRoot property.', () => {
+			element.attachShadow();
+			expect(element.shadowRoot instanceof ShadowRoot).toBe(true);
+			expect(element.shadowRoot.ownerDocument).toBe(document);
+			expect(element.shadowRoot.isConnected).toBe(false);
+			document.appendChild(element);
+			expect(element.shadowRoot.isConnected).toBe(true);
+		});
+	});
+
+	describe('scrollTo()', () => {
+		test('Does nothing as there is no support for scrolling yet.', () => {
+			element.scrollTo();
+			expect(typeof element.scrollTo).toBe('function');
+		});
+	});
+
+	describe('toString()', () => {
+		test('Returns the same as outerHTML.', () => {
+			expect(element.toString()).toBe(element.outerHTML);
+		});
+	});
+
+	describe('getBoundingClientRect()', () => {
+		test('Returns an instance of DOMRect.', () => {
+			const domRect = element.getBoundingClientRect();
+			expect(domRect instanceof DOMRect).toBe(true);
+		});
+	});
+
+	describe('createTextRange()', () => {
+		test('Returns an instance of Range.', () => {
+			const range = element.createTextRange();
+			expect(range instanceof Range).toBe(true);
+		});
+	});
+
+	describe('querySelectorAll()', () => {
+		test('Returns elements matching a CSS selector.', () => {
+			const selector = '*';
+			const result = [];
+			jest.spyOn(QuerySelector, 'querySelectorAll').mockImplementation((targetElement, targetSelector) => {
+				expect(targetElement).toBe(element);
+				expect(targetSelector).toBe(selector);
+				return result;
+			});
+			expect(element.querySelectorAll(selector)).toBe(result);
+		});
+	});
+
+	describe('querySelector()', () => {
+		test('Returns an element matching a CSS selector.', () => {
+			const selector = '*';
+			const result = document.createElement('div');
+			jest.spyOn(QuerySelector, 'querySelector').mockImplementation((targetElement, targetSelector) => {
+				expect(targetElement).toBe(element);
+				expect(targetSelector).toBe(selector);
+				return result;
+			});
+			expect(element.querySelector(selector)).toBe(result);
+		});
+	});
+
+	describe('getElementsByTagName()', () => {
+		test('Returns elements matching a tag name.', () => {
+			const tagName = 'div';
+			const result = [];
+			jest.spyOn(QuerySelector, 'querySelectorAll').mockImplementation((targetElement, targetSelector) => {
+				expect(targetElement).toBe(element);
+				expect(targetSelector).toBe(tagName);
+				return result;
+			});
+			expect(element.getElementsByTagName(tagName)).toBe(result);
+		});
+	});
+
+	describe('getElementsByClassName()', () => {
+		test('Returns elements matching a class name.', () => {
+			const className = 'class1';
+			const result = [];
+			jest.spyOn(QuerySelector, 'querySelectorAll').mockImplementation((targetElement, targetSelector) => {
+				expect(targetElement).toBe(element);
+				expect(targetSelector).toBe('.' + className);
+				return result;
+			});
+			expect(element.getElementsByClassName(className)).toBe(result);
 		});
 	});
 });

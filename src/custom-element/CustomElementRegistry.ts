@@ -10,8 +10,8 @@ export default class CustomElementRegistry {
 	/**
 	 * Defines a custom element class.
 	 *
-	 * @param {string} tagName Tag name of element.
-	 * @param {typeof HTMLElement} elementClass Element class.
+	 * @param tagName Tag name of element.
+	 * @param elementClass Element class.
 	 */
 	public define(tagName: string, elementClass: typeof HTMLElement): void {
 		if (!tagName.includes('-')) {
@@ -33,8 +33,8 @@ export default class CustomElementRegistry {
 	/**
 	 * Returns a defined element class.
 	 *
-	 * @param {string} tagName Tag name of element.
-	 * @param {typeof HTMLElement} HTMLElement class defined.
+	 * @param tagName Tag name of element.
+	 * @param HTMLElement class defined.
 	 */
 	public get(tagName: string): typeof HTMLElement {
 		return this._registry[tagName.toLowerCase()];
@@ -48,8 +48,8 @@ export default class CustomElementRegistry {
 	/**
 	 * When defined.
 	 *
-	 * @param {string} tagName Tag name of element.
-	 * @return {Promise<void>} Promise.
+	 * @param tagName Tag name of element.
+	 * @returns Promise.
 	 */
 	public async whenDefined(tagName: string): Promise<void> {
 		if (this.get(tagName)) {
