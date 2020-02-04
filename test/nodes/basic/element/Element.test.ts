@@ -159,30 +159,6 @@ describe('Element', () => {
 		});
 	});
 
-	describe('get firstChild()', () => {
-		test('Returns the first child node.', () => {
-			const div = document.createElement('div');
-			const textNode1 = document.createTextNode('text1');
-
-			element.appendChild(textNode1);
-			element.appendChild(div);
-
-			expect(element.firstChild).toBe(textNode1);
-		});
-	});
-
-	describe('get lastChild()', () => {
-		test('Returns the last child node.', () => {
-			const div = document.createElement('div');
-			const textNode1 = document.createTextNode('text1');
-
-			element.appendChild(div);
-			element.appendChild(textNode1);
-
-			expect(element.lastChild).toBe(textNode1);
-		});
-	});
-
 	describe('attributeChangedCallback()', () => {
 		test('Calls attribute changed callback when it is implemented by a custom element (web component).', () => {
 			const customElement = document.createElement('custom-element');

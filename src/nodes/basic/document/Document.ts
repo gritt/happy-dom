@@ -10,7 +10,7 @@ import DocumentFragment from '../document-fragment/DocumentFragment';
 import HTMLParser from '../../../html-parser/HTMLParser';
 import Event from '../../../event/Event';
 import DOMImplementation from '../../../dom-implementation/DOMImplementation';
-import Elements from '../../elements/Elements';
+import Elements from '../../../html-config/Elements';
 
 /**
  * Document.

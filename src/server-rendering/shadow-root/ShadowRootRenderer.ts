@@ -5,9 +5,8 @@ import ShadowRootScoper from './ShadowRootScoper';
 import IShadowRootRenderOptions from './IShadowRootRenderOptions';
 import ShadowrootRenderResult from './ShadowRootRenderResult';
 import ShadowRoot from '../../nodes/basic/shadow-root/ShadowRoot';
-
-const SELF_CLOSED_REGEXP = /^(img|br|hr|area|base|input|doctype|link)$/i;
-const META_REGEXP = /^meta$/i;
+import SelfClosingElements from '../../html-config/SelfClosingElements';
+import UnclosedElements from '../../html-config/UnclosedElements';
 
 /**
  * Utility for converting an element to string.
@@ -36,13 +35,11 @@ export default class ShadowRootRenderer {
 	 */
 	public getOuterHTML(element: Element): ShadowrootRenderResult {
 		const tagName = element.tagName.toLowerCase();
-		const isUnClosed = META_REGEXP.test(tagName);
-		const isSelfClosed = SELF_CLOSED_REGEXP.test(tagName);
 		const result = new ShadowrootRenderResult();
 
-		if (isUnClosed) {
+		if (UnclosedElements.includes(tagName)) {
 			result.html = `<${tagName}${this.getAttributes(element)}>`;
-		} else if (isSelfClosed) {
+		} else if (SelfClosingElements.includes(tagName)) {
 			result.html = `<${tagName}${this.getAttributes(element)}/>`;
 		} else {
 			let innerElement: Element | ShadowRoot = element;

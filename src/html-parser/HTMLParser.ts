@@ -1,8 +1,7 @@
 import Node from '../nodes/basic/node/Node';
 import Element from '../nodes/basic/element/Element';
 import Document from '../nodes/basic/document/Document';
-import SelfClosingElements from '../html-config/SelfClosingElements.json';
-import SelfClosingSVGElements from '../html-config/SelfClosingSVGElements.json';
+import SelfClosingElements from '../html-config/SelfClosingElements';
 
 /**
  * HTML parser.
@@ -36,7 +35,7 @@ export default class HTMLParser {
 				const newElement = document.createElement(tagName);
 				newElement._setRawAttributes(match[3]);
 
-				if (!SelfClosingElements.includes(tagName) && !SelfClosingSVGElements.includes(tagName)) {
+				if (!SelfClosingElements.includes(tagName)) {
 					currentParent = <Element>currentParent.appendChild(newElement);
 					stack.push(currentParent);
 				} else {

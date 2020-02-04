@@ -282,8 +282,10 @@ export default class Element extends Node {
 			// Attributes with value
 			while ((match = regExp.exec(rawAttributes))) {
 				const name = this._useCaseSensitiveAttributes ? match[1] : match[1].toLowerCase();
-				this._attributesMap[name] = decode(match[2] || match[3] || match[4] || '');
-				this._setAttributeProperty(name, this._attributesMap[name]);
+				if (name) {
+					this._attributesMap[name] = decode(match[2] || match[3] || match[4] || '');
+					this._setAttributeProperty(name, this._attributesMap[name]);
+				}
 			}
 
 			// Attributes with no value
@@ -292,8 +294,10 @@ export default class Element extends Node {
 				.trim()
 				.split(' ')) {
 				const lowerName = this._useCaseSensitiveAttributes ? name.trim() : name.trim().toLowerCase();
-				this._attributesMap[lowerName] = '';
-				this._setAttributeProperty(lowerName, this._attributesMap[lowerName]);
+				if (lowerName) {
+					this._attributesMap[lowerName] = '';
+					this._setAttributeProperty(lowerName, this._attributesMap[lowerName]);
+				}
 			}
 		}
 	}

@@ -1,8 +1,7 @@
 import Element from '../nodes/basic/element/Element';
 import HTMLTemplateElement from '../nodes/elements/template/HTMLTemplateElement';
-import SelfClosingElements from '../html-config/SelfClosingElements.json';
-import SelfClosingSVGElements from '../html-config/SelfClosingSVGElements.json';
-import UnclosedElements from '../html-config/UnclosedElements.json';
+import SelfClosingElements from '../html-config/SelfClosingElements';
+import UnclosedElements from '../html-config/UnclosedElements';
 
 /**
  * Utility for converting an element to string.
@@ -21,7 +20,7 @@ export default class HTMLRenderer {
 
 		if (UnclosedElements.includes(tagName)) {
 			return `<${tagName}${this.getAttributes(element)}>`;
-		} else if (SelfClosingElements.includes(tagName) || SelfClosingSVGElements.includes(tagName)) {
+		} else if (SelfClosingElements.includes(tagName)) {
 			return `<${tagName}${this.getAttributes(element)}/>`;
 		}
 

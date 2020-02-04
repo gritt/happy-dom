@@ -30,6 +30,7 @@ export default class ShadowRootScoper {
 	 */
 	public getScopedClone(element: Element): Element {
 		const clone = <Element>element.cloneNode(true);
+		clone.shadowRoot = <ShadowRoot>element.shadowRoot.cloneNode(true);
 		this.extractAndScopeCSS(clone);
 		this.moveChildNodesIntoSlots(clone);
 		return clone;
