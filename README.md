@@ -140,7 +140,7 @@ window.whenAsyncComplete().then(() => {
 
 ## Manually Setup a VM Context
 
-The bellow example will show you how to setup a Node [VM context](https://nodejs.org/api/vm.html#vm_vm_createcontext_sandbox_options).
+The example below will show you how to setup a Node [VM context](https://nodejs.org/api/vm.html#vm_vm_createcontext_sandbox_options).
 
 ```javascript
 import { AsyncWindow } from 'happy-dom';

@@ -39,20 +39,15 @@ export default abstract class EventTarget {
 	 * @return The return value is false if event is cancelable and at least one of the event handlers which handled this event called Event.preventDefault()
 	 */
 	public dispatchEvent(event: Event): boolean {
-		let returnValue = true;
-
 		if (this._listeners[event.type]) {
 			for (const listener of this._listeners[event.type]) {
 				listener(event);
-				if (event.cancelable && event.defaultPrevented) {
-					returnValue = false;
-				}
 				if (event._immediatePropagationStopped) {
-					return returnValue;
+					return !(event.cancelable && event.defaultPrevented);
 				}
 			}
 		}
 
-		return returnValue;
+		return !(event.cancelable && event.defaultPrevented);
 	}
 }

@@ -4,13 +4,13 @@ import TextNode from '../text-node/TextNode';
 import CommentNode from '../comment-node/CommentNode';
 import Window from '../../../window/Window';
 import Node from '../node/Node';
-import NodeType from '../node/NodeType';
 import TreeWalker from '../../../tree-walker/TreeWalker';
 import DocumentFragment from '../document-fragment/DocumentFragment';
 import HTMLParser from '../../../html-parser/HTMLParser';
 import Event from '../../../event/Event';
 import DOMImplementation from '../../../dom-implementation/DOMImplementation';
 import Elements from '../../../html-config/Elements';
+import INodeFilter from '../../../tree-walker/INodeFilter';
 
 /**
  * Document.
@@ -20,7 +20,7 @@ export default class Document extends DocumentFragment {
 	public body: Element;
 	public head: Element;
 	public defaultView: Window;
-	public nodeType = NodeType.DOCUMENT_NODE;
+	public nodeType = Node.DOCUMENT_NODE;
 	protected _isConnected = true;
 	public implementation: DOMImplementation;
 
@@ -143,7 +143,7 @@ export default class Document extends DocumentFragment {
 	 * @param [whatToShow] What to show.
 	 * @param [filter] Filter.
 	 */
-	public createTreeWalker(root: Node, whatToShow = -1, filter: (node: Node) => number = null): TreeWalker {
+	public createTreeWalker(root: Node, whatToShow = -1, filter: INodeFilter = null): TreeWalker {
 		return new TreeWalker(root, whatToShow, filter);
 	}
 

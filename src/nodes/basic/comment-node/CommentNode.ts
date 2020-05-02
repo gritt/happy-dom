@@ -1,5 +1,4 @@
 import Node from '../node/Node';
-import NodeType from '../node/NodeType';
 import MutationRecord from '../../../mutation-observer/MutationRecord';
 import MutationTypeConstant from '../../../mutation-observer/MutationType';
 
@@ -7,7 +6,7 @@ import MutationTypeConstant from '../../../mutation-observer/MutationType';
  * CommentNode.
  */
 export default class CommentNode extends Node {
-	public nodeType = NodeType.COMMENT_NODE;
+	public nodeType = Node.COMMENT_NODE;
 	protected _textContent: string;
 
 	/**

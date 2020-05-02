@@ -1,4 +1,3 @@
-import NodeType from './NodeType';
 import Document from '../document/Document';
 import ClassList from '../element/ClassList';
 import EventTarget from '../../../event/EventTarget';
@@ -28,10 +27,16 @@ const CLONE_NODE_PROPERTIES = ['documentElement', 'body', 'head'];
  */
 export default class Node extends EventTarget {
 	// Public properties
+	public static ELEMENT_NODE = 1;
+	public static TEXT_NODE = 3;
+	public static COMMENT_NODE = 8;
+	public static DOCUMENT_NODE = 9;
+	public static DOCUMENT_TYPE_NODE = 10;
+	public static DOCUMENT_FRAGMENT_NODE = 11;
 	public static ownerDocument: Document = null;
 	public ownerDocument: Document = null;
 	public parentNode: Node = null;
-	public readonly nodeType: NodeType;
+	public readonly nodeType: number;
 	public readonly childNodes: Node[] = [];
 
 	// Protected properties
@@ -139,7 +144,7 @@ export default class Node extends EventTarget {
 	 */
 	public get previousElementSibling(): Node {
 		let sibling = this.previousSibling;
-		while (sibling && sibling.nodeType !== NodeType.ELEMENT_NODE) {
+		while (sibling && sibling.nodeType !== Node.ELEMENT_NODE) {
 			sibling = sibling.previousSibling;
 		}
 		return sibling;
@@ -152,7 +157,7 @@ export default class Node extends EventTarget {
 	 */
 	public get nextElementSibling(): Node {
 		let sibling = this.nextSibling;
-		while (sibling && sibling.nodeType !== NodeType.ELEMENT_NODE) {
+		while (sibling && sibling.nodeType !== Node.ELEMENT_NODE) {
 			sibling = sibling.nextSibling;
 		}
 		return sibling;
@@ -189,7 +194,7 @@ export default class Node extends EventTarget {
 	 */
 	public get firstElementChild(): Node {
 		for (const node of this.childNodes) {
-			if (node.nodeType === NodeType.ELEMENT_NODE) {
+			if (node.nodeType === Node.ELEMENT_NODE) {
 				return node;
 			}
 		}
@@ -203,7 +208,7 @@ export default class Node extends EventTarget {
 	 */
 	public get lastElementChild(): Node {
 		for (let i = this.childNodes.length - 1; i >= 0; i--) {
-			if (this.childNodes[i].nodeType === NodeType.ELEMENT_NODE) {
+			if (this.childNodes[i].nodeType === Node.ELEMENT_NODE) {
 				return this.childNodes[i];
 			}
 		}
@@ -221,46 +226,35 @@ export default class Node extends EventTarget {
 	public disconnectedCallback?(): void;
 
 	/**
-	 * Returns "true" if the node has attributes.
-	 *
-	 * @return "true" if the node has attributes.
-	 */
-	public hasAttributes(): boolean {
-		return false;
-	}
-
-	/**
 	 * Clones a node.
 	 *
-	 * @param [deep=true] "false" to not clone deep.
+	 * @param [deep=false] "true" to clone deep.
 	 * @return Cloned node.
 	 */
-	public cloneNode(deep = true): Node {
+	public cloneNode(deep = false): Node {
 		const clone = new (<typeof Node>this.constructor)();
 
 		for (const key of Object.keys(this)) {
-			if (key !== '_isConnected' && key !== '_observers') {
-				if (key === 'childNodes') {
-					if (deep) {
-						for (const childNode of this[key]) {
-							const childClone = childNode.cloneNode();
-							childClone.parentNode = clone;
-							clone.childNodes.push(childClone);
-						}
+			if (key === 'childNodes') {
+				if (deep) {
+					for (const childNode of this[key]) {
+						const childClone = childNode.cloneNode(true);
+						childClone.parentNode = clone;
+						clone.childNodes.push(childClone);
 					}
-				} else if (key === 'classList') {
-					// eslint-disable-next-line
-					clone[key] = new ClassList(<any>clone);
-				} else if (CLONE_NODE_PROPERTIES.includes(key)) {
-					if (deep) {
-						clone[key] = this[key].cloneNode();
-						clone[key].parentNode = clone;
-					}
-				} else if (CLONE_OBJECT_ASSIGN_PROPERTIES.includes(key)) {
-					clone[key] = Object.assign({}, this[key]);
-				} else if (CLONE_REFERENCE_PROPERTIES.includes(key)) {
-					clone[key] = this[key];
 				}
+			} else if (key === 'classList') {
+				// eslint-disable-next-line
+				clone[key] = new ClassList(<any>clone);
+			} else if (CLONE_NODE_PROPERTIES.includes(key)) {
+				if (deep) {
+					clone[key] = this[key].cloneNode(true);
+					clone[key].parentNode = clone;
+				}
+			} else if (CLONE_OBJECT_ASSIGN_PROPERTIES.includes(key)) {
+				clone[key] = Object.assign({}, this[key]);
+			} else if (CLONE_REFERENCE_PROPERTIES.includes(key)) {
+				clone[key] = this[key];
 			}
 		}
 
@@ -275,16 +269,19 @@ export default class Node extends EventTarget {
 	 */
 	public appendChild(node: Node): Node {
 		if (node === this) {
-			throw new Error('Not possible to append self as child self.');
+			throw new Error('Not possible to append a node as a child of itself.');
 		}
 
-		if (node.nodeType === NodeType.DOCUMENT_FRAGMENT_NODE) {
+		// If the type is DocumentFragment, then the child nodes of if it should be moved instead of the actual node.
+		// See: https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment
+		if (node.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
 			for (const child of node.childNodes.slice()) {
 				this.appendChild(child);
 			}
 			return node;
 		}
 
+		// Remove the node from its previous parent if it has any.
 		if (node.parentNode) {
 			const index = node.parentNode.childNodes.indexOf(node);
 			if (index !== -1) {
@@ -332,9 +329,11 @@ export default class Node extends EventTarget {
 	 */
 	public removeChild(node: Node): void {
 		const index = this.childNodes.indexOf(node);
+
 		if (index === -1) {
 			throw new Error('Failed to remove node. Node is not child of parent.');
 		}
+
 		this.childNodes.splice(index, 1);
 		node.parentNode = null;
 		node.isConnected = false;
@@ -362,15 +361,13 @@ export default class Node extends EventTarget {
 	 * @return Inserted node.
 	 */
 	public insertBefore(newNode: Node, referenceNode: Node): Node {
-		if (newNode.nodeType === NodeType.DOCUMENT_FRAGMENT_NODE) {
+		// If the type is DocumentFragment, then the child nodes of if it should be moved instead of the actual node.
+		// See: https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment
+		if (newNode.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
 			for (const child of newNode.childNodes.slice()) {
 				this.insertBefore(child, referenceNode);
 			}
 			return newNode;
-		}
-
-		if (referenceNode === null) {
-			return this.appendChild(newNode);
 		}
 
 		const index = this.childNodes.indexOf(referenceNode);
@@ -434,15 +431,10 @@ export default class Node extends EventTarget {
 			this[onEventName].call(this, event);
 		}
 
-		let returnValue = super.dispatchEvent(event);
+		const returnValue = super.dispatchEvent(event);
 
-		if (
-			event.bubbles &&
-			this.parentNode !== null &&
-			!event._propagationStopped &&
-			!this.parentNode.dispatchEvent(event)
-		) {
-			returnValue = false;
+		if (event.bubbles && this.parentNode !== null && !event._propagationStopped) {
+			return this.parentNode.dispatchEvent(event);
 		}
 
 		return returnValue;
@@ -480,9 +472,4 @@ export default class Node extends EventTarget {
 			}
 		}
 	}
-}
-
-// Adds Note types to the Node class (part of the HTML standard)
-for (const key of Object.keys(NodeType)) {
-	Node[key] = NodeType[key];
 }

@@ -1,7 +1,7 @@
 import HTMLParser from '../../src/html-parser/HTMLParser';
 import Window from '../../src/window/Window';
 import HTMLElement from '../../src/nodes/basic/html-element/HTMLElement';
-import HTMLPage from './data/HTMLPage';
+import HTMLParserHTML from './data/HTMLParserHTML';
 
 describe('HTMLParser', () => {
 	let window: Window;
@@ -37,8 +37,8 @@ describe('HTMLParser', () => {
 		});
 
 		test('Parses an entire HTML page.', () => {
-			const root = HTMLParser.parse(window.document, HTMLPage);
-			expect(root.innerHTML).toBe(HTMLPage);
+			const root = HTMLParser.parse(window.document, HTMLParserHTML);
+			expect(root.innerHTML).toBe(HTMLParserHTML);
 		});
 
 		test('Sets property values if a property name matches the attribute name.', () => {

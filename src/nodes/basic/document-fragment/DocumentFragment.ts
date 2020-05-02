@@ -1,13 +1,12 @@
 import Node from '../node/Node';
 import Element from '../element/Element';
 import QuerySelector from '../../../query-selector/QuerySelector';
-import NodeType from '../node/NodeType';
 
 /**
  * DocumentFragment.
  */
 export default class DocumentFragment extends Node {
-	public nodeType = NodeType.DOCUMENT_FRAGMENT_NODE;
+	public nodeType = Node.DOCUMENT_FRAGMENT_NODE;
 	public mode = 'open';
 
 	/**

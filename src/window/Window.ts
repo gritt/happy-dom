@@ -55,6 +55,7 @@ export default class Window extends EventTarget {
 	public navigator = { userAgent: 'happy-dom' };
 	public console = typeof global !== undefined ? global.console : null;
 	public self: Window = this;
+	public top: Window = this;
 	public window: Window = this;
 
 	/**
@@ -104,7 +105,7 @@ export default class Window extends EventTarget {
 
 	/**
 	 * Mock animation frames with timeouts.
-	 * 
+	 *
 	 * @param {function} callback Callback.
 	 * @returns {NodeJS.Timeout} Timeout ID.
 	 */
@@ -114,7 +115,7 @@ export default class Window extends EventTarget {
 
 	/**
 	 * Mock animation frames with timeouts.
-	 * 
+	 *
 	 * @param {NodeJS.Timeout} id Timeout ID.
 	 */
 	public cancelAnimationFrame(id): void {

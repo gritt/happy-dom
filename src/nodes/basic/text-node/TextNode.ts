@@ -1,5 +1,4 @@
 import Node from '../node/Node';
-import NodeType from '../node/NodeType';
 import MutationRecord from '../../../mutation-observer/MutationRecord';
 import MutationTypeConstant from '../../../mutation-observer/MutationType';
 
@@ -7,17 +6,8 @@ import MutationTypeConstant from '../../../mutation-observer/MutationType';
  * TextNode.
  */
 export default class TextNode extends Node {
-	public readonly nodeType = NodeType.TEXT_NODE;
+	public readonly nodeType = Node.TEXT_NODE;
 	protected _textContent: string;
-
-	/**
-	 * Converts to string.
-	 *
-	 * @return String.
-	 */
-	public toString(): string {
-		return this._textContent;
-	}
 
 	/**
 	 * Node name.
@@ -93,5 +83,14 @@ export default class TextNode extends Node {
 	 */
 	public set data(nodeValue: string) {
 		this.textContent = nodeValue;
+	}
+
+	/**
+	 * Converts to string.
+	 *
+	 * @return String.
+	 */
+	public toString(): string {
+		return this._textContent;
 	}
 }

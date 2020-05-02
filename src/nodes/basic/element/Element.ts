@@ -1,6 +1,5 @@
 import Node from '../node/Node';
 import TextNode from '../text-node/TextNode';
-import NodeType from '../node/NodeType';
 import ShadowRoot from '../shadow-root/ShadowRoot';
 import Attribute from './Attribute';
 import DOMRect from './DOMRect';
@@ -20,7 +19,7 @@ const ATTRIBUTE_REGEXP = /([^\s=]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|(\S+)))/gi;
  */
 export default class Element extends Node {
 	public tagName: string = null;
-	public nodeType = NodeType.ELEMENT_NODE;
+	public nodeType = Node.ELEMENT_NODE;
 	public shadowRoot: ShadowRoot = null;
 	public classList = new ClassList(this);
 	public scrollTop = 0;
@@ -229,7 +228,9 @@ export default class Element extends Node {
 	}
 
 	/**
-	 * @override
+	 * Returns "true" if the element has attributes.
+	 *
+	 * @return "true" if the element has attributes.
 	 */
 	public hasAttributes(): boolean {
 		return Object.keys(this._attributesMap).length > 0;
