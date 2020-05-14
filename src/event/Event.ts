@@ -1,10 +1,10 @@
-import Node from '../nodes/basic/node/Node';
 import IEventInit from './IEventInit';
+import EventTarget from './EventTarget';
 
 export default class Event {
 	public composed = false;
-	public currentTarget: Node = null;
-	public target: Node = null;
+	public currentTarget: EventTarget = null;
+	public target: EventTarget = null;
 	public bubbles = false;
 	public cancelable = false;
 	public defaultPrevented = false;

@@ -418,6 +418,8 @@ describe('Node', () => {
 			expect(child.dispatchEvent(event)).toBe(true);
 
 			expect(childEvent).toBe(event);
+			expect(childEvent.target).toBe(child);
+			expect(childEvent.currentTarget).toBe(child);
 			expect(parentEvent).toBe(null);
 		});
 
@@ -437,6 +439,8 @@ describe('Node', () => {
 
 			expect(childEvent).toBe(event);
 			expect(parentEvent).toBe(event);
+			expect(parentEvent.target).toBe(child);
+			expect(parentEvent.currentTarget).toBe(parent);
 		});
 
 		test('Does not bubble to parent if propagation is stopped.', () => {

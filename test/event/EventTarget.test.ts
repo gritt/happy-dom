@@ -22,6 +22,8 @@ describe('EventTarget', () => {
 			eventTarget.addEventListener(EVENT_TYPE, listener);
 			eventTarget.dispatchEvent(dispatchedEvent);
 			expect(recievedEvent).toBe(dispatchedEvent);
+			expect(recievedEvent.target).toBe(eventTarget);
+			expect(recievedEvent.currentTarget).toBe(eventTarget);
 		});
 
 		test('Triggers a custom event and triggers it when calling dispatchEvent().', () => {
@@ -35,6 +37,8 @@ describe('EventTarget', () => {
 			eventTarget.dispatchEvent(dispatchedEvent);
 			expect(recievedEvent).toBe(dispatchedEvent);
 			expect(recievedEvent.detail).toBe(DETAIL);
+			expect(recievedEvent.target).toBe(eventTarget);
+			expect(recievedEvent.currentTarget).toBe(eventTarget);
 		});
 	});
 
