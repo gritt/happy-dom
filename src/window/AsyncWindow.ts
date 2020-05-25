@@ -74,18 +74,20 @@ export default class AsyncWindow extends Window {
 
 	/**
 	 * Mock animation frames with timeouts.
-	 * 
+	 *
 	 * @override
 	 * @param {function} callback Callback.
 	 * @returns {NodeJS.Timeout} Timeout ID.
 	 */
 	public requestAnimationFrame(callback: (timestamp: number) => void): NodeJS.Timeout {
-		return this.setTimeout(() =>  { callback(2); }, 0);
+		return this.setTimeout(() => {
+			callback(2);
+		}, 0);
 	}
 
 	/**
 	 * Mock animation frames with timeouts.
-	 * 
+	 *
 	 * @override
 	 * @param {NodeJS.Timeout} id Timeout ID.
 	 */
