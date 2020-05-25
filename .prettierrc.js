@@ -1,5 +1,1 @@
-module.exports = {
-    singleQuote: true,
-    useTabs: true,
-    printWidth: 120
-};
+module.exports = require('./packages/happy-dom/.prettierrc.js');
