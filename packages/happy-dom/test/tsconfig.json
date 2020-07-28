@@ -2,7 +2,17 @@
 	"extends": "../tsconfig.json",
 	"compilerOptions": {
 		"outDir": "../tmp",
-		"rootDir": "./",
-		"tsBuildInfoFile": "../tmp/.tsbuildinfo-test"
-	}
+		"rootDir": "../",
+		"tsBuildInfoFile": "../tmp/.tsbuildinfo-test",
+		"typeRoots": [
+			"../node_modules/@types"
+		]
+	},
+	"include": [
+		"@types/node",
+		"@types/jest",
+		".",
+		"../src",
+		"../src/**/*.json"
+	]
 }

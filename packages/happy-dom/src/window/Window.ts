@@ -104,13 +104,55 @@ export default class Window extends EventTarget {
 	public dispose(): void {}
 
 	/**
+	 * Sets a timer which executes a function once the timer expires.
+	 *
+	 * @param callback Function to be executed.
+	 * @param [delay] Delay in ms.
+	 * @return Timeout ID.
+	 */
+	public setTimeout(callback: () => void, delay?: number): NodeJS.Timeout {
+		return global.setTimeout(callback, delay);
+	}
+
+	/**
+	 * Cancels a timeout previously established by calling setTimeout().
+	 *
+	 * @param id ID of the timeout.
+	 */
+	public clearTimeout(id: NodeJS.Timeout): void {
+		global.clearTimeout(id);
+	}
+
+	/**
+	 * Calls a function with a fixed time delay between each call.
+	 *
+	 * @param callback Function to be executed.
+	 * @param [delay] Delay in ms.
+	 * @return Interval ID.
+	 */
+	public setInterval(callback: () => void, delay?: number): NodeJS.Timeout {
+		return global.setInterval(callback, delay);
+	}
+
+	/**
+	 * Cancels a timed repeating action which was previously established by a call to setInterval().
+	 *
+	 * @param id ID of the interval.
+	 */
+	public clearInterval(id: NodeJS.Timeout): void {
+		global.clearInterval(id);
+	}
+
+	/**
 	 * Mock animation frames with timeouts.
 	 *
 	 * @param {function} callback Callback.
 	 * @returns {NodeJS.Timeout} Timeout ID.
 	 */
-	public requestAnimationFrame(callback: (timestamp?: number) => void): NodeJS.Timeout {
-		return setTimeout(callback, 0);
+	public requestAnimationFrame(callback: (timestamp: number) => void): NodeJS.Timeout {
+		return this.setTimeout(() => {
+			callback(2);
+		}, 0);
 	}
 
 	/**
@@ -119,6 +161,6 @@ export default class Window extends EventTarget {
 	 * @param {NodeJS.Timeout} id Timeout ID.
 	 */
 	public cancelAnimationFrame(id): void {
-		clearTimeout(id);
+		this.clearTimeout(id);
 	}
 }

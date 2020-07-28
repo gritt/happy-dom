@@ -21,7 +21,7 @@ export default class WebpackScriptCompiler {
 	 * @param [config] Webpack config.
 	 * @return Promise.
 	 */
-	public compile(config: IWebpackConfig = null): Promise<VM.Script> {
+	public static compile(config: IWebpackConfig = null): Promise<VM.Script> {
 		return new Promise((resolve, reject) => {
 			const compiler = Webpack(
 				Object.assign({}, DEFAULT_CONFIG, config, {
@@ -41,7 +41,8 @@ export default class WebpackScriptCompiler {
 					if (stats.hasErrors()) {
 						reject(
 							new Error(
-								'Errors occured during compilation. Error message: ' + stats.toJson('errors-only').errors.join('\n')
+								'Errors occured during compilation. Error message: ' +
+									stats.toJson('errors-only').errors.join('\n')
 							)
 						);
 					} else {

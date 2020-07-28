@@ -1,4 +1,4 @@
-import {Element, ShadowRoot} from 'happy-dom';
+import { Element, ShadowRoot } from 'happy-dom';
 import ShadowRootCSSCache from './ShadowRootCSSCache';
 import ShadowRootCSSRenderer from './ShadowRootCSSRenderer';
 import IHappyDOMServerRenderOptions from '../IHappyDOMServerRenderOptions';
@@ -150,7 +150,10 @@ export default class ShadowRootRenderer {
 			element.classList.add(id);
 		}
 
-		if (element instanceof ShadowRoot || (element instanceof Element && element.tagName !== 'slot')) {
+		if (
+			element instanceof ShadowRoot ||
+			(element instanceof Element && element.tagName !== 'slot')
+		) {
 			for (let i = 0, max = element.children.length; i < max; i++) {
 				const child = element.children[i];
 				this.scopeChildElements(child, id);

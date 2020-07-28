@@ -1,13 +1,13 @@
 import HappyDOMServerRenderer from '../../src/renderer/HappyDOMServerRenderer';
-import MockedHTMLElement from './MockedHTMLElement';
-import Window from '../../../src/window/Window';
+import HappyDOMServerRendererHTMLElement from './mock-data/HappyDOMServerRendererHTMLElement';
+import { Window } from 'happy-dom';
 
 describe('HappyDOMServerRenderer', () => {
 	let window, document;
 
 	beforeEach(() => {
 		window = new Window();
-		window.customElements.define('mocked-html-element', MockedHTMLElement);
+		window.customElements.define('mocked-html-element', HappyDOMServerRendererHTMLElement);
 		document = window.document;
 	});
 
@@ -38,7 +38,9 @@ describe('HappyDOMServerRenderer', () => {
 
 			div.appendChild(comment);
 
-			expect(new HappyDOMServerRenderer().getOuterHTML(div).html).toBe('<div><!--Some comment.--></div>');
+			expect(new HappyDOMServerRenderer().getOuterHTML(div).html).toBe(
+				'<div><!--Some comment.--></div>'
+			);
 		});
 
 		test('Renders a text nodes.', () => {

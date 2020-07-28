@@ -180,7 +180,8 @@ export default class Element extends Node {
 	 */
 	public setAttribute(name: string, value: string): void {
 		const lowerName = this._useCaseSensitiveAttributes ? name : name.toLowerCase();
-		const oldValue = this._attributesMap[lowerName] !== undefined ? this._attributesMap[lowerName] : null;
+		const oldValue =
+			this._attributesMap[lowerName] !== undefined ? this._attributesMap[lowerName] : null;
 		this._attributesMap[lowerName] = String(value);
 
 		this._setAttributeProperty(lowerName, this._attributesMap[lowerName]);
@@ -194,7 +195,8 @@ export default class Element extends Node {
 			for (const observer of this._observers) {
 				if (
 					observer.options.attributes &&
-					(!observer.options.attributeFilter || observer.options.attributeFilter.includes(lowerName))
+					(!observer.options.attributeFilter ||
+						observer.options.attributeFilter.includes(lowerName))
 				) {
 					const record = new MutationRecord();
 					record.type = MutationTypeConstant.attributes;
@@ -243,7 +245,8 @@ export default class Element extends Node {
 	 */
 	public removeAttribute(name: string): void {
 		const lowerName = this._useCaseSensitiveAttributes ? name : name.toLowerCase();
-		const oldValue = this._attributesMap[lowerName] !== undefined ? this._attributesMap[lowerName] : null;
+		const oldValue =
+			this._attributesMap[lowerName] !== undefined ? this._attributesMap[lowerName] : null;
 		delete this._attributesMap[lowerName];
 
 		this._removeAttributeProperty(name);
@@ -257,7 +260,8 @@ export default class Element extends Node {
 			for (const observer of this._observers) {
 				if (
 					observer.options.attributes &&
-					(!observer.options.attributeFilter || observer.options.attributeFilter.includes(lowerName))
+					(!observer.options.attributeFilter ||
+						observer.options.attributeFilter.includes(lowerName))
 				) {
 					const record = new MutationRecord();
 					record.type = MutationTypeConstant.attributes;
@@ -294,7 +298,9 @@ export default class Element extends Node {
 				.replace(ATTRIBUTE_REGEXP, '')
 				.trim()
 				.split(' ')) {
-				const lowerName = this._useCaseSensitiveAttributes ? name.trim() : name.trim().toLowerCase();
+				const lowerName = this._useCaseSensitiveAttributes
+					? name.trim()
+					: name.trim().toLowerCase();
 				if (lowerName) {
 					this._attributesMap[lowerName] = '';
 					this._setAttributeProperty(lowerName, this._attributesMap[lowerName]);

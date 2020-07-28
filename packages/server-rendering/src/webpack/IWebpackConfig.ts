@@ -3,9 +3,9 @@
  */
 export default interface IWebpackConfig {
 	entry: string | string[];
-	mode: 'string';
-	devtool: boolean;
-	optimization: {
-		minimize: boolean;
+	mode?: 'string';
+	devtool?: boolean;
+	optimization?: {
+		minimize?: boolean;
 	};
 }

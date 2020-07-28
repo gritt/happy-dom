@@ -1,4 +1,11 @@
-import {Element, HTMLTemplateElement, DocumentFragment, ShadowRoot, SelfClosingElementList, UnclosedElementList} from 'happy-dom';
+import {
+	Element,
+	HTMLTemplateElement,
+	DocumentFragment,
+	ShadowRoot,
+	SelfClosingElementList,
+	UnclosedElementList
+} from 'happy-dom';
 import ShadowRootRenderer from './shadow-root/ShadowRootRenderer';
 import IHappyDOMServerRenderOptions from './IHappyDOMServerRenderOptions';
 import HappyDOMServerRenderResult from './HappyDOMServerRenderResult';
@@ -62,7 +69,9 @@ export default class HappyDOMServerRenderer {
 	 * @param element Element to render.
 	 * @return Result.
 	 */
-	public getInnerHTML(element: Element | DocumentFragment | ShadowRoot): HappyDOMServerRenderResult {
+	public getInnerHTML(
+		element: Element | DocumentFragment | ShadowRoot
+	): HappyDOMServerRenderResult {
 		const result = new HappyDOMServerRenderResult();
 		const renderElement = (<HTMLTemplateElement>element).content || element;
 

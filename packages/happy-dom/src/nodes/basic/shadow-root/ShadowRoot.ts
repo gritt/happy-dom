@@ -26,7 +26,9 @@ export default class ShadowRoot extends DocumentFragment {
 	 */
 	public set innerHTML(html: string) {
 		const root = HTMLParser.parse(this.ownerDocument, html);
-		const childNodes = root.childNodes.length ? root.childNodes : [this.ownerDocument.createTextNode(html)];
+		const childNodes = root.childNodes.length
+			? root.childNodes
+			: [this.ownerDocument.createTextNode(html)];
 
 		for (const child of childNodes.slice()) {
 			this.appendChild(child);

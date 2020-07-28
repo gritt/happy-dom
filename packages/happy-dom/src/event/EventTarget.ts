@@ -4,7 +4,7 @@ import Event from './Event';
  * Handles events.
  */
 export default abstract class EventTarget {
-	private readonly _listeners: { [k: string]: ((event: Event) => void)[] } = {};
+	protected readonly _listeners: { [k: string]: ((event: Event) => void)[] } = {};
 
 	/**
 	 * Adds an event listener.

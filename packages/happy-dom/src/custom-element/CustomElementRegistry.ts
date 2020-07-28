@@ -16,7 +16,9 @@ export default class CustomElementRegistry {
 	public define(tagName: string, elementClass: typeof HTMLElement): void {
 		if (!tagName.includes('-')) {
 			throw new Error(
-				"Failed to execute 'define' on 'CustomElementRegistry': \"" + tagName + '" is not a valid custom element name.'
+				"Failed to execute 'define' on 'CustomElementRegistry': \"" +
+					tagName +
+					'" is not a valid custom element name.'
 			);
 		}
 

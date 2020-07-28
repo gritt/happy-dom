@@ -24,7 +24,7 @@ describe('Document', () => {
 	});
 
 	describe('write()', () => {
-		test('Replaces the content of documentElement with new content.', () => {
+		test('Replaces the content of documentElement with new content the first time it is called and writes the body part to the body the second time.', () => {
 			const html = `
 				<html>
 					<head>
@@ -34,18 +34,43 @@ describe('Document', () => {
 						<span>Body</span>
 					</body>
 				</html>
-			`.trim();
-			for (let i = 0; i < 2; i++) {
-				document.write(html);
-			}
-			expect(document.documentElement.outerHTML).toBe(html);
+			`;
+			document.write(html);
+			document.write(html);
+			expect(document.documentElement.outerHTML.replace(/[\s]/gm, '')).toBe(
+				`
+				<html>
+					<head>
+						<title>Title</title>
+					</head>
+					<body>
+						<span>Body</span>
+						<span>Body</span>
+					</body>
+				</html>
+				`.replace(/[\s]/gm, '')
+			);
 		});
 	});
 
 	describe('open()', () => {
-		test('Has an open method.', () => {
+		test('Clears the document and opens it for writing.', () => {
+			const html = `
+				<html>
+					<head>
+						<title>Title</title>
+					</head>
+					<body>
+						<span>Body</span>
+					</body>
+				</html>
+			`;
+			document.write(html);
 			document.open();
-			expect(typeof document.open).toBe('function');
+			document.write(html);
+			expect(document.documentElement.outerHTML.replace(/[\s]/gm, '')).toBe(
+				html.replace(/[\s]/gm, '')
+			);
 		});
 	});
 

@@ -125,7 +125,11 @@ export default class HTMLInputElement extends HTMLElement {
 	 */
 	public get willValidate(): boolean {
 		return (
-			this.type !== 'hidden' && this.type !== 'reset' && this.type !== 'button' && !this.disabled && !this['readOnly']
+			this.type !== 'hidden' &&
+			this.type !== 'reset' &&
+			this.type !== 'button' &&
+			!this.disabled &&
+			!this['readOnly']
 		);
 	}
 

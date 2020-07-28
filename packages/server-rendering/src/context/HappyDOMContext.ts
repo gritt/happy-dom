@@ -1,5 +1,5 @@
 import VM from 'vm';
-import {AsyncWindow} from 'happy-dom';
+import { AsyncWindow } from 'happy-dom';
 import HappyDOMServerRenderer from '../renderer/HappyDOMServerRenderer';
 import HappyDOMServerRenderResult from '../renderer/HappyDOMServerRenderResult';
 
@@ -16,44 +16,69 @@ export default class HappyDOMContext {
 	 * @param options.html HTML.
 	 * @param [options.scripts] Scripts.
 	 * @param [options.pageURL] Page URL.
-	 * @param [options.openShadowRoots] Set to "true" to open up shadow roots.
-	 * @param [options.extractCSS] Set to "true" to extract CSS when opening shadow roots.
-	 * @param [options.scopeCSS] Set to "true" to enable scoping of CSS when opening shadow roots.
+	 * @param [options.customElements] Custom elements (web component) specific options.
+	 * @param [options.customElements.openShadowRoots] Set to "true" to open up shadow roots.
+	 * @param [options.customElements.extractCSS] Set to "true" to extract CSS when opening shadow roots.
+	 * @param [options.customElements.scopeCSS] Set to "true" to enable scoping of CSS when opening shadow roots.
+	 * @param [options.customElements.applyCSSToHead] Set to "true" to extract the CSS and add it to the document head.
 	 * @return Render result.
 	 */
-	public async render(options: {
+	public async render({
+		html = null,
+		scripts = null,
+		pageURL = null,
+		customElements = {
+			openShadowRoots: false,
+			extractCSS: false,
+			scopeCSS: false,
+			addCSSToHead: false
+		}
+	}: {
 		html: string;
 		scripts: VM.Script[];
 		pageURL?: string;
-		openShadowRoots: boolean;
-		extractCSS: boolean;
-		scopeCSS: boolean;
+		customElements?: {
+			openShadowRoots: boolean;
+			extractCSS: boolean;
+			scopeCSS: boolean;
+			addCSSToHead: boolean;
+		};
 	}): Promise<HappyDOMServerRenderResult> {
 		return new Promise((resolve, reject) => {
 			const window = this.context.window;
 			const document = this.context.document;
 			const renderer = new HappyDOMServerRenderer({
-				openShadowRoots: options.openShadowRoots,
-				extractCSS: options.extractCSS,
-				scopeCSS: options.scopeCSS
+				openShadowRoots: customElements.openShadowRoots,
+				extractCSS: customElements.extractCSS || customElements.addCSSToHead,
+				scopeCSS: customElements.scopeCSS
 			});
 
 			window
 				.whenAsyncComplete()
-				.then(() => resolve(renderer.getOuterHTML(document.documentElement)))
+				.then(() => {
+					if (customElements.addCSSToHead) {
+						resolve(
+							this.getResultWithCssAddedToHead(renderer.getOuterHTML(document.documentElement))
+						);
+					} else {
+						resolve(renderer.getOuterHTML(document.documentElement));
+					}
+				})
 				.catch(reject);
 
-			if (options.pageURL) {
-				window.location.href = options.pageURL;
+			if (pageURL) {
+				window.location.href = pageURL;
 			}
 
-			if(options.scripts) {
-				for(const script of options.scripts) {
+			if (scripts) {
+				for (const script of scripts) {
 					script.runInContext(this.context);
 				}
 			}
 
-			document.write(options.html);
+			document.open();
+			document.write(html);
+			document.close();
 		});
 	}
 
@@ -72,5 +97,25 @@ export default class HappyDOMContext {
 	 */
 	private createContext(): VM.Context {
 		return VM.createContext(new AsyncWindow());
+	}
+
+	/**
+	 * Returns a new result with CSS added as a style tag to the document head.
+	 *
+	 * @param result Result.
+	 * @return New result.
+	 */
+	private getResultWithCssAddedToHead(
+		result: HappyDOMServerRenderResult
+	): HappyDOMServerRenderResult {
+		const styleTag = `
+			<style>
+				${result.css.join('\n')}
+			</style>
+		`.trim();
+		return {
+			html: result.html.replace('</head>', `${styleTag}</head>`),
+			css: result.css
+		};
 	}
 }

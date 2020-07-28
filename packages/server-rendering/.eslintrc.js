@@ -1,1 +1,1 @@
-module.exports = require('../happy-dom/.eslintrc.js');
+module.exports = require('happy-dom/.eslintrc');

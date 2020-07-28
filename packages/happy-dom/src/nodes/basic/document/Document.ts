@@ -22,6 +22,8 @@ export default class Document extends DocumentFragment {
 	public defaultView: Window;
 	public nodeType = Node.DOCUMENT_NODE;
 	protected _isConnected = true;
+	protected _isFirstWrite = true;
+	protected _isFirstWriteAfterOpen = false;
 	public implementation: DOMImplementation;
 
 	/**
@@ -35,8 +37,8 @@ export default class Document extends DocumentFragment {
 		this.defaultView = window;
 		this.implementation = new DOMImplementation(window);
 		this.documentElement = this.createElement('html');
-		this.body = this.createElement('body');
 		this.head = this.createElement('head');
+		this.body = this.createElement('body');
 		this.documentElement.appendChild(this.head);
 		this.documentElement.appendChild(this.body);
 		this.documentElement.isConnected = true;
@@ -59,21 +61,63 @@ export default class Document extends DocumentFragment {
 	 */
 	public write(html: string): void {
 		const root = HTMLParser.parse(this, html);
-		for (const child of this.childNodes.slice()) {
-			this.removeChild(child);
+
+		if (this._isFirstWrite || this._isFirstWriteAfterOpen) {
+			const rootNode = root.querySelector('html');
+
+			if (this._isFirstWrite) {
+				if (!this._isFirstWriteAfterOpen) {
+					this.open();
+				}
+
+				this._isFirstWrite = false;
+			}
+
+			this._isFirstWriteAfterOpen = false;
+
+			this.documentElement = rootNode || this.createElement('html');
+			this.head = this.documentElement.querySelector('head') || this.createElement('head');
+			this.body = this.documentElement.querySelector('body') || this.createElement('body');
+			this.documentElement.appendChild(this.head);
+			this.documentElement.appendChild(this.body);
+			this.appendChild(this.documentElement);
+
+			if (!rootNode) {
+				for (const child of root.childNodes.slice()) {
+					this.body.appendChild(child);
+				}
+			}
+		} else {
+			const bodyNode = root.querySelector('body');
+			for (const child of (bodyNode || root).childNodes.slice()) {
+				this.body.appendChild(child);
+			}
 		}
-		for (const child of root.childNodes.slice()) {
-			this.appendChild(child);
-		}
-		this.documentElement = this.querySelector('html');
-		this.body = this.documentElement.querySelector('body');
-		this.head = this.documentElement.querySelector('head');
 	}
 
 	/**
 	 * Opens the document.
+	 *
+	 * @returns Document.
 	 */
-	public open(): void {}
+	public open(): Document {
+		this._isFirstWriteAfterOpen = true;
+
+		for (const eventType of Object.keys(this._listeners)) {
+			const callbacks = this._listeners[eventType];
+			if (callbacks) {
+				for (const callback of callbacks) {
+					this.removeEventListener(eventType, callback);
+				}
+			}
+		}
+
+		for (const child of this.childNodes.slice()) {
+			this.removeChild(child);
+		}
+
+		return this;
+	}
 
 	/**
 	 * Closes the document.

@@ -5,7 +5,7 @@ import AsyncTaskManager from './AsyncTaskManager';
 const FETCH_RESPONSE_TYPE_METHODS = ['blob', 'json', 'formData', 'text'];
 
 /**
- * Handles the Window.
+ * The async Window makes it possible to wait for asyncrounous tasks to complete by calling the method whenAsyncComplete(). It also adds support for the method fetch().
  */
 export default class AsyncWindow extends Window {
 	// Private Properties
@@ -28,6 +28,7 @@ export default class AsyncWindow extends Window {
 	/**
 	 * Sets a timer which executes a function once the timer expires.
 	 *
+	 * @override
 	 * @param callback Function to be executed.
 	 * @param [delay] Delay in ms.
 	 * @return Timeout ID.
@@ -43,6 +44,7 @@ export default class AsyncWindow extends Window {
 	/**
 	 * Cancels a timeout previously established by calling setTimeout().
 	 *
+	 * @override
 	 * @param id ID of the timeout.
 	 */
 	public clearTimeout(id: NodeJS.Timeout): void {
@@ -53,6 +55,7 @@ export default class AsyncWindow extends Window {
 	/**
 	 * Calls a function with a fixed time delay between each call.
 	 *
+	 * @override
 	 * @param callback Function to be executed.
 	 * @param [delay] Delay in ms.
 	 * @return Interval ID.
@@ -65,6 +68,7 @@ export default class AsyncWindow extends Window {
 	/**
 	 * Cancels a timed repeating action which was previously established by a call to setInterval().
 	 *
+	 * @override
 	 * @param id ID of the interval.
 	 */
 	public clearInterval(id: NodeJS.Timeout): void {

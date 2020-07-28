@@ -1,4 +1,4 @@
-import HTMLElement from '../src/nodes/basic/html-element/HTMLElement';
+import { HTMLElement } from 'happy-dom';
 
 /**
  * CustomElement test class.

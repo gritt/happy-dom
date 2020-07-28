@@ -3,7 +3,7 @@ const ABC = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 /**
  * CSS Cache.
  */
-export default class ScopedCSSCache {
+export default class ShadowRootCSSCache {
 	private original: string[] = [];
 	private scoped: string[] = [];
 
