@@ -1,8 +1,8 @@
 {
 	"compilerOptions": {
-		"outDir": "./lib",
-		"rootDir": "./src",
-		"tsBuildInfoFile": "./tmp/.tsbuildinfo",
+		"outDir": "lib",
+		"rootDir": "src",
+		"tsBuildInfoFile": "tmp/.tsbuildinfo",
 		"target": "es5",
 		"declaration": true,
 		"module": "CommonJS",
@@ -20,8 +20,9 @@
 		"baseUrl": ".",
 		"composite": true,
 		"incremental": true,
+		"jsx": "react",
 		"typeRoots": [
-			"./node_modules/@types"
+			"node_modules/@types"
 		],
 		"lib": [
 			"es2015",
@@ -32,12 +33,7 @@
 	},
 	"include": [
 		"@types/node",
-		"src"
-	],
-	"exclude": [
-		"node_modules",
-		"lib",
-		"typings/main",
-		"typings/main.d.ts"
+		"src",
+		"src/**/*.json"
 	]
 }

@@ -16,9 +16,9 @@ import CommentNode from './nodes/basic/comment-node/CommentNode';
 import TreeWalker from './tree-walker/TreeWalker';
 import CustomElementRegistry from './custom-element/CustomElementRegistry';
 import HTMLRenderer from './html-renderer/HTMLRenderer';
-import ElementList from './html-config/ElementList';
-import SelfClosingElementList from './html-config/SelfClosingElementList';
-import UnclosedElementList from './html-config/UnclosedElementList';
+import HTMLElementTag from './html-config/HTMLElementTag';
+import SelfClosingHTMLElements from './html-config/SelfClosingHTMLElements';
+import UnclosedHTMLElements from './html-config/UnclosedHTMLElements';
 
 export {
 	AsyncWindow,
@@ -39,7 +39,7 @@ export {
 	TreeWalker,
 	CustomElementRegistry,
 	HTMLRenderer,
-	ElementList,
-	SelfClosingElementList,
-	UnclosedElementList
+	HTMLElementTag,
+	SelfClosingHTMLElements,
+	UnclosedHTMLElements
 };

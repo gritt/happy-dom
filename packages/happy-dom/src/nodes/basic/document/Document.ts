@@ -9,7 +9,7 @@ import DocumentFragment from '../document-fragment/DocumentFragment';
 import HTMLParser from '../../../html-parser/HTMLParser';
 import Event from '../../../event/Event';
 import DOMImplementation from '../../../dom-implementation/DOMImplementation';
-import ElementList from '../../../html-config/ElementList';
+import HTMLElementTag from '../../../html-config/HTMLElementTag';
 import INodeFilter from '../../../tree-walker/INodeFilter';
 
 /**
@@ -224,6 +224,6 @@ export default class Document extends DocumentFragment {
 	 * @returns Element class.
 	 */
 	private getElementClass(tagName: string): typeof Element {
-		return ElementList[tagName] || HTMLElement;
+		return HTMLElementTag[tagName] || HTMLElement;
 	}
 }

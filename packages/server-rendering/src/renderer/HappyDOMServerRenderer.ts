@@ -3,8 +3,8 @@ import {
 	HTMLTemplateElement,
 	DocumentFragment,
 	ShadowRoot,
-	SelfClosingElementList,
-	UnclosedElementList
+	SelfClosingHTMLElements,
+	UnclosedHTMLElements
 } from 'happy-dom';
 import ShadowRootRenderer from './shadow-root/ShadowRootRenderer';
 import IHappyDOMServerRenderOptions from './IHappyDOMServerRenderOptions';
@@ -39,9 +39,9 @@ export default class HappyDOMServerRenderer {
 		const tagName = element.tagName.toLowerCase();
 		const result = new HappyDOMServerRenderResult();
 
-		if (UnclosedElementList.includes(tagName)) {
+		if (UnclosedHTMLElements.includes(tagName)) {
 			result.html = `<${tagName}${this.getAttributes(element)}>`;
-		} else if (SelfClosingElementList.includes(tagName)) {
+		} else if (SelfClosingHTMLElements.includes(tagName)) {
 			result.html = `<${tagName}${this.getAttributes(element)}/>`;
 		} else {
 			let innerElement: Element | ShadowRoot = element;

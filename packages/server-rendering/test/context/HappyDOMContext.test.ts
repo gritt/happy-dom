@@ -14,6 +14,33 @@ describe('HappyDOMContext', () => {
 	});
 
 	describe('render()', () => {
+		test('Renders a page without opening shadow roots.', async () => {
+			const script = new VM.Script(SCRIPT);
+			const result = await context.render({
+				html: HappyDOMContextHTML,
+				scripts: [script],
+				pageURL: PAGE_URL
+			});
+
+			expect(result.css).toEqual([]);
+
+			expect(result.html.replace(/[\s]/gm, '')).toBe(
+				`
+				<html>
+					<head>
+						<title>Title</title>
+					</head>
+					<body>
+						<div class="class1 class2" id="id">
+							<b>Bold</b>
+						</div>
+						<custom-element></custom-element>
+					</body>
+				</html>
+				`.replace(/[\s]/gm, '')
+			);
+		});
+
 		test('Renders a page with opened shadow roots, scoped CSS and CSS added to document head.', async () => {
 			const script = new VM.Script(SCRIPT);
 			const result = await context.render({
@@ -54,22 +81,22 @@ describe('HappyDOMContext', () => {
 								color: green
 							}
 				
-							.class1.a.a[attr1=\"value1\"] {
+							.class1.a.a[attr1="value1"] {
 								color: yellow
 							}
 				
-							.a[attr1=\"value1\"] {
+							.a[attr1="value1"] {
 								color: yellow
 							}
 						</style>
 					</head>
 					<body>
-						<div class=\"class1 class2\" id=\"id\">
+						<div class="class1 class2" id="id">
 							<b>Bold</b>
 						</div>
-						<custom-element class=\"a\">
-							<div class=\"a\">
-								<span class=\"a\">
+						<custom-element class="a">
+							<div class="a">
+								<span class="a">
 									Some text.
 								</span>
 							</div>

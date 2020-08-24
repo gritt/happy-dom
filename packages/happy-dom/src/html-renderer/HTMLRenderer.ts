@@ -1,7 +1,7 @@
 import Element from '../nodes/basic/element/Element';
 import HTMLTemplateElement from '../nodes/elements/template/HTMLTemplateElement';
-import SelfClosingElementList from '../html-config/SelfClosingElementList';
-import UnclosedElementList from '../html-config/UnclosedElementList';
+import SelfClosingHTMLElements from '../html-config/SelfClosingHTMLElements';
+import UnclosedHTMLElements from '../html-config/UnclosedHTMLElements';
 
 /**
  * Utility for converting an element to string.
@@ -18,9 +18,9 @@ export default class HTMLRenderer {
 	public static getOuterHTML(element: Element): string {
 		const tagName = element.tagName.toLowerCase();
 
-		if (UnclosedElementList.includes(tagName)) {
+		if (UnclosedHTMLElements.includes(tagName)) {
 			return `<${tagName}${this.getAttributes(element)}>`;
-		} else if (SelfClosingElementList.includes(tagName)) {
+		} else if (SelfClosingHTMLElements.includes(tagName)) {
 			return `<${tagName}${this.getAttributes(element)}/>`;
 		}
 
